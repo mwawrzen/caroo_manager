@@ -1,32 +1,43 @@
-import { ThemedText } from "@/components/themed-text";
-import { ThemedTextInput } from "@/components/themed-text-input";
-import { ThemedView } from "@/components/themed-view";
+import { ThemedText } from "@/components/themed/themed-text";
+import { ThemedTextInput } from "@/components/themed/themed-text-input";
+import { ThemedView } from "@/components/themed/themed-view";
+import { Colors } from "@/constants/theme";
+import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
 import { FuelEnum } from "@/utils/types";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { ThemedIcon } from "./themed/themed-icon";
 
 type FuelType = {
-  icon: keyof typeof FontAwesome.glyphMap,
+  icon: keyof typeof FontAwesome6.glyphMap,
   label: string,
   value: FuelEnum;
 };
 
 type FuelTypeProps = {
-  icon: keyof typeof FontAwesome.glyphMap,
+  icon: keyof typeof FontAwesome6.glyphMap,
   label: string,
   isActive: boolean;
   setFuel: any; //!TEMP
 };
 
 const fuelTypes: FuelType[] = [
-  { icon: 'filter', label: 'Petrol', value: FuelEnum.PETROL },
-  { icon: 'filter', label: 'Diesel', value: FuelEnum.DIESEL },
-  { icon: 'filter', label: 'Gas', value: FuelEnum.GAS },
+  { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
+  { icon: 'droplet', label: 'Diesel', value: FuelEnum.DIESEL },
+  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
+];
+
+const altFuelTypes: FuelType[] = [
+  { icon: 'fire', label: 'Gas', value: FuelEnum.GAS },
+  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
 ];
 
 function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
+
+  const opositeColorScheme = useOpositeColorScheme();
+  const activeStyles = isActive ? { color: Colors[opositeColorScheme]['text'] } : {};
 
   return (
     <Pressable onPress={() => setFuel( label.toLowerCase() )} style={[
@@ -34,8 +45,8 @@ function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
       isActive ? {backgroundColor: "orangered"} : null
     ]}>
       <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
-        <FontAwesome name={icon} style={styles.fuelIcon} />
-        <ThemedText style={styles.fuelLabel}>{label}</ThemedText>
+        <ThemedIcon name={icon} style={[ styles.fuelIcon, activeStyles]} />
+        <ThemedText style={[styles.fuelLabel, activeStyles]}>{label}</ThemedText>
       </ThemedView>
     </Pressable>
   );
@@ -63,7 +74,7 @@ export default function AddCarForm() {
   });
 
   //TODO: probably these are not alternative fuels :)
-  const altFuelTypeOptions = fuelTypes.map(({ icon, label }) => {
+  const altFuelTypeOptions = altFuelTypes.map(({ icon, label }) => {
     return (
       <FuelType
         key={label}
@@ -104,7 +115,7 @@ export default function AddCarForm() {
             onChangeText={setCarName}
             value={carName}
             placeholder="Enter name"
-            placeholderTextColor="#eeeeeeaa"
+            placeholderTextColor="#111111aa"
           />
           <ThemedTextInput
             style={styles.input}
@@ -112,7 +123,7 @@ export default function AddCarForm() {
             value={carMileage}
             keyboardType="numeric"
             placeholder="Enter mileage"
-            placeholderTextColor="#eeeeeeaa"
+            placeholderTextColor="#111111aa"
           />
           {/* fuel type */}
           <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
@@ -125,18 +136,26 @@ export default function AddCarForm() {
           </ThemedView>
             {
               altFuel ?
-              <Pressable onPress={() => setAltFuel(null)} style={styles.buttonContainer}>
-                <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
-                  <ThemedText style={styles.button}>Remove</ThemedText>
+              <Pressable onPress={() => setAltFuel(null)}>
+                <ThemedView
+                  lightColor="orangered"
+                  darkColor="#000"
+                  style={styles.buttonContainer}
+                >
+                  <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
+                    Remove
+                  </ThemedText>
                 </ThemedView>
               </Pressable> : null
             }
           {/* submit button */}
           {
             (carName.length && +carMileage >= 0) ?
-            <Pressable onPress={createNewCar} style={styles.submitContainer}>
-              <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
-                <ThemedText style={styles.submit}>Ready</ThemedText>
+            <Pressable onPress={createNewCar}>
+              <ThemedView style={styles.submitContainer}>
+                <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
+                  Ready
+                </ThemedText>
               </ThemedView>
             </Pressable> : null
           }
@@ -156,17 +175,17 @@ const styles = StyleSheet.create({
     width: "70%"
   },
   input: {
-    color: "#fff",
     paddingTop: 10,
     paddingBottom: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
-    backgroundColor: "orangered",
+    borderWidth: 2,
+    borderColor: "orangered",
     fontSize: 20
   },
   fuelContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
     gap: 10
   },
   fuelTypeContainer: {
@@ -179,23 +198,23 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   fuelIcon: {
-    fontSize: 22,
-    color: "#eee"
+    fontSize: 22
   },
   fuelLabel: {
     fontSize: 14
   },
   buttonContainer: {
+    alignItems: "center",
     paddingTop: 6,
     paddingBottom: 8,
-    borderRadius: 20,
-    backgroundColor: "#000"
+    borderRadius: 20
   },
   button: {
     fontSize: 12,
     textTransform: "uppercase"
   },
   submitContainer: {
+    alignItems: "center",
     marginTop: 20,
     paddingTop: 10,
     paddingBottom: 12,
