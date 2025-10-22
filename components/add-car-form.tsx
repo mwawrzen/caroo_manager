@@ -35,7 +35,7 @@ function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
     ]}>
       <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
         <FontAwesome name={icon} style={styles.fuelIcon} />
-        <ThemedText style={styles.fuelLabel} >{label}</ThemedText>
+        <ThemedText style={styles.fuelLabel}>{label}</ThemedText>
       </ThemedView>
     </Pressable>
   );
@@ -77,15 +77,16 @@ export default function AddCarForm() {
 
   function createNewCar() {
     addCar({
-      id: "0",
       name: carName,
-      mileage: +carMileage,
+      mileage: Number(carMileage),
       fuel,
-      altFuel: altFuel || undefined,
-      refuels: [],
-      services: []
+      altFuel: altFuel || undefined
     });
-    //TODO: give access to main app content
+  }
+
+  function setNumericMileageValue(value: string) {
+    const onlyNumericMileage: string = value.replace(/[^0-9]/g, '');
+    setCarMileage(onlyNumericMileage);
   }
 
   useEffect(() => {
@@ -107,7 +108,7 @@ export default function AddCarForm() {
           />
           <ThemedTextInput
             style={styles.input}
-            onChangeText={setCarMileage}
+            onChangeText={setNumericMileageValue}
             value={carMileage}
             keyboardType="numeric"
             placeholder="Enter mileage"
@@ -123,21 +124,21 @@ export default function AddCarForm() {
             {altFuelTypeOptions}
           </ThemedView>
             {
-              altFuel &&
+              altFuel ?
               <Pressable onPress={() => setAltFuel(null)} style={styles.buttonContainer}>
                 <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
                   <ThemedText style={styles.button}>Remove</ThemedText>
                 </ThemedView>
-              </Pressable>
+              </Pressable> : null
             }
           {/* submit button */}
           {
-            carName.length && +carMileage >= 0 &&
+            (carName.length && +carMileage >= 0) ?
             <Pressable onPress={createNewCar} style={styles.submitContainer}>
               <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
                 <ThemedText style={styles.submit}>Ready</ThemedText>
               </ThemedView>
-            </Pressable>
+            </Pressable> : null
           }
         </ThemedView>
       </ThemedView>
