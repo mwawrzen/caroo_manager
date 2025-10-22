@@ -1,4 +1,4 @@
-import ThemedSafeAreaView from "@/components/themed-safe-area-view";
+import ThemedSafeAreaView from "@/components/themed/themed-safe-area-view";
 import {
   Quicksand_500Medium,
   Quicksand_600SemiBold,
