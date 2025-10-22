@@ -1,5 +1,5 @@
 import { useThemeColor } from '@/hooks/use-theme-color';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 export type ThemedIconProps = any & { //! PROBLEM WITH FONTAWESOME TYPES
   lightColor?: string;
@@ -10,5 +10,5 @@ export function ThemedIcon({ style, lightColor, darkColor, ...otherProps }: Them
 
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-  return <FontAwesome style={[{ color }, style]} {...otherProps} />;
+  return <FontAwesome6 style={[{ color }, style]} {...otherProps} />;
 }
