@@ -1,15 +1,15 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { FontAwesome } from "@expo/vector-icons";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-export default function Header() {
+type HeaderProps = {
+  title?: string;
+};
+
+export default function Header({ title = "Welcome!" }: HeaderProps) {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Caroo Manager</ThemedText>
-      <Pressable onPress={()=>{}}>
-        <FontAwesome name="bars" style={styles.button} />
-      </Pressable>
+      <ThemedText type="title">{title}</ThemedText>
     </ThemedView>
   );
 };
@@ -21,9 +21,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     padding: 28
-  },
-  button: {
-    fontSize: 32,
-    color: "orangered"
   }
 });
