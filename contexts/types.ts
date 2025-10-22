@@ -1,4 +1,4 @@
-import { Car } from "@/utils/types";
+import { Car, FuelEnum } from "@/utils/types";
 
 export type ContextDataType = {
   cars: Car[]
@@ -13,7 +13,10 @@ export enum ActionTypeEnum {
 
 type AddCarActionType = {
   type: typeof ActionTypeEnum.ADD,
-  car: Car
+  name: string;
+  mileage: number;
+  fuel: FuelEnum;
+  altFuel?: FuelEnum;
 };
 
 type EditCarActionType = {
