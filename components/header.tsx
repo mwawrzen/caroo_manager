@@ -1,17 +1,13 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 
 export default function Header() {
-
-  const [isTitle, setIsTitle] = useState<boolean>(false);
-
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">{isTitle && "Caroo Manager"}</ThemedText>
-      <Pressable onPress={()=>{ setIsTitle(!isTitle) }}>
+      <ThemedText type="title">Caroo Manager</ThemedText>
+      <Pressable onPress={()=>{}}>
         <FontAwesome name="bars" style={styles.button} />
       </Pressable>
     </ThemedView>
