@@ -31,3 +31,10 @@ export interface Car {
   refuels: Refuel[];
   services: Service[];
 }
+
+export type AddCarType = {
+  name: string,
+  mileage: number,
+  fuel: FuelEnum,
+  altFuel?: FuelEnum
+}
