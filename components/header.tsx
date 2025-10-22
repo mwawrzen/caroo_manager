@@ -2,14 +2,10 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { StyleSheet } from "react-native";
 
-type HeaderProps = {
-  title?: string;
-};
-
-export default function Header({ title = "Welcome!" }: HeaderProps) {
+export default function Header() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">{title}</ThemedText>
+      <ThemedText type="title">Caroo Manager</ThemedText>
     </ThemedView>
   );
 };

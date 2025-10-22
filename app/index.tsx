@@ -7,6 +7,7 @@ import { Pressable, StyleSheet } from "react-native";
 export default function Index() {
   return (
     <ThemedView style={styles.container}>
+      <ThemedText></ThemedText>
       <Link href="/add-refuel" asChild>
         <Pressable>
           <ThemedView style={styles.button}>

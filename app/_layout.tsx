@@ -8,18 +8,18 @@ import {
 import * as NavigationBar from "expo-navigation-bar";
 import * as SplashScreen from "expo-splash-screen";
 // import { StatusBar } from "expo-status-bar";
+import AddCarForm from "@/components/add-car-form";
 import Header from "@/components/header";
 import Navigation from "@/components/navigation";
+import useCarStore from "@/store/car-store";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Platform, useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
-  const [isLogged, setIsLogged] = useState<boolean>(true);
 
   const [loaded, error] = useFonts({
     Quicksand_500Medium,
@@ -28,6 +28,8 @@ export default function RootLayout() {
   });
 
   const colorScheme = useColorScheme();
+
+  const { currentCar } = useCarStore();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -48,18 +50,17 @@ export default function RootLayout() {
     return null;
   }
 
-  if (isLogged) {
+  if (!currentCar) {
     return (
       <>
-        <ThemedSafeAreaView>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Header />
-            <Stack screenOptions={{ headerShown: false }} />
-            <Navigation />
-          </ThemeProvider>
-        </ThemedSafeAreaView>
-        {/* <StatusBar style="dark" hidden={false} /> */}
-      </>
+      <ThemedSafeAreaView>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Header />
+          <AddCarForm />
+        </ThemeProvider>
+      </ThemedSafeAreaView>
+      {/* <StatusBar style="dark" hidden={false} /> */}
+    </>
     );
   }
 
@@ -67,11 +68,9 @@ export default function RootLayout() {
     <>
       <ThemedSafeAreaView>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          {/* <Header /> */}
-          {/* <Navigation /> */}
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="welcome" />
-          </Stack>
+          <Header />
+          <Stack screenOptions={{ headerShown: false }} />
+          <Navigation />
         </ThemeProvider>
       </ThemedSafeAreaView>
       {/* <StatusBar style="dark" hidden={false} /> */}
