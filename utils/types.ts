@@ -1,7 +1,8 @@
 export enum FuelEnum {
   PETROL = 'petrol',
   DIESEL = 'diesel',
-  GAS = 'gas'
+  GAS = 'gas',
+  ELECTRIC = 'electric'
 }
 
 export enum ServiceStatusEnum {
