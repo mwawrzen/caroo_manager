@@ -2,6 +2,7 @@ import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import { InfoRowType } from "@/utils/types";
+import { useEffect } from "react";
 
 function ServiceItem({ service }: { service: any }) {
 
@@ -32,6 +33,8 @@ export default function ServicesList() {
   const serviceItems = currentCar.services.map(service => (
     <ServiceItem key={service.id} service={service} />
   ));
+
+  useEffect(() => {}, [currentCar.services])
 
   return (
     <ListView title="Services" addHref="./add-service" items={serviceItems} />
