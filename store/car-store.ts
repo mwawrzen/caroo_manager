@@ -1,4 +1,4 @@
-import { AddCarType, FuelEnum, Refuel, Service } from '@/utils/types';
+import { AddCarType, EditCarType, FuelEnum, Refuel, Service } from '@/utils/types';
 import uuid from "react-native-uuid";
 import { create } from 'zustand';
 
@@ -16,7 +16,8 @@ interface CarStore {
   cars: Car[];
   currentCar: Car | null;
   addCar: (newCar: AddCarType) => void;
-  // editCar: ( id: Car['id'], newCar: Car ) => void;
+  setCurrentCar: (id: Car['id']) => void;
+  editCar: ( id: Car['id'], newCar: EditCarType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
 }
 
@@ -48,34 +49,8 @@ const useCarStore = create<CarStore>()(set => ({
       altFuel: FuelEnum.GAS,
       refuels: [],
       services: [],
-    },
-    {
-      id: "awdoaiwn123doawnd",
-      name: "Subaru Forester",
-      mileage: 257400,
-      fuel: FuelEnum.PETROL,
-      altFuel: FuelEnum.GAS,
-      refuels: [],
-      services: [],
-    },
-    {
-      id: "awdoaaw123dawdrgrthgnd",
-      name: "Opel Astra H",
-      mileage: 292456,
-      fuel: FuelEnum.PETROL,
-      refuels: [],
-      services: [],
-    },
-    {
-      id: "aw5h345h1234hddfwawnd",
-      name: "Honda CR-V",
-      mileage: 246000,
-      fuel: FuelEnum.PETROL,
-      refuels: [],
-      services: [],
     }
   ],
-  // currentCar: null,
   currentCar: {
     id: "awdoaiwndoawnd",
     name: "Subaru Forester",
@@ -98,7 +73,22 @@ const useCarStore = create<CarStore>()(set => ({
     };
     return newState;
   }),
-  // editCar: (id, newCar) => set(state => ({ cars: [ ...state.cars, newCar ]})),
+  setCurrentCar: id => set(state => ({ currentCar: state.cars.find(car => car.id === id) })),
+  //TODO: optimize
+  editCar: (id, newCar) => set(state => {
+    const car = state.cars.find(car => car.id === id);
+    const carIndex = state.cars.findIndex(car => car.id === id);
+    const newCarsState = [...state.cars];
+    if (!car)
+      return state;
+    const newCarObject: Car = { ...car };
+    newCarObject.name = newCar.name;
+    newCarObject.mileage = newCar.mileage;
+    newCarObject.fuel = newCar.fuel;
+    newCarObject.altFuel = newCar.altFuel || undefined;
+    newCarsState.splice(carIndex, 1, newCarObject);
+    return { cars: newCarsState };
+  }),
   // removeCar: id => set(state => ({ cars: [ ...state.cars, newCar ]}))
 }));
 

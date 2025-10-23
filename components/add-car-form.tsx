@@ -4,8 +4,9 @@ import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
-import { FuelEnum } from "@/utils/types";
+import { Car, FuelEnum } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 import { ThemedIcon } from "./themed/themed-icon";
@@ -52,14 +53,18 @@ function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
   );
 }
 
-export default function AddCarForm() {
+export default function AddCarForm({ car= null }: { car?: Car | null }) {
 
-  const { cars, addCar } = useCarStore();
+  const title = car ? 'Edit car' : 'Add a new car';
 
-  const [carName, setCarName] = useState<string>('');
-  const [carMileage, setCarMileage] = useState<string>('');
-  const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
-  const [altFuel, setAltFuel] = useState<FuelEnum | null>(null);
+  const router = useRouter();
+
+  const { cars, addCar, editCar } = useCarStore();
+
+  const [carName, setCarName] = useState<string>(car?.name || '');
+  const [carMileage, setCarMileage] = useState<string>(String(car?.mileage) || '');
+  const [fuel, setFuel] = useState<FuelEnum>(car?.fuel || FuelEnum.PETROL);
+  const [altFuel, setAltFuel] = useState<FuelEnum | null>(car?.altFuel || FuelEnum.PETROL);
 
   const fuelTypeOptions = fuelTypes.map(({ icon, label }) => {
     return (
@@ -86,13 +91,28 @@ export default function AddCarForm() {
     );
   });
 
-  function createNewCar() {
+  function handleAddCar() {
+    if (router.canGoBack())
+      router.back();
     addCar({
       name: carName,
       mileage: Number(carMileage),
       fuel,
       altFuel: altFuel || undefined
     });
+  }
+
+  function handleEditCar() {
+    if (router.canGoBack())
+      router.back();
+    if (car) {
+      editCar(car.id, {
+        name: carName,
+        mileage: Number(carMileage),
+        fuel,
+        altFuel: altFuel || undefined
+      });
+    }
   }
 
   function setNumericMileageValue(value: string) {
@@ -107,7 +127,7 @@ export default function AddCarForm() {
   return (
     <ScrollView>
       <ThemedView style={{ flex: 1, alignItems: "center", paddingTop: 40 }}>
-        <ThemedText style={styles.heading}>Add a new car</ThemedText>
+        <ThemedText style={styles.heading}>{title}</ThemedText>
         <ThemedView style={styles.formContainer}>
           {/* name and mileage */}
           <ThemedTextInput
@@ -151,7 +171,7 @@ export default function AddCarForm() {
           {/* submit button */}
           {
             (carName.length && +carMileage >= 0) ?
-            <Pressable onPress={createNewCar}>
+            <Pressable onPress={car ? handleEditCar : handleAddCar}>
               <ThemedView style={styles.submitContainer}>
                 <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
                   Ready

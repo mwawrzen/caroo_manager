@@ -1,7 +1,9 @@
+import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import useCarStore from "@/store/car-store";
 import { Car } from "@/utils/types";
+import { Link } from "expo-router";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 
 type InfoRowType = {
@@ -24,6 +26,8 @@ function CarInfoRow({ infoRowData }: { infoRowData: InfoRowType }) { //! TEMP
 
 function CarItem({ car }: { car: Car }) {
 
+  const { currentCar, setCurrentCar } = useCarStore();
+
   const { mileage, fuel, altFuel, refuels, services } = car;
   const infoRowsData: InfoRowType[] = [
     { value: `${mileage} km`, label: "Last saved mileage:" },
@@ -37,25 +41,39 @@ function CarItem({ car }: { car: Car }) {
     <CarInfoRow key={data.label} infoRowData={data} />
   ));
 
+  function setCarAsDefault() {
+    setCurrentCar(car.id);
+  }
+
   return (
     <ThemedView key={car.id} style={styles.itemContainer}>
       <ThemedText style={styles.itemTitle}>{car.name}</ThemedText>
       {infoRows}
       <ThemedView style={styles.itemButtonGroup}>
-        <Pressable onPress={() => {}}>
-          <ThemedView style={styles.itemButton}>
-            <ThemedText style={styles.itemButtonText}>
-              Set as default
-            </ThemedText>
-          </ThemedView>
-        </Pressable>
-        <Pressable onPress={() => {}}>
-          <ThemedView style={styles.itemButton}>
-            <ThemedText style={styles.itemButtonText}>
-              Edit car
-            </ThemedText>
-          </ThemedView>
-        </Pressable>
+        {
+          currentCar && currentCar.id !== car.id ?
+            <Pressable onPress={setCarAsDefault} style={{ width: "40%" }}>
+              <ThemedView style={styles.itemButton}>
+                <ThemedText style={styles.itemButtonText}>
+                  Set as default
+                </ThemedText>
+              </ThemedView>
+            </Pressable> :
+            <ThemedView style={styles.defaultItemButton}>
+              <ThemedText style={styles.defaultItemButtonText}>
+                Default car
+              </ThemedText>
+            </ThemedView>
+        }
+        <Link href={{ pathname: './edit-car/[id]', params: { id: car.id } }} asChild>
+          <Pressable style={{ width: "40%" }}>
+            <ThemedView style={styles.itemButton}>
+              <ThemedText style={styles.itemButtonText}>
+                Edit car
+              </ThemedText>
+            </ThemedView>
+          </Pressable>
+        </Link>
       </ThemedView>
     </ThemedView>
   );
@@ -69,7 +87,17 @@ export default function CarsList() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>My cars</ThemedText>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title" style={styles.titleText}>My cars</ThemedText>
+        <Link href="./add-car" asChild>
+          <Pressable>
+            <ThemedView style={styles.titleButtonContainer}>
+              <ThemedIcon name="plus" style={styles.titleButtonIcon} />
+              <ThemedText style={styles.titleButtonText}>Add</ThemedText>
+            </ThemedView>
+          </Pressable>
+        </Link>
+      </ThemedView>
       <ScrollView contentContainerStyle={styles.list}>
         {carItems}
       </ScrollView>
@@ -82,8 +110,32 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20
   },
-  title: {
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingBottom: 10
+  },
+  titleText: {
+
+  },
+  titleButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    backgroundColor: "orangered"
+  },
+  titleButtonIcon: {
+    fontSize: 18,
+    color: "#eee"
+  },
+  titleButtonText: {
+    fontFamily: "Quicksand_700Bold",
+    fontSize: 20,
+    color: "#eee"
   },
   list: {
     gap: 20
@@ -116,13 +168,30 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   itemButton: {
+    alignItems: "center",
     paddingTop: 6,
     paddingBottom: 8,
     paddingHorizontal: 10,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "orangered",
     backgroundColor: "orangered"
   },
   itemButtonText: {
     color: "#eee"
+  },
+  defaultItemButton: {
+    alignItems: "center",
+    width: "40%",
+    paddingTop: 6,
+    paddingBottom: 8,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "orangered",
+    borderRadius: 10,
+    opacity: .4
+  },
+  defaultItemButtonText: {
+    color: "orangered"
   }
 });

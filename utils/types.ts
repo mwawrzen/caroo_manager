@@ -39,3 +39,5 @@ export type AddCarType = {
   fuel: FuelEnum,
   altFuel?: FuelEnum
 }
+
+export type EditCarType = AddCarType;
