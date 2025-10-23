@@ -4,8 +4,10 @@ import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
+import useCarStore from "@/store/car-store";
 import { ServiceStatusEnum } from "@/utils/types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 
@@ -47,9 +49,17 @@ function StatusType({ icon, label, isActive, setStatus }: StatusTypeProps) {
 
 export default function AddService() {
 
+  const { currentCar, addService } = useCarStore();
+
+  if (!currentCar)
+    return null;
+
+  const router = useRouter();
+
   const [serviceDescription, setServiceDescription] = useState<string>('');
   const [serviceNote, setServiceNote] = useState<string>('');
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatusEnum>(ServiceStatusEnum.PLANNED);
+  const [serviceStatus, setServiceStatus] =
+    useState<ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED>(ServiceStatusEnum.PLANNED);
 
   const statusTypeOptions = statusTypes.map(({ icon, label }) => {
     return (
@@ -63,8 +73,16 @@ export default function AddService() {
     );
   });
 
-  function handleAddService() {
-
+  function handleAddService() { //TODO form validation
+    if (!currentCar)
+      return null;
+    addService(currentCar.id, {
+      status: serviceStatus,
+      description: serviceDescription,
+      note: serviceNote
+    });
+    if (router.canGoBack())
+      router.back();
   }
 
   return (
