@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     padding: 28
   },
   icon: {
-    marginTop: 6,
     fontSize: 20
   }
 });
