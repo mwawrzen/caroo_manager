@@ -68,7 +68,7 @@ export default function RootLayout() {
     <>
       <ThemedSafeAreaView>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Header />
+          <Header title={currentCar.name} />
           <Stack screenOptions={{ headerShown: false }} />
           <Navigation />
         </ThemeProvider>
