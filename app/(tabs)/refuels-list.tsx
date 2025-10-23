@@ -2,6 +2,7 @@ import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import { InfoRowType } from "@/utils/types";
+import { useEffect } from "react";
 
 function RefuelItem({ refuel }: { refuel: any }) {
 
@@ -30,6 +31,8 @@ export default function RefuelsList() {
   const refuelItems = currentCar.refuels.map(refuel => (
     <RefuelItem key={refuel.id} refuel={refuel} />
   ));
+
+  useEffect(() => {}, [currentCar.refuels])
 
   return (
     <ListView title="Refuels" addHref="./add-refuel" items={refuelItems} />
