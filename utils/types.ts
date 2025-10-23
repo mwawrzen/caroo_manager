@@ -5,24 +5,24 @@ export enum FuelEnum {
   DIESEL = 'diesel',
   GAS = 'gas',
   ELECTRIC = 'electric'
-}
+};
 
 export enum ServiceStatusEnum {
   PLANNED = 'planned',
   SCHEDULDED = 'schedulded',
   COMPLETED = 'completed'
-}
+};
 
 export enum LangEnum {
   ENGLISH = 'english',
   POLISH = 'polish',
   GERMAN = 'german'
-}
+};
 
 export enum DistanceUnitEnum {
   KM = 'km',
   MI = 'mi'
-}
+};
 
 // object interfaces
 
@@ -34,7 +34,7 @@ export interface Refuel {
   fuel: FuelEnum;
   mileage: number;
   note: string;
-}
+};
 
 export interface Service {
   id: string;
@@ -44,7 +44,7 @@ export interface Service {
   mileage?: number;
   price?: number;
   note: string;
-}
+};
 
 export interface Car {
   id: string;
@@ -54,7 +54,7 @@ export interface Car {
   altFuel?: FuelEnum;
   refuels: Refuel[];
   services: Service[];
-}
+};
 
 // components types
 
@@ -71,7 +71,7 @@ export type AddCarType = {
   mileage: number,
   fuel: FuelEnum,
   altFuel?: FuelEnum
-}
+};
 
 export type EditCarType = AddCarType;
 
@@ -81,4 +81,12 @@ export type AddRefuelType = {
   fuel: FuelEnum;
   mileage: number;
   note: string;
-}
+};
+
+export type AddServiceType = {
+  status: ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED;
+  description: string; //! TEMP
+  mileage?: number;
+  price?: number;
+  note: string;
+};

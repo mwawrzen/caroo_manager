@@ -1,4 +1,14 @@
-import { AddCarType, AddRefuelType, Car, EditCarType, FuelEnum, Refuel, ServiceStatusEnum } from '@/utils/types';
+import {
+  AddCarType,
+  AddRefuelType,
+  AddServiceType,
+  Car,
+  EditCarType,
+  FuelEnum,
+  Refuel,
+  Service,
+  ServiceStatusEnum
+} from '@/utils/types';
 import uuid from "react-native-uuid";
 import { create } from 'zustand';
 
@@ -9,6 +19,7 @@ interface CarStore {
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
   setCurrentCar: (id: Car['id']) => void;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
+  addService: ( id: Car['id'], newService: AddServiceType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
 }
 
@@ -108,52 +119,7 @@ const useCarStore = create<CarStore>()(set => ({
       ],
     }
   ],
-  currentCar: {
-      id: "awdoaawdawdrgrthgnd",
-      name: "Opel Astra H",
-      mileage: 292456,
-      fuel: FuelEnum.PETROL,
-      altFuel: FuelEnum.GAS,
-      refuels: [
-        {
-          id: "ofsnef89h3f34f",
-          date: new Date(2025, 11, 1),
-          unitPrice: 5.54,
-          amountOfFuel: 30.54,
-          fuel: FuelEnum.PETROL,
-          mileage: 10,
-          note: 'refuel gas 30,54L',
-        },
-        {
-          id: "ofsnef89h3adwf34f",
-          date: new Date(2025, 11, 11),
-          unitPrice: 5.80,
-          amountOfFuel: 20.17,
-          fuel: FuelEnum.PETROL,
-          mileage: 20,
-          note: 'refuel gas 20,17L',
-        },
-        {
-          id: "ofsneawdaf89h3f34f",
-          date: new Date(2025, 11, 14),
-          unitPrice: 5.80,
-          amountOfFuel: 25.34,
-          fuel: FuelEnum.PETROL,
-          mileage: 34,
-          note: 'refuel gas 25,34L',
-        },
-        {
-          id: "ofsneawda352f89h3f34f",
-          date: new Date(2025, 11, 18),
-          unitPrice: 5.72,
-          amountOfFuel: 37.29,
-          fuel: FuelEnum.PETROL,
-          mileage: 67,
-          note: '',
-        }
-      ],
-      services: [],
-    },
+  currentCar: null,
   addCar: newCar => set(state => {
     const newCarObject: Car = {
       ...newCar,
@@ -196,6 +162,23 @@ const useCarStore = create<CarStore>()(set => ({
       ...newRefuel,
     };
     car.refuels.push(newRefuelObject);
+    const newState = {
+      cars: newCarsState
+    };
+    return newState;
+  }),
+  //TODO: optimize
+  addService: (id, newService) => set(state => {
+    const newCarsState = [ ...state.cars];
+    const car = newCarsState.find(car => car.id === id);
+    if (!car)
+      return state;
+    const newServiceObject: Service = {
+      id: uuid.v4(),
+      date: new Date(Date.now()),
+      ...newService,
+    };
+    car.services.push(newServiceObject);
     const newState = {
       cars: newCarsState
     };
