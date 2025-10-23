@@ -12,10 +12,8 @@ type MenuOptionType = {
 };
 
 const menuRoutes: MenuOptionType[] = [
-  { href: "/menu/cars-list", icon: "car", label: "My Cars" },
-  { href: "/menu/cars-list", icon: "car", label: "My Cars2" },
-  { href: "/menu/cars-list", icon: "car", label: "My Cars3" },
-  { href: "/menu/cars-list", icon: "car", label: "My Cars4" }
+  { href: "/menu/cars-list", icon: "car", label: "My cars" },
+  { href: "/menu/preferences", icon: "gears", label: "Preferences" }
 ];
 
 function MenuOption({ href, icon, label }: MenuOptionType) {
@@ -59,16 +57,17 @@ const styles = StyleSheet.create({
     marginHorizontal: "auto",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderWidth: 2,
+    borderLeftWidth: 6,
     borderColor: "orangered",
-    borderRadius: 20
+    // borderRadius: 20
     // backgroundColor: "darkgreen"
   },
   menuOptionIcon: {
-    fontSize: 20
+    width: 34,
+    fontSize: 24
   },
   menuOptionLabel: {
     marginBottom: 4,
-    fontSize: 26
+    fontSize: 22
   },
 });
