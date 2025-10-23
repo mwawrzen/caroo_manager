@@ -6,21 +6,29 @@ export enum FuelEnum {
 }
 
 export enum ServiceStatusEnum {
-  OPEN = 'open',
-  CLOSED = 'closed'
+  PLANNED = 'planned',
+  SCHEDULDED = 'schedulded',
+  COMPLETED = 'completed'
 }
 
 export interface Refuel {
   id: string;
   date: Date;
-  name: string;
+  unitPrice: number;
+  amountOfFuel: number;
+  fuel: FuelEnum;
+  mileage: number;
+  note: string;
 }
 
 export interface Service {
   id: string;
-  date: Date;
+  date?: Date | null;
   status: ServiceStatusEnum;
-  name: string;
+  description: string; //! TEMP
+  mileage: number;
+  price: number;
+  note: string;
 }
 
 export interface Car {

@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 type InfoListProps = {
   title: string,
   rowsData: InfoRowType[],
-  children: ReactNode
+  children?: ReactNode | null
 };
 
 function InfoListRow({ rowData }: { rowData: InfoRowType }) { //! TEMP
@@ -23,7 +23,7 @@ function InfoListRow({ rowData }: { rowData: InfoRowType }) { //! TEMP
   );
 }
 
-export default function InfoList({ title, rowsData, children }: InfoListProps) {
+export default function InfoList({ title, rowsData, children = null }: InfoListProps) {
 
   const rows = rowsData.map(row =>
     <InfoListRow key={row.label} rowData={row} />
