@@ -9,7 +9,8 @@ import { Pressable, StyleSheet } from "react-native";
 
 function CarItem({ car }: { car: Car }) {
 
-  const { currentCar, setCurrentCar } = useCarStore();
+  const { getCurrentCar, setCurrentCar } = useCarStore();
+  const currentCar = getCurrentCar();
 
   const { mileage, fuel, altFuel, refuels, services } = car;
 

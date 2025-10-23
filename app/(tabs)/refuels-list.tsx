@@ -23,7 +23,8 @@ function RefuelItem({ refuel }: { refuel: any }) {
 
 export default function RefuelsList() {
 
-  const { currentCar } = useCarStore();
+  const { getCurrentCar } = useCarStore();
+  const currentCar = getCurrentCar();
 
   if (!currentCar)
     return null;

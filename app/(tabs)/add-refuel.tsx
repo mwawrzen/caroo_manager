@@ -51,7 +51,8 @@ function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
 
 export default function AddRefuel() {
 
-  const { currentCar, addRefuel } = useCarStore();
+  const { getCurrentCar, addRefuel } = useCarStore();
+  const currentCar = getCurrentCar();
 
   if (!currentCar)
     return null;
