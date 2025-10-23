@@ -2,7 +2,7 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import useCarStore from "@/store/car-store";
 import { Car } from "@/utils/types";
-import { ScrollView, StyleSheet } from "react-native";
+import { Pressable, ScrollView, StyleSheet } from "react-native";
 
 type InfoRowType = {
   value: string | null;
@@ -41,6 +41,22 @@ function CarItem({ car }: { car: Car }) {
     <ThemedView key={car.id} style={styles.itemContainer}>
       <ThemedText style={styles.itemTitle}>{car.name}</ThemedText>
       {infoRows}
+      <ThemedView style={styles.itemButtonGroup}>
+        <Pressable onPress={() => {}}>
+          <ThemedView style={styles.itemButton}>
+            <ThemedText style={styles.itemButtonText}>
+              Set as default
+            </ThemedText>
+          </ThemedView>
+        </Pressable>
+        <Pressable onPress={() => {}}>
+          <ThemedView style={styles.itemButton}>
+            <ThemedText style={styles.itemButtonText}>
+              Edit car
+            </ThemedText>
+          </ThemedView>
+        </Pressable>
+      </ThemedView>
     </ThemedView>
   );
 }
@@ -94,4 +110,19 @@ const styles = StyleSheet.create({
     fontFamily: "Quicksand_700Bold",
     fontSize: 18
   },
+  itemButtonGroup: {
+    flexDirection: "row",
+    gap: 6,
+    marginVertical: 10
+  },
+  itemButton: {
+    paddingTop: 6,
+    paddingBottom: 8,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: "orangered"
+  },
+  itemButtonText: {
+    color: "#eee"
+  }
 });
