@@ -1,23 +1,14 @@
-import { AddCarType, EditCarType, FuelEnum, Refuel, Service, ServiceStatusEnum } from '@/utils/types';
+import { AddCarType, AddRefuelType, Car, EditCarType, FuelEnum, Refuel, ServiceStatusEnum } from '@/utils/types';
 import uuid from "react-native-uuid";
 import { create } from 'zustand';
-
-interface Car {
-  id: string;
-  name: string;
-  mileage: number;
-  fuel: FuelEnum;
-  altFuel?: FuelEnum;
-  refuels: Refuel[];
-  services: Service[];
-}
 
 interface CarStore {
   cars: Car[];
   currentCar: Car | null;
   addCar: (newCar: AddCarType) => void;
-  setCurrentCar: (id: Car['id']) => void;
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
+  setCurrentCar: (id: Car['id']) => void;
+  addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
 }
 
@@ -176,7 +167,6 @@ const useCarStore = create<CarStore>()(set => ({
     };
     return newState;
   }),
-  setCurrentCar: id => set(state => ({ currentCar: state.cars.find(car => car.id === id) })),
   //TODO: optimize
   editCar: (id, newCar) => set(state => {
     const car = state.cars.find(car => car.id === id);
@@ -192,7 +182,25 @@ const useCarStore = create<CarStore>()(set => ({
     newCarsState.splice(carIndex, 1, newCarObject);
     return { cars: newCarsState };
   }),
+  setCurrentCar: id => set(state => ({ currentCar: state.cars.find(car => car.id === id) })),
   // removeCar: id => set(state => ({ cars: [ ...state.cars, newCar ]}))
+  //TODO: optimize
+  addRefuel: (id, newRefuel) => set(state => {
+    const newCarsState = [ ...state.cars];
+    const car = newCarsState.find(car => car.id === id);
+    if (!car)
+      return state;
+    const newRefuelObject: Refuel = {
+      id: uuid.v4(),
+      date: new Date(Date.now()),
+      ...newRefuel,
+    };
+    car.refuels.push(newRefuelObject);
+    const newState = {
+      cars: newCarsState
+    };
+    return newState;
+  }),
 }));
 
 export default useCarStore;

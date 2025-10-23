@@ -1,3 +1,5 @@
+// enums
+
 export enum FuelEnum {
   PETROL = 'petrol',
   DIESEL = 'diesel',
@@ -21,6 +23,8 @@ export enum DistanceUnitEnum {
   KM = 'km',
   MI = 'mi'
 }
+
+// object interfaces
 
 export interface Refuel {
   id: string;
@@ -52,6 +56,16 @@ export interface Car {
   services: Service[];
 }
 
+// components types
+
+export type InfoRowType = {
+  value: string | null;
+  label: string;
+  column?: boolean;
+};
+
+// action types
+
 export type AddCarType = {
   name: string,
   mileage: number,
@@ -61,8 +75,10 @@ export type AddCarType = {
 
 export type EditCarType = AddCarType;
 
-export type InfoRowType = {
-  value: string | null;
-  label: string;
-  column?: boolean;
-};
+export type AddRefuelType = {
+  unitPrice: number;
+  amountOfFuel: number;
+  fuel: FuelEnum;
+  mileage: number;
+  note: string;
+}
