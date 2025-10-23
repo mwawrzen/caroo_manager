@@ -1,6 +1,7 @@
 import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import { Colors } from "@/constants/theme";
 import { Link } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
@@ -29,12 +30,12 @@ export default function Index() {
       <ThemedText type="subtitle">General info</ThemedText>
       <ThemedView style={styles.infoRow}>
         <ThemedView style={styles.itemBox}>
-          <ThemedText style={styles.itemNumber}>11,34</ThemedText>
-          <ThemedText style={styles.itemUnit}>L / 100km</ThemedText>
+          <ThemedText lightColor={Colors['dark']['text']} style={styles.itemNumber}>11,34</ThemedText>
+          <ThemedText lightColor={Colors['dark']['text']} style={styles.itemUnit}>L / 100km</ThemedText>
         </ThemedView>
         <ThemedView style={styles.itemBox}>
-          <ThemedText style={styles.itemNumber}>42,19</ThemedText>
-          <ThemedText style={styles.itemUnit}>zł / 100km</ThemedText>
+          <ThemedText lightColor={Colors['dark']['text']} style={styles.itemNumber}>42,19</ThemedText>
+          <ThemedText lightColor={Colors['dark']['text']} style={styles.itemUnit}>zł / 100km</ThemedText>
         </ThemedView>
       </ThemedView>
     </ThemedView>
