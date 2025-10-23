@@ -29,7 +29,14 @@ export default function RootLayout() {
 
   const colorScheme = useColorScheme();
 
-  const { currentCar } = useCarStore();
+  const { cars, currentCar, setCurrentCar } = useCarStore();
+
+  //! only dev
+  useEffect(() => {
+    if (cars.length)
+      setCurrentCar(cars[0].id);
+  }, []);
+  //!
 
   useEffect(() => {
     if (Platform.OS === 'android') {
