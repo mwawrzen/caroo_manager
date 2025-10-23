@@ -1,21 +1,21 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Href, Link } from "expo-router";
+import { Link } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
 import { ThemedIcon } from "./themed/themed-icon";
 
 type NavigationOptionType = {
-  href: Href,
+  href: any, //! TEMP
   icon: keyof typeof FontAwesome6.glyphMap,
   label: string
 };
 
 const navigationRoutes: NavigationOptionType[] = [
-  { href: "/", icon: "list-alt", label: "Dashboard" },
-  { href: "/refuels-list", icon: "filter", label: "Refuels" },
+  { href: "/", icon: "chart-simple", label: "Dashboard" },
+  { href: "/refuels-list", icon: "gas-pump", label: "Refuels" },
   { href: "/services-list", icon: "wrench", label: "Services" },
-  { href: "/settings", icon: "gear", label: "Settings" }
+  { href: "/menu", icon: "list", label: "Menu" }
 ];
 
 function NavigationOption({ href, icon, label }: NavigationOptionType) {
