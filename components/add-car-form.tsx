@@ -93,27 +93,27 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
   });
 
   function handleAddCar() {
-    if (router.canGoBack())
-      router.back();
     addCar({
       name: carName,
       mileage: Number(carMileage),
       fuel,
       altFuel: altFuel || undefined
     });
+    if (router.canGoBack())
+      router.back();
   }
 
   function handleEditCar() {
+    if (!car)
+      return null;
+    editCar(car.id, {
+      name: carName,
+      mileage: Number(carMileage),
+      fuel,
+      altFuel: altFuel || undefined
+    });
     if (router.canGoBack())
       router.back();
-    if (car) {
-      editCar(car.id, {
-        name: carName,
-        mileage: Number(carMileage),
-        fuel,
-        altFuel: altFuel || undefined
-      });
-    }
   }
 
   function setNumericMileageValue(value: string) {
