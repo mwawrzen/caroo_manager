@@ -15,8 +15,10 @@ function InfoListRow({ rowData }: { rowData: InfoRowType }) { //! TEMP
   if (!rowData.value)
     return null;
 
+  // const columnStyle: any = rowData.column ? { flexDirection: "column" } : {};
+
   return (
-    <ThemedView style={styles.itemRow}>
+    <ThemedView style={rowData.column ? styles.itemRowColumn : styles.itemRow}>
       <ThemedText style={styles.itemLabel}>{rowData.label}</ThemedText>
       <ThemedText style={styles.itemText}>{rowData.value}</ThemedText>
     </ThemedView>
@@ -54,11 +56,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10
   },
+  itemRowColumn: {
+    // alignItems: "center"
+  },
   itemLabel: {
 
   },
   itemText: {
     fontFamily: "Quicksand_700Bold",
-    fontSize: 18
+    fontSize: 16
   }
 });

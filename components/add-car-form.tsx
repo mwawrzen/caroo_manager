@@ -61,6 +61,7 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
 
   const { cars, addCar, editCar } = useCarStore();
 
+  //! fix states default values
   const [carName, setCarName] = useState<string>(car?.name || '');
   const [carMileage, setCarMileage] = useState<string>(String(car?.mileage) || '');
   const [fuel, setFuel] = useState<FuelEnum>(car?.fuel || FuelEnum.PETROL);

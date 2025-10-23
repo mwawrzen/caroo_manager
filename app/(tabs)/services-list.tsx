@@ -12,10 +12,10 @@ function ServiceItem({ service }: { service: any }) {
 
   const serviceRowsData: InfoRowType[] = [
     { label: 'Status:', value: String(status) },
-    { label: 'Description:', value: description },
     { label: 'Mileage', value: `${mileage} Km` },
     { label: 'Price:', value: `${price} USD` },
-    { label: 'Note:', value: note },
+    { label: 'Description:', value: description, column: true },
+    { label: 'Note:', value: note, column: true },
   ];
 
   //TODO: make date format nice
@@ -34,6 +34,6 @@ export default function ServicesList() {
   ));
 
   return (
-    <ListView title="Refuels" addHref="./add-service" items={serviceItems} />
+    <ListView title="Services" addHref="./add-service" items={serviceItems} />
   );
 };

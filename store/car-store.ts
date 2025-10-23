@@ -103,16 +103,16 @@ const useCarStore = create<CarStore>()(set => ({
           description: 'Timing belt replacement',
           mileage: 12552,
           price: 1250,
-          note: 'Oil change in 10000km'
+          note: ''
         },
         {
           id: "i020awdawdawd000000",
           date: new Date(2025, 10, 2),
           status: ServiceStatusEnum.COMPLETED,
-          description: 'Bodywork repair of the right front fender',
+          description: 'Bodywork repair of the right front fender.',
           mileage: 10122,
           price: 360.99,
-          note: 'Very fast, good mechanik, ul. Fatimska 10'
+          note: 'Very fast, good mechanik, ul. Fatimska 10.'
         },
       ],
     }

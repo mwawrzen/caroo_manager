@@ -11,6 +11,17 @@ export enum ServiceStatusEnum {
   COMPLETED = 'completed'
 }
 
+export enum LangEnum {
+  ENGLISH = 'english',
+  POLISH = 'polish',
+  GERMAN = 'german'
+}
+
+export enum DistanceUnitEnum {
+  KM = 'km',
+  MI = 'mi'
+}
+
 export interface Refuel {
   id: string;
   date: Date;
@@ -53,4 +64,5 @@ export type EditCarType = AddCarType;
 export type InfoRowType = {
   value: string | null;
   label: string;
+  column?: boolean;
 };
