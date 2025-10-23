@@ -37,8 +37,8 @@ export interface Service {
   date?: Date | null;
   status: ServiceStatusEnum;
   description: string; //! TEMP
-  mileage: number;
-  price: number;
+  mileage?: number;
+  price?: number;
   note: string;
 }
 

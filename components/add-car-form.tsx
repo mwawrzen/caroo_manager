@@ -7,7 +7,7 @@ import useCarStore from "@/store/car-store";
 import { Car, FuelEnum } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 import { ThemedIcon } from "./themed/themed-icon";
 
@@ -121,13 +121,9 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
     setCarMileage(onlyNumericMileage);
   }
 
-  useEffect(() => {
-    console.log( cars );
-  }, [cars]);
-
   return (
     <ScrollView>
-      <ThemedView style={{ flex: 1, alignItems: "center", paddingTop: 40 }}>
+      <ThemedView style={styles.container}>
         <ThemedText style={styles.heading}>{title}</ThemedText>
         <ThemedView style={styles.formContainer}>
           {/* name and mileage */}
@@ -136,7 +132,6 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
             onChangeText={setCarName}
             value={carName}
             placeholder="Enter name"
-            placeholderTextColor="#111111aa"
           />
           <ThemedTextInput
             style={styles.input}
@@ -144,7 +139,6 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
             value={carMileage}
             keyboardType="numeric"
             placeholder="Enter mileage"
-            placeholderTextColor="#111111aa"
           />
           {/* fuel type */}
           <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
@@ -187,13 +181,17 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 20
+  },
   heading: {
     fontSize: 32,
     marginBottom: 30
   },
   formContainer: {
-    gap: 12,
-    width: "70%"
+    gap: 12
   },
   input: {
     paddingTop: 10,
