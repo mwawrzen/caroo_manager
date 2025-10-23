@@ -21,8 +21,70 @@ interface CarStore {
 }
 
 const useCarStore = create<CarStore>()(set => ({
-  cars: [],
-  currentCar: null,
+  cars: [
+    {
+      id: "awdoaiwndoawnd",
+      name: "Subaru Forester",
+      mileage: 257400,
+      fuel: FuelEnum.PETROL,
+      altFuel: FuelEnum.GAS,
+      refuels: [],
+      services: [],
+    },
+    {
+      id: "awdoaawdawdrgrthgnd",
+      name: "Opel Astra H",
+      mileage: 292456,
+      fuel: FuelEnum.PETROL,
+      altFuel: FuelEnum.GAS,
+      refuels: [],
+      services: [],
+    },
+    {
+      id: "aw5h345h4hddfwawnd",
+      name: "Honda CR-V",
+      mileage: 246000,
+      fuel: FuelEnum.PETROL,
+      altFuel: FuelEnum.GAS,
+      refuels: [],
+      services: [],
+    },
+    {
+      id: "awdoaiwn123doawnd",
+      name: "Subaru Forester",
+      mileage: 257400,
+      fuel: FuelEnum.PETROL,
+      altFuel: FuelEnum.GAS,
+      refuels: [],
+      services: [],
+    },
+    {
+      id: "awdoaaw123dawdrgrthgnd",
+      name: "Opel Astra H",
+      mileage: 292456,
+      fuel: FuelEnum.PETROL,
+      refuels: [],
+      services: [],
+    },
+    {
+      id: "aw5h345h1234hddfwawnd",
+      name: "Honda CR-V",
+      mileage: 246000,
+      fuel: FuelEnum.PETROL,
+      refuels: [],
+      services: [],
+    }
+  ],
+  // currentCar: null,
+  currentCar: {
+    id: "awdoaiwndoawnd",
+    name: "Subaru Forester",
+    mileage: 257400,
+    fuel: FuelEnum.PETROL,
+    altFuel: FuelEnum.GAS,
+    refuels: [],
+    services: [],
+  },
   addCar: newCar => set(state => {
     const newCarObject: Car = {
       ...newCar,
