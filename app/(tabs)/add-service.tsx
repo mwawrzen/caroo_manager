@@ -63,6 +63,10 @@ export default function AddService() {
     );
   });
 
+  function handleAddService() {
+
+  }
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <ScrollView>
@@ -85,6 +89,13 @@ export default function AddService() {
               value={serviceNote}
               placeholder="Enter note"
             />
+            <Pressable onPress={handleAddService}>
+              <ThemedView style={styles.submitContainer}>
+                <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
+                  Ready
+                </ThemedText>
+              </ThemedView>
+            </Pressable>
           </ThemedView>
         </ThemedView>
       </ScrollView>
@@ -134,4 +145,15 @@ const styles = StyleSheet.create({
   serviceStatusLabel: {
     fontSize: 14
   },
+  submitContainer: {
+    alignItems: "center",
+    marginTop: 20,
+    paddingTop: 10,
+    paddingBottom: 12,
+    borderRadius: 22,
+    backgroundColor: "orangered"
+  },
+  submit: {
+    fontSize: 22
+  }
 });
