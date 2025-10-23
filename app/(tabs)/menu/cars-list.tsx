@@ -1,34 +1,18 @@
-import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import InfoList from "@/components/ui/list/info-list";
+import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
-import { Car } from "@/utils/types";
+import { Car, InfoRowType } from "@/utils/types";
 import { Link } from "expo-router";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
-
-type InfoRowType = {
-  value: string | null;
-  label: string;
-};
-
-function CarInfoRow({ infoRowData }: { infoRowData: InfoRowType }) { //! TEMP
-
-  if (!infoRowData.value)
-    return null;
-
-  return (
-    <ThemedView style={styles.itemRow}>
-      <ThemedText style={styles.itemLabel}>{infoRowData.label}</ThemedText>
-      <ThemedText style={styles.itemText}>{infoRowData.value}</ThemedText>
-    </ThemedView>
-  );
-}
+import { Pressable, StyleSheet } from "react-native";
 
 function CarItem({ car }: { car: Car }) {
 
   const { currentCar, setCurrentCar } = useCarStore();
 
   const { mileage, fuel, altFuel, refuels, services } = car;
+
   const infoRowsData: InfoRowType[] = [
     { value: `${mileage} km`, label: "Last saved mileage:" },
     { value: fuel, label: "Main fuel:" },
@@ -37,18 +21,12 @@ function CarItem({ car }: { car: Car }) {
     { value: String(services.length), label: "Number of services:" }
   ]
 
-  const infoRows = infoRowsData.map(data => (
-    <CarInfoRow key={data.label} infoRowData={data} />
-  ));
-
   function setCarAsDefault() {
     setCurrentCar(car.id);
   }
 
   return (
-    <ThemedView key={car.id} style={styles.itemContainer}>
-      <ThemedText style={styles.itemTitle}>{car.name}</ThemedText>
-      {infoRows}
+    <InfoList title={car.name} rowsData={infoRowsData}>
       <ThemedView style={styles.itemButtonGroup}>
         {
           currentCar && currentCar.id !== car.id ?
@@ -75,7 +53,7 @@ function CarItem({ car }: { car: Car }) {
           </Pressable>
         </Link>
       </ThemedView>
-    </ThemedView>
+    </InfoList>
   );
 }
 
@@ -86,82 +64,11 @@ export default function CarsList() {
   const carItems = cars.map(car => <CarItem key={car.id} car={car} />);
 
   return (
-    <ThemedView style={styles.container}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title" style={styles.titleText}>My cars</ThemedText>
-        <Link href="./add-car" asChild>
-          <Pressable>
-            <ThemedView style={styles.titleButtonContainer}>
-              <ThemedIcon name="plus" style={styles.titleButtonIcon} />
-              <ThemedText style={styles.titleButtonText}>Add</ThemedText>
-            </ThemedView>
-          </Pressable>
-        </Link>
-      </ThemedView>
-      <ScrollView contentContainerStyle={styles.list}>
-        {carItems}
-      </ScrollView>
-    </ThemedView>
+    <ListView title="My cars" addHref="./add-car" items={carItems} />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 10
-  },
-  titleText: {
-
-  },
-  titleButtonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 10,
-    backgroundColor: "orangered"
-  },
-  titleButtonIcon: {
-    fontSize: 18,
-    color: "#eee"
-  },
-  titleButtonText: {
-    fontFamily: "Quicksand_700Bold",
-    fontSize: 20,
-    color: "#eee"
-  },
-  list: {
-    gap: 20
-  },
-  itemContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderLeftWidth: 6,
-    borderColor: "orangered"
-  },
-  itemTitle: {
-    color: "orangered",
-    fontSize: 26
-  },
-  itemRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10
-  },
-  itemLabel: {
-
-  },
-  itemText: {
-    fontFamily: "Quicksand_700Bold",
-    fontSize: 18
-  },
   itemButtonGroup: {
     flexDirection: "row",
     gap: 6,

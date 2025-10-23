@@ -41,3 +41,8 @@ export type AddCarType = {
 }
 
 export type EditCarType = AddCarType;
+
+export type InfoRowType = {
+  value: string | null;
+  label: string;
+};

@@ -38,7 +38,23 @@ const useCarStore = create<CarStore>()(set => ({
       mileage: 292456,
       fuel: FuelEnum.PETROL,
       altFuel: FuelEnum.GAS,
-      refuels: [],
+      refuels: [
+        {
+          id: "ofsnef89h3f34f",
+          date: new Date('01-11-2025'),
+          name: 'refuel gas 30,54L',
+        },
+        {
+          id: "ofsnef89h3adwf34f",
+          date: new Date('11-11-2025'),
+          name: 'refuel petrol 30,54L',
+        },
+        {
+          id: "ofsneawdaf89h3f34f",
+          date: new Date('13-11-2025'),
+          name: 'refuel gas 25,34L',
+        },
+      ],
       services: [],
     },
     {
