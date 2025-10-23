@@ -7,6 +7,7 @@ import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
 import { FuelEnum } from "@/utils/types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 
@@ -50,15 +51,18 @@ function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
 
 export default function AddRefuel() {
 
-  const { currentCar } = useCarStore();
+  const { currentCar, addRefuel } = useCarStore();
 
   if (!currentCar)
     return null;
+
+  const router = useRouter();
 
   const [unitPrice, setUnitPrice] = useState<string>(""); //! number
   const [fuelAmount, setFuelAmount] = useState<string>(""); //! number
   const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel); //! current car
   const [mileage, setMileage] = useState<string>(String(currentCar.mileage)); //!  number
+  const [note, setNote] = useState<string>('');
 
   const statusTypeOptions = fuelTypes.map(({ icon, label, value }) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
@@ -75,7 +79,17 @@ export default function AddRefuel() {
   });
 
   function handleAddRefuel() { //TODO form validation
-
+    if (!currentCar)
+      return null;
+    addRefuel(currentCar.id, {
+      unitPrice: Number(unitPrice),
+      amountOfFuel: Number(fuelAmount),
+      fuel: fuelType,
+      mileage: Number(mileage),
+      note
+    });
+    if (router.canGoBack())
+      router.back();
   }
 
   return (
@@ -108,6 +122,12 @@ export default function AddRefuel() {
               value={mileage}
               keyboardType="numeric"
               placeholder="Enter mileage"
+            />
+            <ThemedTextInput
+              style={styles.input}
+              onChangeText={setNote}
+              value={note}
+              placeholder="Enter note"
             />
             <Pressable onPress={handleAddRefuel}>
               <ThemedView style={styles.submitContainer}>
