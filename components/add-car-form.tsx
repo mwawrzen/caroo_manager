@@ -63,9 +63,9 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
 
   //! fix states default values
   const [carName, setCarName] = useState<string>(car?.name || '');
-  const [carMileage, setCarMileage] = useState<string>(String(car?.mileage) || '');
+  const [carMileage, setCarMileage] = useState<string>(car?.mileage ? String(car.mileage) : '');
   const [fuel, setFuel] = useState<FuelEnum>(car?.fuel || FuelEnum.PETROL);
-  const [altFuel, setAltFuel] = useState<FuelEnum | null>(car?.altFuel || FuelEnum.PETROL);
+  const [altFuel, setAltFuel] = useState<FuelEnum | null>(car?.altFuel || null);
 
   const fuelTypeOptions = fuelTypes.map(({ icon, label }) => {
     return (
