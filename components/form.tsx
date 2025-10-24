@@ -3,10 +3,11 @@ import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
-import { UnitEnumType } from "@/utils/types";
+import { LangEnum, UnitEnumType } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
 import { Pressable, ScrollView, StyleSheet, TextInputProps } from "react-native";
+import { Languages } from "react-native-svg-circle-country-flags";
 import { ThemedIcon } from "./themed/themed-icon";
 
 type FormInputProps = TextInputProps & {
@@ -112,6 +113,36 @@ Form.Radio = function FormRadio({
         <ThemedIcon name={icon} style={[ styles.radioIcon, activeStyles]} />
         <ThemedText style={[styles.radioLabel, activeStyles]}>{label}</ThemedText>
       </ThemedView>
+    </Pressable>
+  );
+}
+
+// Form.RadioLang
+
+type FormRadioLangProps = {
+  value: string;
+  isActive?: boolean;
+  onPress: Dispatch<SetStateAction<any>> | (() => void); //! temp (any)
+};
+
+Form.RadioLang = function FormRadioLang({
+  value,
+  isActive,
+  onPress
+}: FormRadioLangProps) {
+
+  const activeStyles = isActive ? { backgroundColor: "orangered" } : {};
+
+  const langs = [
+    { value: LangEnum.ENGLISH, flag: <Languages.En width={50} height={50} /> },
+    { value: LangEnum.POLISH, flag: <Languages.Pl width={50} height={50} /> },
+    { value: LangEnum.GERMAN, flag: <Languages.De width={50} height={50} /> },
+  ];
+
+  const flag = langs.find(lang => lang.value === value)?.flag || langs[0].flag;
+  return (
+    <Pressable style={[ styles.language, activeStyles ]} onPress={() => onPress(value)}>
+      {flag}
     </Pressable>
   );
 }
@@ -231,6 +262,11 @@ const styles = StyleSheet.create({
   },
   radioLabel: {
     fontSize: 14
+  },
+  language: {
+    borderWidth: 4,
+    borderColor: "transparent",
+    borderRadius: "50%"
   },
   checkboxContainer: {
     flexDirection: "row",
