@@ -37,9 +37,7 @@ export default function Menu() {
 
   return (
     <ThemedView style={styles.container}>
-      {/* <ScrollView style={styles.container}> */}
-        {menuOptions}
-      {/* </ScrollView> */}
+      {menuOptions}
     </ThemedView>
   );
 };
