@@ -8,13 +8,13 @@ import { ThemedIcon } from "./themed/themed-icon";
 
 export default function Header() {
 
+  const router = useRouter()
+  ;
   const { cars, getCurrentCar } = useCarStore();
   const currentCar = getCurrentCar();
 
   const [title, setTitle] = useState<string>(currentCar?.name || "Caroo Manager");
-
-  const router = useRouter();
-  const color = currentCar?.name ? { color: "orangered" } : {};
+  const [color, setColor] = useState<string>(currentCar ? "orangered" : "");
 
   //TODO: fix back button functionality
   function goBack() {
@@ -26,14 +26,15 @@ export default function Header() {
     const currentCar = getCurrentCar();
     if (currentCar)
       setTitle(currentCar.name);
+    setColor(currentCar ? "orangered" : "");
   }, [cars]);
 
   return (
     <ThemedView style={styles.container}>
       <Pressable onPress={goBack}>
-        <ThemedIcon name="arrow-left" style={[color, styles.icon]} />
+        <ThemedIcon name="arrow-left" style={[color ? { color } : {}, styles.icon]} />
       </Pressable>
-      <ThemedText type="title" style={color}>{title}</ThemedText>
+      <ThemedText type="title" style={color ? { color } : {}}>{title}</ThemedText>
     </ThemedView>
   );
 };
