@@ -2,6 +2,7 @@ import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import { formatDate } from "@/utils/format-date";
+import { getSumPriceString } from "@/utils/get-sum-price";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
 
@@ -14,7 +15,7 @@ function RefuelItem({ refuel }: { refuel: any }) {
     { label: 'Fully refueled:', value: fullyRefueled ? "Yes" : "No" },
     { label: 'Amount of fuel:', value: `${amountOfFuel} L` },
     { label: 'Unit price:', value: `${unitPrice} USD` },
-    { label: 'Sum price', value: `${(unitPrice * amountOfFuel).toFixed(2)} USD` },
+    { label: 'Sum price', value: `${getSumPriceString(refuel)} USD` },
     { label: 'Mileage', value: `${mileage} Km` },
     { label: 'Note:', value: note },
   ];
