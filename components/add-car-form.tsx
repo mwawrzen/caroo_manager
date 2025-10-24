@@ -57,6 +57,12 @@ export default function AddCarForm() {
       router.back();
   }
 
+  function checkIsValidated(): boolean {
+    if (carName.length < 3 || +carMileage < 1)
+      return false;
+    return true;
+  }
+
   return (
     <Form title="Add a car">
       <Form.Input
@@ -93,7 +99,7 @@ export default function AddCarForm() {
           </Pressable> : null
       }
       {
-        (carName.length && +carMileage >= 0) ?
+        checkIsValidated() ?
         <Form.Submit onPress={handleAddCar} /> : null
       }
     </Form>

@@ -4,7 +4,7 @@ import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
 import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
-import { Car, FuelEnum } from "@/utils/types";
+import { Car, DistanceUnitEnum, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
@@ -57,6 +57,12 @@ export default function EditCarForm({ car }: { car: Car }) {
       router.back();
   }
 
+  function checkIsValidated(): boolean {
+    if (carName.length < 3 || +carMileage < car.mileage)
+      return false;
+    return true;
+  }
+
   return (
     <Form title="Edit car">
       <Form.Input
@@ -68,7 +74,7 @@ export default function EditCarForm({ car }: { car: Car }) {
         value={carMileage}
         onChangeText={(val: string) => setCarMileage(getValidatedMileage(val))}
         placeholder="Enter mileage"
-        unit="Km"
+        unit={DistanceUnitEnum.KM}
         keyboardType="numeric"
       />
       {/* fuel type */}
@@ -93,7 +99,7 @@ export default function EditCarForm({ car }: { car: Car }) {
           </Pressable> : null
       }
       {
-        (carName.length && +carMileage >= 0) ?
+        checkIsValidated() ?
         <Form.Submit onPress={handleEditCar} /> : null
       }
     </Form>
