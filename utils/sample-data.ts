@@ -1,8 +1,9 @@
+import uuid from "react-native-uuid";
 import { FuelEnum, ServiceStatusEnum } from "./types";
 
 export const cars = [
   {
-    id: "awdoaiwndoawnd",
+    id: uuid.v4(),
     name: "Subaru Forester",
     mileage: 257400,
     fuel: FuelEnum.PETROL,
@@ -11,15 +12,15 @@ export const cars = [
     services: [],
   },
   {
-    id: "awdoaawdawdrgrthgnd",
+    id: uuid.v4(),
     name: "Opel Astra H",
     mileage: 292456,
     fuel: FuelEnum.PETROL,
     altFuel: FuelEnum.GAS,
     refuels: [
       {
-        id: "ofsnef89h3f34f",
-        date: new Date(2025, 11, 1),
+        id: uuid.v4(),
+        date: new Date(2025, 9, 1),
         unitPrice: 5.54,
         amountOfFuel: 30.54,
         fuel: FuelEnum.PETROL,
@@ -27,8 +28,8 @@ export const cars = [
         note: 'refuel gas 30,54L',
       },
       {
-        id: "ofsnef89h3adwf34f",
-        date: new Date(2025, 11, 11),
+        id: uuid.v4(),
+        date: new Date(2025, 9, 14),
         unitPrice: 5.80,
         amountOfFuel: 20.17,
         fuel: FuelEnum.PETROL,
@@ -36,8 +37,8 @@ export const cars = [
         note: 'refuel gas 20,17L',
       },
       {
-        id: "ofsneawdaf89h3f34f",
-        date: new Date(2025, 11, 14),
+        id: uuid.v4(),
+        date: new Date(2025, 9, 3),
         unitPrice: 5.80,
         amountOfFuel: 25.34,
         fuel: FuelEnum.PETROL,
@@ -45,8 +46,8 @@ export const cars = [
         note: 'refuel gas 25,34L',
       },
       {
-        id: "ofsneawda352f89h3f34f",
-        date: new Date(2025, 11, 18),
+        id: uuid.v4(),
+        date: new Date(2025, 9, 9),
         unitPrice: 5.72,
         amountOfFuel: 37.29,
         fuel: FuelEnum.PETROL,
@@ -57,7 +58,7 @@ export const cars = [
     services: [],
   },
   {
-    id: "aw5h345h4hddfwawnd",
+    id: uuid.v4(),
     name: "Honda CR-V",
     mileage: 246000,
     fuel: FuelEnum.PETROL,
@@ -65,7 +66,7 @@ export const cars = [
     refuels: [],
     services: [
       {
-        id: "i020000000",
+        id: uuid.v4(),
         // date: new Date(2025, 10, 2),
         date: null,
         status: ServiceStatusEnum.PLANNED,
@@ -75,7 +76,7 @@ export const cars = [
         note: ''
       },
       {
-        id: "i0200adawdawd00000",
+        id: uuid.v4(),
         date: new Date(2025, 10, 14),
         status: ServiceStatusEnum.SCHEDULDED,
         description: 'Timing belt replacement',
@@ -84,7 +85,7 @@ export const cars = [
         note: ''
       },
       {
-        id: "i020awdawdawd000000",
+        id: uuid.v4(),
         date: new Date(2025, 10, 2),
         status: ServiceStatusEnum.COMPLETED,
         description: 'Bodywork repair of the right front fender.',
