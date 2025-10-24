@@ -1,3 +1,4 @@
+import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
   AddRefuelType,
@@ -23,7 +24,7 @@ interface CarStore {
 }
 
 const useCarStore = create<CarStore>()((set, get) => ({
-  cars: [],
+  cars,
   currentCarId: null,
   addCar: newCar => set(state => {
     const newCarObject: Car = {
