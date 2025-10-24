@@ -29,13 +29,13 @@ export enum PriceUnitEnum {
 };
 
 export enum DistanceUnitEnum {
-  KM = 'Km',
-  MI = 'Mi'
+  KM = 'km',
+  MI = 'mi'
 };
 
 export enum CapacityUnitEnum {
   L = 'L',
-  GL = 'Gl'
+  GAL = 'GAL'
 };
 
 export type UnitEnumType =
