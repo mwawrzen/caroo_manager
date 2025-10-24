@@ -9,7 +9,7 @@ import { ServiceStatusEnum } from "@/utils/types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 type StatusType = {
   icon: keyof typeof FontAwesome6.glyphMap,
@@ -86,37 +86,33 @@ export default function AddService() {
   }
 
   return (
-    <ThemedView style={{ flex: 1 }}>
-      <ScrollView>
-        <ThemedView style={styles.container}>
-          <ThemedText style={styles.heading}>Add service</ThemedText>
-          <ThemedView style={styles.formContainer}>
-            <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
-            <ThemedView style={styles.statusContainer}>
-              {statusTypeOptions}
-            </ThemedView>
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={setServiceDescription}
-              value={serviceDescription}
-              placeholder="Enter description"
-            />
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={setServiceNote}
-              value={serviceNote}
-              placeholder="Enter note"
-            />
-            <Pressable onPress={handleAddService}>
-              <ThemedView style={styles.submitContainer}>
-                <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
-                  Ready
-                </ThemedText>
-              </ThemedView>
-            </Pressable>
-          </ThemedView>
+    <ThemedView style={styles.container}>
+      <ThemedText style={styles.heading}>Add service</ThemedText>
+      <ThemedView style={styles.formContainer}>
+        <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
+        <ThemedView style={styles.statusContainer}>
+          {statusTypeOptions}
         </ThemedView>
-      </ScrollView>
+        <ThemedTextInput
+          style={styles.input}
+          onChangeText={setServiceDescription}
+          value={serviceDescription}
+          placeholder="Enter description"
+        />
+        <ThemedTextInput
+          style={styles.input}
+          onChangeText={setServiceNote}
+          value={serviceNote}
+          placeholder="Enter note"
+        />
+        <Pressable onPress={handleAddService}>
+          <ThemedView style={styles.submitContainer}>
+            <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
+              Ready
+            </ThemedText>
+          </ThemedView>
+        </Pressable>
+      </ThemedView>
     </ThemedView>
   );
 }
