@@ -25,7 +25,7 @@ type StatusTypeProps = {
 };
 
 const statusTypes: StatusType[] = [
-  { icon: 'stopwatch', label: 'Planned', value: ServiceStatusEnum.PLANNED },
+  { icon: 'question', label: 'Planned', value: ServiceStatusEnum.PLANNED },
   { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
 ];
 
