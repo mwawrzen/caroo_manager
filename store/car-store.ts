@@ -1,3 +1,4 @@
+import { getSumPriceString } from '@/utils/get-sum-price';
 import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
@@ -5,6 +6,7 @@ import {
   AddServiceType,
   Car,
   EditCarType,
+  FuelEnum,
   Refuel,
   Service
 } from '@/utils/types';
@@ -20,6 +22,7 @@ interface CarStore {
   getCarById: ( id: Car['id'] ) => Car | null;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
+  getRefuelsSumPrice: (fuel: FuelEnum) => number;
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   getSortedServices: () => Service[];
   getServicesSumPrice: () => number;
@@ -84,6 +87,9 @@ const useCarStore = create<CarStore>()((set, get) => ({
   }),
   getSortedRefuels: () => get().currentCar?.refuels
     .sort((a: Refuel, b: Refuel) => b.date.getTime() - a.date.getTime()) || [],
+  getRefuelsSumPrice: fuel => get().currentCar?.refuels
+    .filter((refuel: Refuel) => refuel.fuel === fuel)
+    .reduce((acc, curr: Refuel) => acc + Number(getSumPriceString(curr)), 0) || 0,
   //TODO: optimize
   addService: (id, newService) => set(state => {
     const newCarsState = [ ...state.cars];
