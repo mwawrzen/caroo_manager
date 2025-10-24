@@ -1,17 +1,17 @@
+import Form from "@/components/form";
 import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
-import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
 import { checkStringIsDouble } from "@/utils/check-double-string";
-import { checkStringIsInt } from "@/utils/check-int-string";
+import { getValidatedMileage } from "@/utils/data";
 import { FuelEnum } from "@/utils/types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 type FuelType = {
   icon: keyof typeof FontAwesome6.glyphMap,
@@ -64,18 +64,20 @@ export default function AddRefuel() {
   const [fuelAmount, setFuelAmount] = useState<string>(""); //! number
   const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel); //! current car
   const [mileage, setMileage] = useState<string>(String(currentCar.mileage)); //!  number
+  const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(false);
   const [note, setNote] = useState<string>('');
 
   const statusTypeOptions = fuelTypes.map(({ icon, label, value }) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
       return null;
     return (
-      <FuelType
+      <Form.Radio
         key={label}
         icon={icon}
         label={label}
+        value={value}
         isActive={fuelType === label.toLowerCase()}
-        setFuel={setFuelType}
+        onPress={setFuelType}
       />
     );
   });
@@ -88,78 +90,52 @@ export default function AddRefuel() {
       amountOfFuel: Number(fuelAmount),
       fuel: fuelType,
       mileage: Number(mileage),
+      fullyRefueled: isFullyRefueled,
       note
     });
+    setIsFullyRefueled(true);
     if (router.canGoBack())
       router.back();
   }
 
-  function handleSetMileage(value: string) {
-    if (Number(value) >= 999999)
-      setMileage("999999");
-    else if (value === "")
-      setMileage("");
-    else if(checkStringIsInt(value) && Number(value) > 0)
-      setMileage(value);
-  }
-
   return (
-    <ThemedView style={{ flex: 1 }}>
-      <ScrollView>
-        <ThemedView style={styles.container}>
-          <ThemedText style={styles.heading}>Add refuel</ThemedText>
-          <ThemedView style={styles.formContainer}>
-            <ThemedText style={{ textAlign: "center" }}>Fuel type</ThemedText>
-            <ThemedView style={styles.statusContainer}>
-              {statusTypeOptions}
-            </ThemedView>
-            <ThemedView style={styles.inputRow}>
-              <ThemedTextInput
-                style={styles.input}
-                onChangeText={v => checkStringIsDouble(v) ? setUnitPrice(v) : {}}
-                value={unitPrice}
-                keyboardType="numeric"
-                placeholder="Enter unit price"
-              />
-              <ThemedText style={styles.inputUnit}>USD</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.inputRow}>
-              <ThemedTextInput
-                style={styles.input}
-                onChangeText={v => checkStringIsDouble(v) ? setFuelAmount(v) : {}}
-                value={fuelAmount}
-                keyboardType="numeric"
-                placeholder="Enter amount of fuel"
-              />
-              <ThemedText style={styles.inputUnit}>L</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.inputRow}>
-              <ThemedTextInput
-                style={styles.input}
-                onChangeText={handleSetMileage}
-                value={mileage}
-                keyboardType="numeric"
-                placeholder="Enter mileage"
-              />
-              <ThemedText style={styles.inputUnit}>Km</ThemedText>
-            </ThemedView>
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={setNote}
-              value={note}
-              placeholder="Enter note"
-            />
-            <Pressable onPress={handleAddRefuel}>
-              <ThemedView style={styles.submitContainer}>
-                <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
-                  Ready
-                </ThemedText>
-              </ThemedView>
-            </Pressable>
-          </ThemedView>
-        </ThemedView>
-      </ScrollView>
-    </ThemedView>
+    <Form title="Add refuel">
+      <Form.RadioGroup>
+        {statusTypeOptions}
+      </Form.RadioGroup>
+      <Form.Checkbox
+        label="Fully refueled"
+        onPress={() => setIsFullyRefueled(!isFullyRefueled)}
+        checked={isFullyRefueled}
+      />
+      <Form.InputUnit
+        value={unitPrice}
+        onChangeText={(val: string) => checkStringIsDouble(val) ? setUnitPrice(val) : {}}
+        placeholder="Enter unit price"
+        keyboardType="numeric"
+        unit="USD"
+      />
+      <Form.InputUnit
+        value={fuelAmount}
+        onChangeText={(val: string) => checkStringIsDouble(val) ? setFuelAmount(val) : {}}
+        placeholder="Enter amount of fuel"
+        keyboardType="numeric"
+        unit="L"
+      />
+      <Form.InputUnit
+        value={mileage}
+        onChangeText={(val: string) => setMileage(getValidatedMileage(val))}
+        placeholder="Enter mileage"
+        keyboardType="numeric"
+        unit="Km"
+      />
+      <Form.Input
+        value={note}
+        onChangeText={setNote}
+        placeholder="Enter note"
+      />
+      <Form.Submit onPress={handleAddRefuel} />
+    </Form>
   );
 }
 
