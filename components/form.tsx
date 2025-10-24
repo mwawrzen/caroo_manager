@@ -115,6 +115,27 @@ Form.Radio = function FormRadio({
   );
 }
 
+// Form.Checkbox
+
+type FormCheckboxProps = {
+  label: string;
+  onPress: () => void;
+  checked: boolean;
+};
+
+Form.Checkbox = function FormCheckbox({ label, onPress, checked = true }: FormCheckboxProps) {
+  return (
+    <ThemedView style={styles.checkboxContainer}>
+      <ThemedText style={styles.checkboxLabel}>{label}</ThemedText>
+      <Pressable onPress={onPress}>
+        <ThemedView style={styles.checkbox}>
+          { checked ? <ThemedView style={styles.checkboxIndicator} /> : null }
+        </ThemedView>
+      </Pressable>
+    </ThemedView>
+  );
+};
+
 // Form.Submit
 
 type FormSubmitType = {
@@ -160,10 +181,10 @@ export default function Form({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     paddingHorizontal: 20
   },
   heading: {
+    textAlign: "center",
     fontSize: 32,
     marginBottom: 30
   },
@@ -209,6 +230,30 @@ const styles = StyleSheet.create({
   },
   radioLabel: {
     fontSize: 14
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    padding: 6
+  },
+  checkboxLabel: {
+    fontSize: 20
+  },
+  checkbox: {
+    width: 40,
+    height: 40,
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: "orangered",
+    backgroundColor: "transparent",
+    padding: 6
+  },
+  checkboxIndicator: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "orangered"
   },
   submitContainer: {
     alignItems: "center",
