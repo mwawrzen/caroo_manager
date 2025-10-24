@@ -95,7 +95,9 @@ export default function AddRefuel() {
   }
 
   function handleSetMileage(value: string) {
-    if (value === "")
+    if (Number(value) >= 999999)
+      setMileage("999999");
+    else if (value === "")
       setMileage("");
     else if(checkStringIsInt(value) && Number(value) > 0)
       setMileage(value);

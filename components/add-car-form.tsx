@@ -118,7 +118,9 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
   }
 
   function handleSetMileage(value: string) {
-    if (value === "")
+    if(Number(value) >= 999999)
+      setCarMileage("999999")
+    else if (value === "")
       setCarMileage("");
     else if(checkStringIsInt(value) && Number(value) > 0)
       setCarMileage(value);
