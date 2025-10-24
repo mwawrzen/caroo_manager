@@ -29,12 +29,12 @@ export default function AddRefuel() {
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
   const [note, setNote] = useState<string>('');
 
-  const statusTypeOptions = fuelTypes.map(({ icon, label, value }) => {
+  const statusTypeOptions = fuelTypes.map(({ icon, label, value }, i) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
       return null;
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
         label={label}
         value={value}
