@@ -111,27 +111,36 @@ export default function AddRefuel() {
             <ThemedView style={styles.statusContainer}>
               {statusTypeOptions}
             </ThemedView>
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={v => checkStringIsDouble(v) ? setUnitPrice(v) : {}}
-              value={unitPrice}
-              keyboardType="numeric"
-              placeholder="Enter unit price"
-            />
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={v => checkStringIsDouble(v) ? setFuelAmount(v) : {}}
-              value={fuelAmount}
-              keyboardType="numeric"
-              placeholder="Enter amount of fuel"
-            />
-            <ThemedTextInput
-              style={styles.input}
-              onChangeText={handleSetMileage}
-              value={mileage}
-              keyboardType="numeric"
-              placeholder="Enter mileage"
-            />
+            <ThemedView style={styles.inputRow}>
+              <ThemedTextInput
+                style={styles.input}
+                onChangeText={v => checkStringIsDouble(v) ? setUnitPrice(v) : {}}
+                value={unitPrice}
+                keyboardType="numeric"
+                placeholder="Enter unit price"
+              />
+              <ThemedText style={styles.inputUnit}>USD</ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.inputRow}>
+              <ThemedTextInput
+                style={styles.input}
+                onChangeText={v => checkStringIsDouble(v) ? setFuelAmount(v) : {}}
+                value={fuelAmount}
+                keyboardType="numeric"
+                placeholder="Enter amount of fuel"
+              />
+              <ThemedText style={styles.inputUnit}>L</ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.inputRow}>
+              <ThemedTextInput
+                style={styles.input}
+                onChangeText={handleSetMileage}
+                value={mileage}
+                keyboardType="numeric"
+                placeholder="Enter mileage"
+              />
+              <ThemedText style={styles.inputUnit}>Km</ThemedText>
+            </ThemedView>
             <ThemedTextInput
               style={styles.input}
               onChangeText={setNote}
@@ -165,7 +174,14 @@ const styles = StyleSheet.create({
   formContainer: {
     gap: 12
   },
+  inputRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 20
+  },
   input: {
+    flexGrow: 1,
     paddingTop: 10,
     paddingBottom: 12,
     paddingHorizontal: 20,
@@ -173,6 +189,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "orangered",
     fontSize: 20
+  },
+  inputUnit: {
+    width: "18%",
+    fontFamily: "Quicksand_700Bold",
+    fontSize: 28
   },
   statusContainer: {
     flexDirection: "row",
