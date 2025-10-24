@@ -1,28 +1,19 @@
+import Form from "@/components/form";
 import { ThemedText } from "@/components/themed/themed-text";
-import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
-import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
 import { checkStringIsInt } from "@/utils/check-int-string";
-import { Car, FuelEnum } from "@/utils/types";
+import { FuelEnum } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
-import { ThemedIcon } from "./themed/themed-icon";
+import { Pressable, StyleSheet } from "react-native";
 
 type FuelType = {
   icon: keyof typeof FontAwesome6.glyphMap,
   label: string,
   value: FuelEnum;
-};
-
-type FuelTypeProps = {
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string,
-  isActive: boolean;
-  setFuel: any; //!TEMP
 };
 
 const fuelTypes: FuelType[] = [
@@ -36,46 +27,26 @@ const altFuelTypes: FuelType[] = [
   { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
 ];
 
-function FuelType({ icon, label, isActive, setFuel }: FuelTypeProps) {
-
-  const opositeColorScheme = useOpositeColorScheme();
-  const activeStyles = isActive ? { color: Colors[opositeColorScheme]['text'] } : {};
-
-  return (
-    <Pressable onPress={() => setFuel( label.toLowerCase() )} style={[
-      styles.fuelTypeContainer,
-      isActive ? {backgroundColor: "orangered"} : null
-    ]}>
-      <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
-        <ThemedIcon name={icon} style={[ styles.fuelIcon, activeStyles]} />
-        <ThemedText style={[styles.fuelLabel, activeStyles]}>{label}</ThemedText>
-      </ThemedView>
-    </Pressable>
-  );
-}
-
-export default function AddCarForm({ car= null }: { car?: Car | null }) {
-
-  const title = car ? 'Edit car' : 'Add a new car';
+export default function AddCarForm() {
 
   const router = useRouter();
 
-  const { cars, addCar, editCar } = useCarStore();
+  const { addCar } = useCarStore();
 
   //! fix states default values
-  const [carName, setCarName] = useState<string>(car?.name || '');
-  const [carMileage, setCarMileage] = useState<string>(car?.mileage ? String(car.mileage) : '');
-  const [fuel, setFuel] = useState<FuelEnum>(car?.fuel || FuelEnum.PETROL);
-  const [altFuel, setAltFuel] = useState<FuelEnum | null>(car?.altFuel || null);
+  const [carName, setCarName] = useState<string>('');
+  const [carMileage, setCarMileage] = useState<string>('');
+  const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
+  const [altFuel, setAltFuel] = useState<FuelEnum | null>(null);
 
   const fuelTypeOptions = fuelTypes.map(({ icon, label }) => {
     return (
-      <FuelType
+      <Form.Radio
         key={label}
         icon={icon}
         label={label}
         isActive={fuel === label.toLowerCase()}
-        setFuel={setFuel}
+        onPress={setFuel}
       />
     );
   });
@@ -83,31 +54,18 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
   //TODO: probably these are not alternative fuels :)
   const altFuelTypeOptions = altFuelTypes.map(({ icon, label }) => {
     return (
-      <FuelType
+      <Form.Radio
         key={label}
         icon={icon}
         label={label}
         isActive={altFuel === label.toLowerCase()}
-        setFuel={setAltFuel}
+        onPress={setAltFuel}
       />
     );
   });
 
   function handleAddCar() {
     addCar({
-      name: carName,
-      mileage: Number(carMileage),
-      fuel,
-      altFuel: altFuel || undefined
-    });
-    if (router.canGoBack())
-      router.back();
-  }
-
-  function handleEditCar() {
-    if (!car)
-      return null;
-    editCar(car.id, {
       name: carName,
       mileage: Number(carMileage),
       fuel,
@@ -127,120 +85,49 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
   }
 
   return (
-    <ScrollView>
-      <ThemedView style={styles.container}>
-        <ThemedText style={styles.heading}>{title}</ThemedText>
-        <ThemedView style={styles.formContainer}>
-          {/* name and mileage */}
-          <ThemedTextInput
-            style={styles.input}
-            onChangeText={setCarName}
-            value={carName}
-            placeholder="Enter name"
-          />
-          <ThemedView style={styles.inputRow}>
-            <ThemedTextInput
-              style={[ styles.input, { flexGrow: 1 }]}
-              onChangeText={handleSetMileage}
-              value={carMileage}
-              keyboardType="numeric"
-              placeholder="Enter mileage"
-            />
-            <ThemedText style={styles.inputUnit}>Km</ThemedText>
-          </ThemedView>
-          {/* fuel type */}
-          <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
-          <ThemedView style={styles.fuelContainer}>
-            {fuelTypeOptions}
-          </ThemedView>
-          <ThemedText style={{ textAlign: "center" }}>Alternative fuel</ThemedText>
-          <ThemedView style={styles.fuelContainer}>
-            {altFuelTypeOptions}
-          </ThemedView>
-            {
-              altFuel ?
-              <Pressable onPress={() => setAltFuel(null)}>
-                <ThemedView
-                  lightColor="orangered"
-                  darkColor="#000"
-                  style={styles.buttonContainer}
-                >
-                  <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
-                    Remove
-                  </ThemedText>
-                </ThemedView>
-              </Pressable> : null
-            }
-          {/* submit button */}
-          {
-            (carName.length && +carMileage >= 0) ?
-            <Pressable onPress={car ? handleEditCar : handleAddCar}>
-              <ThemedView style={styles.submitContainer}>
-                <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
-                  Ready
-                </ThemedText>
-              </ThemedView>
-            </Pressable> : null
-          }
-        </ThemedView>
-      </ThemedView>
-    </ScrollView>
+    <Form title="Add a car">
+      <Form.Input
+        value={carName}
+        onChangeText={setCarName}
+        placeholder="Enter name"
+      />
+      <Form.InputUnit
+        value={carMileage}
+        onChangeText={handleSetMileage}
+        placeholder="Enter mileage"
+        unit="Km"
+        keyboardType="numeric"
+      />
+      {/* fuel type */}
+      <Form.RadioGroup title="Primary fuel">
+        {fuelTypeOptions}
+      </Form.RadioGroup>
+      <Form.RadioGroup title="Alternative fuel">
+        {altFuelTypeOptions}
+      </Form.RadioGroup>
+      {
+        altFuel ?
+          <Pressable onPress={() => setAltFuel(null)}>
+            <ThemedView
+              lightColor="orangered"
+              darkColor="#000"
+              style={styles.buttonContainer}
+            >
+              <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
+                Remove
+              </ThemedText>
+            </ThemedView>
+          </Pressable> : null
+      }
+      {
+        (carName.length && +carMileage >= 0) ?
+        <Form.Submit onPress={handleAddCar} /> : null
+      }
+    </Form>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    paddingHorizontal: 20
-  },
-  heading: {
-    fontSize: 32,
-    marginBottom: 30
-  },
-  formContainer: {
-    gap: 12
-  },
-  inputRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 20
-  },
-  input: {
-    paddingTop: 10,
-    paddingBottom: 12,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: "orangered",
-    fontSize: 20
-  },
-  inputUnit: {
-    width: "18%",
-    fontFamily: "Quicksand_700Bold",
-    fontSize: 28
-  },
-  fuelContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 10
-  },
-  fuelTypeContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "30%",
-    padding: 10,
-    borderWidth: 2,
-    borderColor: "orangered",
-    borderRadius: 20
-  },
-  fuelIcon: {
-    fontSize: 22
-  },
-  fuelLabel: {
-    fontSize: 14
-  },
   buttonContainer: {
     alignItems: "center",
     paddingTop: 6,
@@ -250,16 +137,5 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 12,
     textTransform: "uppercase"
-  },
-  submitContainer: {
-    alignItems: "center",
-    marginTop: 20,
-    paddingTop: 10,
-    paddingBottom: 12,
-    borderRadius: 22,
-    backgroundColor: "orangered"
-  },
-  submit: {
-    fontSize: 22
   }
 });
