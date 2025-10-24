@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
   itemButtonGroup: {
     flexDirection: "row",
     gap: 6,
-    marginVertical: 10
+    marginTop: 20,
+    marginBottom: 10
   },
   itemButton: {
     alignItems: "center",
