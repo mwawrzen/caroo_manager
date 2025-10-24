@@ -67,8 +67,7 @@ export const cars = [
     services: [
       {
         id: uuid.v4(),
-        // date: new Date(2025, 10, 2),
-        date: null,
+        createdDate: new Date(2025, 9, 2),
         status: ServiceStatusEnum.PLANNED,
         description: 'Replacement of pads',
         mileage: 1412,
@@ -77,7 +76,7 @@ export const cars = [
       },
       {
         id: uuid.v4(),
-        date: new Date(2025, 10, 14),
+        createdDate: new Date(2025, 9, 14),
         status: ServiceStatusEnum.SCHEDULDED,
         description: 'Timing belt replacement',
         mileage: 12552,
@@ -86,7 +85,7 @@ export const cars = [
       },
       {
         id: uuid.v4(),
-        date: new Date(2025, 10, 2),
+        createdDate: new Date(2025, 9, 7),
         status: ServiceStatusEnum.COMPLETED,
         description: 'Bodywork repair of the right front fender.',
         mileage: 10122,

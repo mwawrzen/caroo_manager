@@ -38,7 +38,7 @@ export interface Refuel {
 
 export interface Service {
   id: string;
-  date?: Date | null;
+  createdDate: Date;
   status: ServiceStatusEnum;
   description: string; //! TEMP
   mileage?: number;

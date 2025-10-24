@@ -1,14 +1,15 @@
 import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
+import { formatDate } from "@/utils/format-date";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
 
 function ServiceItem({ service }: { service: any }) {
 
-  const { date, status, description, mileage, price, note } = service;
+  const { createdDate, status, description, mileage, price, note } = service;
 
-  if (!date)
+  if (!createdDate)
     return null;
 
   const serviceRowsData: InfoRowType[] = [
@@ -20,17 +21,17 @@ function ServiceItem({ service }: { service: any }) {
   ];
 
   //TODO: make date format nice
-  return <InfoList title={date.toLocaleString().split(',')[0]} rowsData={serviceRowsData} />
+  return <InfoList title={formatDate(createdDate)} rowsData={serviceRowsData} />
 }
 
 export default function ServicesList() {
 
-  const { currentCar } = useCarStore();
+  const { currentCar, getSortedServices } = useCarStore();
 
   if (!currentCar)
     return null;
 
-  const serviceItems = currentCar.services.map(service => (
+  const serviceItems = getSortedServices().map(service => (
     <ServiceItem key={service.id} service={service} />
   ));
 

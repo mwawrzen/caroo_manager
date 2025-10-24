@@ -19,6 +19,7 @@ interface CarStore {
   setCurrentCar: (id: Car['id']) => void;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
+  getSortedServices: () => Service[];
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
 }
@@ -88,7 +89,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
       return state;
     const newServiceObject: Service = {
       id: uuid.v4(),
-      date: new Date(Date.now()),
+      createdDate: new Date(Date.now()),
       ...newService,
     };
     car.services.push(newServiceObject);
@@ -97,6 +98,8 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
+  getSortedServices: () => get().currentCar?.services
+    .sort((a: Service, b: Service) => b.createdDate.getTime() - a.createdDate.getTime()) || [],
 }));
 
 export default useCarStore;
