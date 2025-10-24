@@ -3,8 +3,7 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
-import { altFuelTypes, fuelTypes } from "@/utils/data";
-import { PriceUnitEnum } from "@/utils/types";
+import { FuelEnum, PriceUnitEnum } from "@/utils/types";
 import { Link } from "expo-router";
 import React, { ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
@@ -84,14 +83,16 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 
 export default function Index() {
 
-  const { currentCar, getServicesSumPrice } = useCarStore();
+  const { currentCar, getServicesSumPrice, getRefuelsSumPrice } = useCarStore();
 
   if (!currentCar)
     return null;
 
-  const fuelType: string = fuelTypes.find(type => type.value === currentCar.fuel)?.label || '';
-  const altFuelType: string = altFuelTypes.find(type => type.value === currentCar.altFuel)?.label || '';
+  const fuelType: FuelEnum = currentCar.fuel;
+  const altFuelType: FuelEnum | null = currentCar.altFuel || null;
   const servicesSumPrice = getServicesSumPrice();
+  const fuelRefuelSumPrice = getRefuelsSumPrice( fuelType );
+  const altFuelRefuelSumPrice = altFuelType ? getRefuelsSumPrice( altFuelType ) : 0;
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -120,8 +121,8 @@ export default function Index() {
             <InfoBox value={42.19} label="zł / 100km" />
           </InfoRow>
           <InfoRow title="Summary for refuels">
-            <DetailedInfoBox value={13459.34} label={fuelType} />
-            { altFuelType ? <DetailedInfoBox value={8993.50} label={altFuelType} /> : null }
+            <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
+            { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={altFuelType} /> : null }
           </InfoRow>
           <InfoRow title="Summary for services">
             <DetailedInfoBox value={servicesSumPrice} />
@@ -191,7 +192,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 6
+    gap: 6,
+    backgroundColor: "transparent"
   },
   detailedItemNumber: {
     fontFamily: "Quicksand_700Bold",
