@@ -84,13 +84,14 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 
 export default function Index() {
 
-  const { currentCar } = useCarStore();
+  const { currentCar, getServicesSumPrice } = useCarStore();
 
   if (!currentCar)
     return null;
 
   const fuelType: string = fuelTypes.find(type => type.value === currentCar.fuel)?.label || '';
   const altFuelType: string = altFuelTypes.find(type => type.value === currentCar.altFuel)?.label || '';
+  const servicesSumPrice = getServicesSumPrice();
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -123,7 +124,7 @@ export default function Index() {
             { altFuelType ? <DetailedInfoBox value={8993.50} label={altFuelType} /> : null }
           </InfoRow>
           <InfoRow title="Summary for services">
-            <DetailedInfoBox value={13459.34} />
+            <DetailedInfoBox value={servicesSumPrice} />
           </InfoRow>
         </ThemedView>
       </ScrollView>

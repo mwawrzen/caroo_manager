@@ -20,8 +20,9 @@ interface CarStore {
   getCarById: ( id: Car['id'] ) => Car | null;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
-  getSortedServices: () => Service[];
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
+  getSortedServices: () => Service[];
+  getServicesSumPrice: () => number;
   // removeCar: ( id: Car['id'] ) => void;
 }
 
@@ -102,6 +103,8 @@ const useCarStore = create<CarStore>()((set, get) => ({
   }),
   getSortedServices: () => get().currentCar?.services
     .sort((a: Service, b: Service) => b.createdDate.getTime() - a.createdDate.getTime()) || [],
+  getServicesSumPrice: () => get().currentCar?.services
+    .reduce((acc, curr: Service) => acc + (curr.price || 0), 0) || 0
 }));
 
 export default useCarStore;
