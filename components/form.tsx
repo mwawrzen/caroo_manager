@@ -86,6 +86,7 @@ Form.RadioGroup = function FormRadioGroup({
 type FormRadioProps = {
   icon: keyof typeof FontAwesome6.glyphMap,
   label: string;
+  value: string;
   isActive?: boolean;
   onPress: Dispatch<SetStateAction<any>> | (() => void); //! temp (any)
 };
@@ -93,6 +94,7 @@ type FormRadioProps = {
 Form.Radio = function FormRadio({
   icon,
   label,
+  value,
   isActive,
   onPress
 }: FormRadioProps) {
@@ -101,7 +103,7 @@ Form.Radio = function FormRadio({
   const activeStyles = isActive ? { color: Colors[opositeColorScheme]['text'] } : {};
 
   return (
-    <Pressable onPress={onPress} style={[
+    <Pressable onPress={() => onPress(value)} style={[
       styles.radio,
       isActive ? { backgroundColor: "orangered" } : null
     ]}>
