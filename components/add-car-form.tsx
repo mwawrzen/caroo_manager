@@ -3,29 +3,11 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
-import { checkStringIsInt } from "@/utils/check-int-string";
+import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
 import { FuelEnum } from "@/utils/types";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-
-type FuelType = {
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string,
-  value: FuelEnum;
-};
-
-const fuelTypes: FuelType[] = [
-  { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
-  { icon: 'droplet', label: 'Diesel', value: FuelEnum.DIESEL },
-  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
-];
-
-const altFuelTypes: FuelType[] = [
-  { icon: 'fire', label: 'Gas', value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
-];
 
 export default function AddCarForm() {
 
@@ -33,32 +15,32 @@ export default function AddCarForm() {
 
   const { addCar } = useCarStore();
 
-  //! fix states default values
   const [carName, setCarName] = useState<string>('');
   const [carMileage, setCarMileage] = useState<string>('');
   const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
   const [altFuel, setAltFuel] = useState<FuelEnum | null>(null);
 
-  const fuelTypeOptions = fuelTypes.map(({ icon, label }) => {
+  const fuelTypeOptions = fuelTypes.map(({ icon, label, value }) => {
     return (
       <Form.Radio
         key={label}
         icon={icon}
         label={label}
-        isActive={fuel === label.toLowerCase()}
+        value={value}
+        isActive={fuel === value}
         onPress={setFuel}
       />
     );
   });
 
-  //TODO: probably these are not alternative fuels :)
-  const altFuelTypeOptions = altFuelTypes.map(({ icon, label }) => {
+  const altFuelTypeOptions = altFuelTypes.map(({ icon, label, value }) => {
     return (
       <Form.Radio
         key={label}
         icon={icon}
         label={label}
-        isActive={altFuel === label.toLowerCase()}
+        value={value}
+        isActive={altFuel === value}
         onPress={setAltFuel}
       />
     );
@@ -75,15 +57,6 @@ export default function AddCarForm() {
       router.back();
   }
 
-  function handleSetMileage(value: string) {
-    if(Number(value) >= 999999)
-      setCarMileage("999999")
-    else if (value === "")
-      setCarMileage("");
-    else if(checkStringIsInt(value) && Number(value) > 0)
-      setCarMileage(value);
-  }
-
   return (
     <Form title="Add a car">
       <Form.Input
@@ -93,7 +66,7 @@ export default function AddCarForm() {
       />
       <Form.InputUnit
         value={carMileage}
-        onChangeText={handleSetMileage}
+        onChangeText={(val: string) => setCarMileage(getValidatedMileage(val))}
         placeholder="Enter mileage"
         unit="Km"
         keyboardType="numeric"
