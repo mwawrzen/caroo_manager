@@ -136,13 +136,16 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
             value={carName}
             placeholder="Enter name"
           />
-          <ThemedTextInput
-            style={styles.input}
-            onChangeText={handleSetMileage}
-            value={carMileage}
-            keyboardType="numeric"
-            placeholder="Enter mileage"
-          />
+          <ThemedView style={styles.inputRow}>
+            <ThemedTextInput
+              style={[ styles.input, { flexGrow: 1 }]}
+              onChangeText={handleSetMileage}
+              value={carMileage}
+              keyboardType="numeric"
+              placeholder="Enter mileage"
+            />
+            <ThemedText style={styles.inputUnit}>Km</ThemedText>
+          </ThemedView>
           {/* fuel type */}
           <ThemedText style={{ textAlign: "center" }}>Primary fuel</ThemedText>
           <ThemedView style={styles.fuelContainer}>
@@ -196,6 +199,12 @@ const styles = StyleSheet.create({
   formContainer: {
     gap: 12
   },
+  inputRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 20
+  },
   input: {
     paddingTop: 10,
     paddingBottom: 12,
@@ -204,6 +213,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "orangered",
     fontSize: 20
+  },
+  inputUnit: {
+    width: "18%",
+    fontFamily: "Quicksand_700Bold",
+    fontSize: 28
   },
   fuelContainer: {
     flexDirection: "row",
