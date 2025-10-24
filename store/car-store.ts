@@ -13,11 +13,10 @@ import { create } from 'zustand';
 
 interface CarStore {
   cars: Car[];
-  currentCarId: Car['id'] | null;
+  currentCar: Car | null;
   addCar: (newCar: AddCarType) => void;
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
   setCurrentCar: (id: Car['id']) => void;
-  getCurrentCar: () => Car | null;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
@@ -25,7 +24,7 @@ interface CarStore {
 
 const useCarStore = create<CarStore>()((set, get) => ({
   cars,
-  currentCarId: null,
+  currentCar: cars[0],
   addCar: newCar => set(state => {
     const newCarObject: Car = {
       ...newCar,
@@ -35,7 +34,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     const newState = {
       cars: [ ...state.cars, newCarObject ],
-      currentCarId: state.currentCarId || newCarObject.id
+      currentCar: state.currentCar || newCarObject
     };
     return newState;
   }),
@@ -52,10 +51,14 @@ const useCarStore = create<CarStore>()((set, get) => ({
     newCarObject.fuel = newCar.fuel;
     newCarObject.altFuel = newCar.altFuel || undefined;
     newCarsState.splice(carIndex, 1, newCarObject);
-    return { cars: newCarsState };
+    return {
+      cars: newCarsState,
+      currentCar: state.currentCar?.id === car.id ? newCarObject : state.currentCar
+    };
   }),
-  setCurrentCar: id => set(state => ({ currentCarId: state.cars.find(car => car.id === id)?.id || null })),
-  getCurrentCar: () => get().cars.find(car => car.id === get().currentCarId) || null,
+  setCurrentCar: id => set(state => ({
+    currentCar: state.cars.find(car => car.id === id) || state.currentCar
+  })),
   // removeCar: id => set(state => ({ cars: [ ...state.cars, newCar ]}))
   //TODO: optimize
   addRefuel: (id, newRefuel) => set(state => {
