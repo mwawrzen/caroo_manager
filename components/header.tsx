@@ -2,7 +2,6 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import useCarStore from "@/store/car-store";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { ThemedIcon } from "./themed/themed-icon";
 
@@ -10,11 +9,9 @@ export default function Header() {
 
   const router = useRouter()
   ;
-  const { cars, getCurrentCar } = useCarStore();
-  const currentCar = getCurrentCar();
+  const { currentCar } = useCarStore();
 
-  const [title, setTitle] = useState<string>(currentCar?.name || "Caroo Manager");
-  const [isCar, setIsCar] = useState<boolean>(!!currentCar);
+  const title = currentCar ? currentCar.name : "Caroo Manager";
 
   //TODO: fix back button functionality
   function goBack() {
@@ -22,27 +19,20 @@ export default function Header() {
       router.back();
   }
 
-  useEffect(() => {
-    const currentCar = getCurrentCar();
-    setIsCar(!!currentCar);
-    if (currentCar)
-      setTitle(currentCar.name);
-  }, [cars]);
-
   return (
     <ThemedView style={styles.container}>
       {
-        isCar ?
+        currentCar ?
           <Pressable onPress={goBack}>
             <ThemedIcon
               name="arrow-left"
-              style={[isCar ? { color: "orangered" } : {}, styles.icon]}
+              style={[currentCar ? { color: "orangered" } : {}, styles.icon]}
             />
           </Pressable> : null
       }
       <ThemedText
         type="title"
-        style={isCar ? { color: "orangered" } : {}}
+        style={currentCar ? { color: "orangered" } : {}}
       >
         {title}
       </ThemedText>
