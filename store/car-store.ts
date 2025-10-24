@@ -18,6 +18,7 @@ interface CarStore {
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
   setCurrentCar: (id: Car['id']) => void;
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
+  getSortedRefuels: () => Refuel[];
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   // removeCar: ( id: Car['id'] ) => void;
 }
@@ -77,6 +78,8 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
+  getSortedRefuels: () => get().currentCar?.refuels
+    .sort((a: Refuel, b: Refuel) => b.date.getTime() - a.date.getTime()) || [],
   //TODO: optimize
   addService: (id, newService) => set(state => {
     const newCarsState = [ ...state.cars];

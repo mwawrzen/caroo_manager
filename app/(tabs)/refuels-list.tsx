@@ -24,12 +24,12 @@ function RefuelItem({ refuel }: { refuel: any }) {
 
 export default function RefuelsList() {
 
-  const { currentCar } = useCarStore();
+  const { currentCar, getSortedRefuels } = useCarStore();
 
   if (!currentCar)
     return null;
 
-  const refuelItems = currentCar.refuels.map(refuel => (
+  const refuelItems = getSortedRefuels().map(refuel => (
     <RefuelItem key={refuel.id} refuel={refuel} />
   ));
 
