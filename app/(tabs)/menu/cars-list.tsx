@@ -71,7 +71,7 @@ export default function CarsList() {
 const styles = StyleSheet.create({
   itemButtonGroup: {
     flexDirection: "row",
-    gap: 6,
+    gap: 10,
     marginTop: 20,
     marginBottom: 10
   },
