@@ -1,6 +1,7 @@
 import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
+import { formatDate } from "@/utils/format-date";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
 
@@ -18,7 +19,7 @@ function RefuelItem({ refuel }: { refuel: any }) {
   ];
 
   //TODO: make date format nice
-  return <InfoList title={date.toLocaleString().split(',')[0]} rowsData={refuelRowsData} />
+  return <InfoList title={formatDate(date)} rowsData={refuelRowsData} />
 }
 
 export default function RefuelsList() {
