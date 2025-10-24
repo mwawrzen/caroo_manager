@@ -86,7 +86,7 @@ Form.RadioGroup = function FormRadioGroup({
 // Form.RadioGroup -> Radio
 
 type FormRadioProps = {
-  icon: keyof typeof FontAwesome6.glyphMap,
+  icon?: keyof typeof FontAwesome6.glyphMap,
   label: string;
   value: string;
   isActive?: boolean;
@@ -110,8 +110,12 @@ Form.Radio = function FormRadio({
       isActive ? { backgroundColor: "orangered" } : null
     ]}>
       <ThemedView style={{ alignItems: "center", backgroundColor: "transparent" }}>
-        <ThemedIcon name={icon} style={[ styles.radioIcon, activeStyles]} />
-        <ThemedText style={[styles.radioLabel, activeStyles]}>{label}</ThemedText>
+        { icon ? <ThemedIcon name={icon} style={[ styles.radioIcon, activeStyles]} /> : null }
+        <ThemedText
+          style={[ icon ? styles.radioLabel : styles.radioLabelNoIcon, activeStyles]}
+        >
+          {label}
+        </ThemedText>
       </ThemedView>
     </Pressable>
   );
@@ -246,6 +250,7 @@ const styles = StyleSheet.create({
   radioGroup: {
     flexDirection: "row",
     justifyContent: "center",
+    flexWrap: "wrap",
     gap: 10
   },
   radio: {
@@ -262,6 +267,10 @@ const styles = StyleSheet.create({
   },
   radioLabel: {
     fontSize: 14
+  },
+  radioLabelNoIcon: {
+    fontFamily: "Quicksand_700Bold",
+    fontSize: 18
   },
   language: {
     borderWidth: 4,
