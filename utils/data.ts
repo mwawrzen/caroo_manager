@@ -13,9 +13,19 @@ export const altFuelTypes: FuelType[] = [
 ];
 
 export const availableUnits = {
-  priceUnits: [ PriceUnitEnum.USD, PriceUnitEnum.GBP, PriceUnitEnum.PLN, PriceUnitEnum.EUR ],
-  distanceUnits: [ DistanceUnitEnum.KM, DistanceUnitEnum.MI ],
-  capacityUnits: [ CapacityUnitEnum.L, CapacityUnitEnum.GL ],
+  priceUnits: [
+    { label: PriceUnitEnum.USD, value: PriceUnitEnum.USD },
+    { label: PriceUnitEnum.PLN, value: PriceUnitEnum.PLN },
+    { label: PriceUnitEnum.EUR, value: PriceUnitEnum.EUR }
+  ],
+  distanceUnits: [
+    { label: 'KILOMETERS', value: DistanceUnitEnum.KM },
+    { label: 'MILES', value: DistanceUnitEnum.MI }
+  ],
+  capacityUnits: [
+    { label: 'LITRES', value: CapacityUnitEnum.L },
+    { label: 'GALLONS', value: CapacityUnitEnum.GAL }
+  ]
 };
 
 export const availableLanguages = [
