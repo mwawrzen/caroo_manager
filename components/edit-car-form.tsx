@@ -80,7 +80,7 @@ export default function EditCarForm({ car }: { car: Car }) {
       </Form.RadioGroup>
       {
         altFuel ?
-          <Pressable onPress={() => setAltFuel(null)}>
+          <Pressable onPress={() => setAltFuel(undefined)}>
             <ThemedView
               lightColor="orangered"
               darkColor="#000"
