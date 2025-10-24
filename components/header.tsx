@@ -14,7 +14,7 @@ export default function Header() {
   const currentCar = getCurrentCar();
 
   const [title, setTitle] = useState<string>(currentCar?.name || "Caroo Manager");
-  const [color, setColor] = useState<string>(currentCar ? "orangered" : "");
+  const [isCar, setIsCar] = useState<boolean>(!!currentCar);
 
   //TODO: fix back button functionality
   function goBack() {
@@ -24,17 +24,28 @@ export default function Header() {
 
   useEffect(() => {
     const currentCar = getCurrentCar();
+    setIsCar(!!currentCar);
     if (currentCar)
       setTitle(currentCar.name);
-    setColor(currentCar ? "orangered" : "");
   }, [cars]);
 
   return (
     <ThemedView style={styles.container}>
-      <Pressable onPress={goBack}>
-        <ThemedIcon name="arrow-left" style={[color ? { color } : {}, styles.icon]} />
-      </Pressable>
-      <ThemedText type="title" style={color ? { color } : {}}>{title}</ThemedText>
+      {
+        isCar ?
+          <Pressable onPress={goBack}>
+            <ThemedIcon
+              name="arrow-left"
+              style={[isCar ? { color: "orangered" } : {}, styles.icon]}
+            />
+          </Pressable> : null
+      }
+      <ThemedText
+        type="title"
+        style={isCar ? { color: "orangered" } : {}}
+      >
+        {title}
+      </ThemedText>
     </ThemedView>
   );
 };
