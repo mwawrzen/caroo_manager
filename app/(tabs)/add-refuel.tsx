@@ -5,6 +5,8 @@ import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
+import { checkStringIsDouble } from "@/utils/check-double-string";
+import { checkStringIsInt } from "@/utils/check-int-string";
 import { FuelEnum } from "@/utils/types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
@@ -93,6 +95,13 @@ export default function AddRefuel() {
       router.back();
   }
 
+  function handleSetMileage(value: string) {
+    if (value === "")
+      setMileage("");
+    else if(checkStringIsInt(value) && Number(value) > 0)
+      setMileage(value);
+  }
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <ScrollView>
@@ -105,21 +114,21 @@ export default function AddRefuel() {
             </ThemedView>
             <ThemedTextInput
               style={styles.input}
-              onChangeText={setUnitPrice}
+              onChangeText={v => checkStringIsDouble(v) ? setUnitPrice(v) : {}}
               value={unitPrice}
               keyboardType="numeric"
               placeholder="Enter unit price"
             />
             <ThemedTextInput
               style={styles.input}
-              onChangeText={setFuelAmount}
+              onChangeText={v => checkStringIsDouble(v) ? setFuelAmount(v) : {}}
               value={fuelAmount}
               keyboardType="numeric"
               placeholder="Enter amount of fuel"
             />
             <ThemedTextInput
               style={styles.input}
-              onChangeText={setMileage}
+              onChangeText={handleSetMileage}
               value={mileage}
               keyboardType="numeric"
               placeholder="Enter mileage"

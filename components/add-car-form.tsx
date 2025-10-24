@@ -4,6 +4,7 @@ import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import useCarStore from "@/store/car-store";
+import { checkStringIsInt } from "@/utils/check-int-string";
 import { Car, FuelEnum } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -116,9 +117,11 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
       router.back();
   }
 
-  function setNumericMileageValue(value: string) {
-    const onlyNumericMileage: string = value.replace(/[^0-9]/g, '');
-    setCarMileage(onlyNumericMileage);
+  function handleSetMileage(value: string) {
+    if (value === "")
+      setCarMileage("");
+    else if(checkStringIsInt(value) && Number(value) > 0)
+      setCarMileage(value);
   }
 
   return (
@@ -135,7 +138,7 @@ export default function AddCarForm({ car= null }: { car?: Car | null }) {
           />
           <ThemedTextInput
             style={styles.input}
-            onChangeText={setNumericMileageValue}
+            onChangeText={handleSetMileage}
             value={carMileage}
             keyboardType="numeric"
             placeholder="Enter mileage"
