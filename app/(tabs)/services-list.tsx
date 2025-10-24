@@ -25,8 +25,7 @@ function ServiceItem({ service }: { service: any }) {
 
 export default function ServicesList() {
 
-  const { getCurrentCar } = useCarStore();
-  const currentCar = getCurrentCar();
+  const { currentCar } = useCarStore();
 
   if (!currentCar)
     return null;

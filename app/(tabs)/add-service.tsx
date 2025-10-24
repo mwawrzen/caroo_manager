@@ -49,8 +49,7 @@ function StatusType({ icon, label, isActive, setStatus }: StatusTypeProps) {
 
 export default function AddService() {
 
-  const { getCurrentCar, addService } = useCarStore();
-  const currentCar = getCurrentCar();
+  const { currentCar, addService } = useCarStore();
 
   if (!currentCar)
     return null;
