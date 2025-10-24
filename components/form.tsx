@@ -7,7 +7,7 @@ import { LangEnum, UnitEnumType } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
 import { Pressable, ScrollView, StyleSheet, TextInputProps } from "react-native";
-import { Languages } from "react-native-svg-circle-country-flags";
+import { De, Pl, Us } from "react-native-svg-circle-country-flags";
 import { ThemedIcon } from "./themed/themed-icon";
 
 type FormInputProps = TextInputProps & {
@@ -138,9 +138,9 @@ Form.RadioLang = function FormRadioLang({
   const activeStyles = isActive ? { backgroundColor: "orangered" } : {};
 
   const langs = [
-    { value: LangEnum.ENGLISH, flag: <Languages.En width={50} height={50} /> },
-    { value: LangEnum.POLISH, flag: <Languages.Pl width={50} height={50} /> },
-    { value: LangEnum.GERMAN, flag: <Languages.De width={50} height={50} /> },
+    { value: LangEnum.ENGLISH, flag: <Us width={50} height={50} /> },
+    { value: LangEnum.POLISH, flag: <Pl width={50} height={50} /> },
+    { value: LangEnum.GERMAN, flag: <De width={50} height={50} /> },
   ];
 
   const flag = langs.find(lang => lang.value === value)?.flag || langs[0].flag;
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   radio: {
     alignItems: "center",
     justifyContent: "center",
-    width: "30%",
+    width: "40%",
     padding: 10,
     borderWidth: 2,
     borderColor: "orangered",
