@@ -4,7 +4,7 @@ import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
 import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
-import { FuelEnum } from "@/utils/types";
+import { DistanceUnitEnum, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
@@ -68,7 +68,7 @@ export default function AddCarForm() {
         value={carMileage}
         onChangeText={(val: string) => setCarMileage(getValidatedMileage(val))}
         placeholder="Enter mileage"
-        unit="Km"
+        unit={DistanceUnitEnum.KM}
         keyboardType="numeric"
       />
       {/* fuel type */}

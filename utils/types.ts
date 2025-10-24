@@ -21,10 +21,26 @@ export enum LangEnum {
   GERMAN = 'german'
 };
 
-export enum DistanceUnitEnum {
-  KM = 'km',
-  MI = 'mi'
+export enum PriceUnitEnum {
+  USD = 'USD',
+  EUR = 'EUR',
+  PLN = 'PLN'
 };
+
+export enum DistanceUnitEnum {
+  KM = 'Km',
+  MI = 'Mi'
+};
+
+export enum CapacityUnitEnum {
+  L = 'L',
+  GL = 'Gl'
+};
+
+export type UnitEnumType =
+  PriceUnitEnum |
+  DistanceUnitEnum |
+  CapacityUnitEnum;
 
 // object interfaces
 

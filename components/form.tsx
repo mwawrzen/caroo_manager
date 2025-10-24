@@ -3,6 +3,7 @@ import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
+import { UnitEnumType } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
 import { Pressable, ScrollView, StyleSheet, TextInputProps } from "react-native";
@@ -36,7 +37,7 @@ Form.Input = function FormInput({
 // Form.InputUnit
 
 type FormInputUnitProps = FormInputProps & {
-  unit: string; //TODO: unit enum
+  unit: UnitEnumType;
 };
 
 Form.InputUnit = function FormInputUnit({

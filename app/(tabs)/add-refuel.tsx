@@ -2,7 +2,7 @@ import Form from "@/components/form";
 import useCarStore from "@/store/car-store";
 import { checkStringIsDouble } from "@/utils/check-double-string";
 import { getValidatedMileage } from "@/utils/data";
-import { FuelEnum, FuelType } from "@/utils/types";
+import { CapacityUnitEnum, DistanceUnitEnum, FuelEnum, FuelType, PriceUnitEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 
@@ -26,7 +26,7 @@ export default function AddRefuel() {
   const [fuelAmount, setFuelAmount] = useState<string>(""); //! number
   const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel); //! current car
   const [mileage, setMileage] = useState<string>(String(currentCar.mileage)); //!  number
-  const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(false);
+  const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
   const [note, setNote] = useState<string>('');
 
   const statusTypeOptions = fuelTypes.map(({ icon, label, value }) => {
@@ -76,21 +76,21 @@ export default function AddRefuel() {
         onChangeText={(val: string) => checkStringIsDouble(val) ? setUnitPrice(val) : {}}
         placeholder="Enter unit price"
         keyboardType="numeric"
-        unit="USD"
+        unit={PriceUnitEnum.USD}
       />
       <Form.InputUnit
         value={fuelAmount}
         onChangeText={(val: string) => checkStringIsDouble(val) ? setFuelAmount(val) : {}}
         placeholder="Enter amount of fuel"
         keyboardType="numeric"
-        unit="L"
+        unit={CapacityUnitEnum.L}
       />
       <Form.InputUnit
         value={mileage}
         onChangeText={(val: string) => setMileage(getValidatedMileage(val))}
         placeholder="Enter mileage"
         keyboardType="numeric"
-        unit="Km"
+        unit={DistanceUnitEnum.KM}
       />
       <Form.Input
         value={note}
