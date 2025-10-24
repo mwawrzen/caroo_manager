@@ -23,6 +23,7 @@ export enum LangEnum {
 
 export enum PriceUnitEnum {
   USD = 'USD',
+  GBP = 'GBP',
   EUR = 'EUR',
   PLN = 'PLN'
 };
