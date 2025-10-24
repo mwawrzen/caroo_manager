@@ -35,6 +35,7 @@ export interface Refuel {
   amountOfFuel: number;
   fuel: FuelEnum;
   mileage: number;
+  fullyRefueled: boolean;
   note: string;
 };
 
@@ -90,6 +91,7 @@ export type AddRefuelType = {
   amountOfFuel: number;
   fuel: FuelEnum;
   mileage: number;
+  fullyRefueled: boolean;
   note: string;
 };
 

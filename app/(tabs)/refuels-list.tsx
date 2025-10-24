@@ -7,10 +7,11 @@ import { useEffect } from "react";
 
 function RefuelItem({ refuel }: { refuel: any }) {
 
-  const { date, unitPrice, amountOfFuel, fuel, mileage, note } = refuel;
+  const { date, unitPrice, amountOfFuel, fuel, mileage, fullyRefueled, note } = refuel;
 
   const refuelRowsData: InfoRowType[] = [
     { label: 'Fuel:', value: fuel },
+    { label: 'Fully refueled:', value: fullyRefueled ? "Yes" : "No" },
     { label: 'Amount of fuel:', value: `${amountOfFuel} L` },
     { label: 'Unit price:', value: `${unitPrice} USD` },
     { label: 'Sum price', value: `${(unitPrice * amountOfFuel).toFixed(2)} USD` },

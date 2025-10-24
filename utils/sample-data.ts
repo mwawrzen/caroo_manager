@@ -1,7 +1,7 @@
 import uuid from "react-native-uuid";
-import { FuelEnum, ServiceStatusEnum } from "./types";
+import { Car, FuelEnum, ServiceStatusEnum } from "./types";
 
-export const cars = [
+export const cars: Car[] = [
   {
     id: uuid.v4(),
     name: "Subaru Forester",
@@ -25,6 +25,7 @@ export const cars = [
         amountOfFuel: 30.54,
         fuel: FuelEnum.PETROL,
         mileage: 10,
+        fullyRefueled: true,
         note: 'refuel gas 30,54L',
       },
       {
@@ -34,6 +35,7 @@ export const cars = [
         amountOfFuel: 20.17,
         fuel: FuelEnum.PETROL,
         mileage: 20,
+        fullyRefueled: true,
         note: 'refuel gas 20,17L',
       },
       {
@@ -43,6 +45,7 @@ export const cars = [
         amountOfFuel: 25.34,
         fuel: FuelEnum.PETROL,
         mileage: 34,
+        fullyRefueled: true,
         note: 'refuel gas 25,34L',
       },
       {
@@ -52,6 +55,7 @@ export const cars = [
         amountOfFuel: 37.29,
         fuel: FuelEnum.PETROL,
         mileage: 67,
+        fullyRefueled: true,
         note: '',
       }
     ],
