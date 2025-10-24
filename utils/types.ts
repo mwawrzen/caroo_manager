@@ -1,5 +1,7 @@
 // enums
 
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+
 export enum FuelEnum {
   PETROL = 'petrol',
   DIESEL = 'diesel',
@@ -62,6 +64,14 @@ export type InfoRowType = {
   value: string | null;
   label: string;
   column?: boolean;
+};
+
+// data types
+
+export type FuelType = {
+  icon: keyof typeof FontAwesome6.glyphMap,
+  label: string,
+  value: FuelEnum;
 };
 
 // action types
