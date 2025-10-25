@@ -60,7 +60,8 @@ export interface Service {
   id: string;
   createdDate: Date;
   status: ServiceStatusEnum;
-  description: string; //! TEMP
+  description: string;
+  date?: Date;
   mileage?: number;
   price?: number;
   note: string;

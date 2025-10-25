@@ -13,7 +13,7 @@ type StatusType = {
 
 const statusTypes: StatusType[] = [
   { icon: 'question', label: 'Planned', value: ServiceStatusEnum.PLANNED },
-  { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
+  // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
 ];
 
 export default function AddService() {
