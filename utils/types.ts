@@ -50,8 +50,10 @@ export interface Refuel {
   date: Date;
   unitPrice: number;
   amountOfFuel: number;
+  sumPrice: number;
   fuel: FuelEnum;
   mileage: number;
+  avgConsumption: number | null;
   fullyRefueled: boolean;
   note: string;
 };

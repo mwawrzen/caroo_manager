@@ -38,7 +38,7 @@ function InfoBox({ value, label }: InfoBoxProps) {
         lightColor={Colors['dark']['text']}
         style={ styles.itemNumber }
       >
-        {value || "--.--"}
+        {value.toFixed(2) || "--.--"}
       </ThemedText>
       {
         label ?
@@ -87,7 +87,7 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 
 export default function Index() {
 
-  const { currentCar, getServicesSumPrice, getRefuelsSumPrice } = useCarStore();
+  const { currentCar, getServicesSumPrice, getRefuelsSumPrice, getAvgConsumption } = useCarStore();
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   if (!currentCar)
@@ -122,7 +122,7 @@ export default function Index() {
             </Link>
           </ThemedView>
           <InfoRow title="General info">
-            <InfoBox value={0} label={`${capacityUnit} / 100${distanceUnit}`} />
+            <InfoBox value={getAvgConsumption()} label={`${capacityUnit} / 100${distanceUnit}`} />
             <InfoBox value={0} label={`${priceUnit} / 100${distanceUnit}`} />
           </InfoRow>
           <InfoRow title="Summary for refuels">
