@@ -3,13 +3,12 @@ import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { formatDate } from "@/utils/format-date";
-import { getSumPriceString } from "@/utils/get-sum-price";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
 
 function RefuelItem({ refuel }: { refuel: any }) {
 
-  const { date, unitPrice, amountOfFuel, fuel, mileage, fullyRefueled, note } = refuel;
+  const { date, unitPrice, amountOfFuel, sumPrice, fuel, mileage, avgConsumption, fullyRefueled, note } = refuel;
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   const refuelRowsData: InfoRowType[] = [
@@ -17,7 +16,8 @@ function RefuelItem({ refuel }: { refuel: any }) {
     { label: 'Fully refueled:', value: fullyRefueled ? "Yes" : "No" },
     { label: 'Amount of fuel:', value: `${amountOfFuel} ${capacityUnit}` },
     { label: 'Unit price:', value: `${unitPrice} ${priceUnit}` },
-    { label: 'Sum price', value: `${getSumPriceString(refuel)} ${priceUnit}` },
+    { label: 'Sum price', value: `${sumPrice} ${priceUnit}` },
+    { label: 'Average consumption', value: `${avgConsumption || '--'} ${capacityUnit}/100km`},
     { label: 'Mileage', value: `${mileage} ${distanceUnit}` },
     { label: 'Note:', value: note },
   ];

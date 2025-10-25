@@ -74,9 +74,13 @@ const useCarStore = create<CarStore>()((set, get) => ({
     const car = newCarsState.find(car => car.id === id);
     if (!car)
       return state;
+    const filteredRefuelsByFuelType = car.refuels.filter(refuel => refuel.fuel === newRefuel.fuel);
+    const lastRefuel = sortRefuelsByDate(filteredRefuelsByFuelType)[0];
     const newRefuelObject: Refuel = {
       id: uuid.v4(),
       date: new Date(Date.now()),
+      sumPrice: getSumPrice(newRefuel),
+      avgConsumption: getAvgConsumption(lastRefuel, newRefuel),
       ...newRefuel,
     };
     car.refuels.push(newRefuelObject);
