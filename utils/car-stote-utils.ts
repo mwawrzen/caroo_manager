@@ -8,10 +8,16 @@ export function sortRefuelsByDate(refuels: Refuel[]): Refuel[] {
   return refuels.sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
-export function getUnitAvgConsumption(lastRefuel: Refuel, currentRefuel: AddRefuelType): number | null {
+export function getUnitAvgConsumption(
+  lastRefuel: Refuel,
+  currentRefuel: AddRefuelType
+): number | null {
+
   if (!lastRefuel || !lastRefuel.fullyRefueled)
     return null;
-  return (100 * currentRefuel.amountOfFuel) / (currentRefuel.mileage - lastRefuel.mileage);
+
+  const mileageDifference = currentRefuel.mileage - lastRefuel.mileage;
+  return (100 * currentRefuel.amountOfFuel) / mileageDifference;
 }
 
 export function getAvgConsumption(refuels: Refuel[]): number {
