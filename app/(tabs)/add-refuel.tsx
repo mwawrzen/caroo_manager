@@ -61,6 +61,18 @@ export default function AddRefuel() {
       router.back();
   }
 
+  function checkIsValidated(): boolean {
+    if (!currentCar)
+      return false;
+    if (
+      Number(unitPrice) <= 0 ||
+      Number(fuelAmount) <= 0 ||
+      Number(mileage) <= currentCar.mileage
+    )
+      return false;
+    return true;
+  }
+
   return (
     <Form title="Add refuel">
       <Form.RadioGroup>
@@ -97,7 +109,7 @@ export default function AddRefuel() {
         onChangeText={setNote}
         placeholder="Enter note"
       />
-      <Form.Submit onPress={handleAddRefuel} />
+      { checkIsValidated() ? <Form.Submit onPress={handleAddRefuel} /> : null }
     </Form>
   );
 }
