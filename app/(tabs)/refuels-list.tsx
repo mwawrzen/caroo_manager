@@ -22,7 +22,6 @@ function RefuelItem({ refuel }: { refuel: any }) {
     { label: 'Note:', value: note },
   ];
 
-  //TODO: make date format nice
   return <InfoList title={formatDate(date)} rowsData={refuelRowsData} />
 }
 
