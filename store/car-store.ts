@@ -80,6 +80,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
       ...newRefuel,
     };
     car.refuels.push(newRefuelObject);
+    car.mileage = newRefuel.mileage;
     const newState = {
       cars: newCarsState
     };
