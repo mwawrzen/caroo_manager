@@ -1,4 +1,4 @@
-import { getAvgConsumption, getSumPrice, sortRefuelsByDate } from '@/utils/car-stote-utils';
+import { getAvgConsumption, getSumPrice, getUnitAvgConsumption, sortRefuelsByDate } from '@/utils/car-stote-utils';
 import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
@@ -23,6 +23,7 @@ interface CarStore {
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
   getRefuelsSumPrice: (fuel: FuelEnum) => number;
+  getAvgConsumption: ( id: Car['id'] ) => number;
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   getSortedServices: () => Service[];
   getServicesSumPrice: () => number;
@@ -80,7 +81,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
       id: uuid.v4(),
       date: new Date(Date.now()),
       sumPrice: getSumPrice(newRefuel),
-      avgConsumption: getAvgConsumption(lastRefuel, newRefuel),
+      avgConsumption: getUnitAvgConsumption(lastRefuel, newRefuel),
       ...newRefuel,
     };
     car.refuels.push(newRefuelObject);
@@ -96,11 +97,17 @@ const useCarStore = create<CarStore>()((set, get) => ({
       return [];
     return sortRefuelsByDate( currentCar.refuels );
   },
-  // getSortedRefuels: () => get().currentCar?.refuels
-  //   .sort((a: Refuel, b: Refuel) => b.date.getTime() - a.date.getTime()) || [],
   getRefuelsSumPrice: fuel => get().currentCar?.refuels
     .filter((refuel: Refuel) => refuel.fuel === fuel)
     .reduce((acc, curr: Refuel) => acc + getSumPrice(curr), 0) || 0,
+  getAvgConsumption: id => {
+    const currentCar = get().currentCar;
+    if (!currentCar)
+      return 0;
+    const { refuels, fuel, altFuel } = currentCar;
+    const filteredRefuels = refuels.filter(refuel => refuel.fuel === (altFuel || fuel));
+    return getAvgConsumption(filteredRefuels);
+  },
   //TODO: optimize
   addService: (id, newService) => set(state => {
     const newCarsState = [ ...state.cars];
