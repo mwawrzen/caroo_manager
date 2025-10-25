@@ -3,7 +3,8 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
-import { FuelEnum, PriceUnitEnum } from "@/utils/types";
+import usePreferencesStore from "@/store/preferences-store";
+import { FuelEnum } from "@/utils/types";
 import { Link } from "expo-router";
 import React, { ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
@@ -55,6 +56,9 @@ function InfoBox({ value, label }: InfoBoxProps) {
 type DetailedInfoBoxProps = InfoBoxProps;
 
 function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
+
+  const { priceUnit } = usePreferencesStore();
+
   return (
     <ThemedView style={styles.detailedItemBox}>
       {
@@ -74,7 +78,7 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
           lightColor={Colors['dark']['text']}
           style={styles.detailedItemUnit}
         >
-          {PriceUnitEnum.USD}
+          {priceUnit}
         </ThemedText>
       </ThemedView>
     </ThemedView>
@@ -84,6 +88,7 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 export default function Index() {
 
   const { currentCar, getServicesSumPrice, getRefuelsSumPrice } = useCarStore();
+  const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   if (!currentCar)
     return null;
@@ -117,8 +122,8 @@ export default function Index() {
             </Link>
           </ThemedView>
           <InfoRow title="General info">
-            <InfoBox value={0} label="L / 100km" />
-            <InfoBox value={0} label="zł / 100km" />
+            <InfoBox value={0} label={`${capacityUnit} / 100${distanceUnit}`} />
+            <InfoBox value={0} label={`${priceUnit} / 100${distanceUnit}`} />
           </InfoRow>
           <InfoRow title="Summary for refuels">
             <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
