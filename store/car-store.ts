@@ -23,7 +23,7 @@ interface CarStore {
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
   getRefuelsSumPrice: (fuel: FuelEnum) => number;
-  getAvgConsumption: ( id: Car['id'] ) => number;
+  getAvgConsumption: () => number;
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   getSortedServices: () => Service[];
   getServicesSumPrice: () => number;
@@ -100,7 +100,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
   getRefuelsSumPrice: fuel => get().currentCar?.refuels
     .filter((refuel: Refuel) => refuel.fuel === fuel)
     .reduce((acc, curr: Refuel) => acc + getSumPrice(curr), 0) || 0,
-  getAvgConsumption: id => {
+  getAvgConsumption: () => {
     const currentCar = get().currentCar;
     if (!currentCar)
       return 0;
