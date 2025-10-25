@@ -3,6 +3,7 @@ import { ThemedView } from "@/components/themed/themed-view";
 import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
+import usePreferencesStore from "@/store/preferences-store";
 import { Car, InfoRowType } from "@/utils/types";
 import { Link } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
@@ -10,11 +11,12 @@ import { Pressable, StyleSheet } from "react-native";
 function CarItem({ car }: { car: Car }) {
 
   const { currentCar, setCurrentCar } = useCarStore();
+  const { distanceUnit } = usePreferencesStore();
 
   const { mileage, fuel, altFuel, refuels, services } = car;
 
   const infoRowsData: InfoRowType[] = [
-    { value: `${mileage} km`, label: "Last saved mileage:" },
+    { value: `${mileage} ${distanceUnit}`, label: "Last saved mileage:" },
     { value: fuel, label: "Main fuel:" },
     { value: altFuel ? String(altFuel) : null, label: "Alternative fuel:" },
     { value: String(refuels.length), label: "Number of refuels:" },
