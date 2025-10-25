@@ -1,4 +1,4 @@
-import { getSumPriceString } from '@/utils/get-sum-price';
+import { getAvgConsumption, getSumPrice, sortRefuelsByDate } from '@/utils/car-stote-utils';
 import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
@@ -86,11 +86,17 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
-  getSortedRefuels: () => get().currentCar?.refuels
-    .sort((a: Refuel, b: Refuel) => b.date.getTime() - a.date.getTime()) || [],
+  getSortedRefuels: () => {
+    const currentCar = get().currentCar;
+    if (!currentCar)
+      return [];
+    return sortRefuelsByDate( currentCar.refuels );
+  },
+  // getSortedRefuels: () => get().currentCar?.refuels
+  //   .sort((a: Refuel, b: Refuel) => b.date.getTime() - a.date.getTime()) || [],
   getRefuelsSumPrice: fuel => get().currentCar?.refuels
     .filter((refuel: Refuel) => refuel.fuel === fuel)
-    .reduce((acc, curr: Refuel) => acc + Number(getSumPriceString(curr)), 0) || 0,
+    .reduce((acc, curr: Refuel) => acc + getSumPrice(curr), 0) || 0,
   //TODO: optimize
   addService: (id, newService) => set(state => {
     const newCarsState = [ ...state.cars];
