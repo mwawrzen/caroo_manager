@@ -1,9 +1,10 @@
 import Form from "@/components/form";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import usePreferencesStore from "@/store/preferences-store";
 import { availableLanguages, availableUnits } from "@/utils/data";
-import { CapacityUnitEnum, DistanceUnitEnum, LangEnum, PriceUnitEnum } from "@/utils/types";
-import React, { useState } from "react";
+import { LangEnum } from "@/utils/types";
+import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Languages } from 'react-native-svg-circle-country-flags';
 
@@ -54,10 +55,10 @@ export default function Preferences() {
     </ThemedView>
   )
 
-  const [language, setLanguage] = useState<LangEnum>(LangEnum.ENGLISH);
-  const [priceUnit, setPriceUnit] = useState<PriceUnitEnum>(PriceUnitEnum.USD);
-  const [capacityUnit, setCapacityUnit] = useState<CapacityUnitEnum>(CapacityUnitEnum.L);
-  const [distanceUnit, setDistanceUnit] = useState<DistanceUnitEnum>(DistanceUnitEnum.KM);
+  const {
+    language, priceUnit, capacityUnit, distanceUnit,
+    setLanguage, setPriceUnit, setDistanceUnit, setCapacityUnit
+  } = usePreferencesStore();
 
   const languageItems = availableLanguages.map((lang, i) => (
     <Form.RadioLang
