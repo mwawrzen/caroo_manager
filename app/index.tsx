@@ -37,7 +37,7 @@ function InfoBox({ value, label }: InfoBoxProps) {
         lightColor={Colors['dark']['text']}
         style={ styles.itemNumber }
       >
-        {value}
+        {value || "--.--"}
       </ThemedText>
       {
         label ?
@@ -117,8 +117,8 @@ export default function Index() {
             </Link>
           </ThemedView>
           <InfoRow title="General info">
-            <InfoBox value={11.34} label="L / 100km" />
-            <InfoBox value={42.19} label="zł / 100km" />
+            <InfoBox value={0} label="L / 100km" />
+            <InfoBox value={0} label="zł / 100km" />
           </InfoRow>
           <InfoRow title="Summary for refuels">
             <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
