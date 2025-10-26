@@ -1,15 +1,17 @@
 import { checkStringIsInt } from "./check-int-string";
+import i18n from "./i18n";
 import { CapacityUnitEnum, DistanceUnitEnum, FuelEnum, FuelType, LangEnum, PriceUnitEnum } from "./types";
 
 export const fuelTypes: FuelType[] = [
-  { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
-  { icon: 'droplet', label: 'Diesel', value: FuelEnum.DIESEL },
-  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
+  // { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
+  { icon: 'gas-pump', label: i18n.t(FuelEnum.PETROL), value: FuelEnum.PETROL },
+  { icon: 'droplet', label: i18n.t(FuelEnum.DIESEL), value: FuelEnum.DIESEL },
+  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC },
 ];
 
 export const altFuelTypes: FuelType[] = [
-  { icon: 'fire', label: 'Gas', value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC },
+  { icon: 'fire', label: i18n.t(FuelEnum.GAS), value: FuelEnum.GAS },
+  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC },
 ];
 
 export const availableUnits = {
@@ -19,12 +21,12 @@ export const availableUnits = {
     { label: PriceUnitEnum.EUR, value: PriceUnitEnum.EUR }
   ],
   distanceUnits: [
-    { label: 'KILOMETERS', value: DistanceUnitEnum.KM },
-    { label: 'MILES', value: DistanceUnitEnum.MI }
+    { label: i18n.t(DistanceUnitEnum.KM), value: DistanceUnitEnum.KM },
+    { label: i18n.t(DistanceUnitEnum.MI), value: DistanceUnitEnum.MI }
   ],
   capacityUnits: [
-    { label: 'LITRES', value: CapacityUnitEnum.L },
-    { label: 'GALLONS', value: CapacityUnitEnum.GAL }
+    { label: i18n.t(CapacityUnitEnum.L), value: CapacityUnitEnum.L },
+    { label: i18n.t(CapacityUnitEnum.GAL), value: CapacityUnitEnum.GAL }
   ]
 };
 
