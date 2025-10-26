@@ -1,5 +1,5 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -7,12 +7,40 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "Welcome to React": "Welcome to React and react-i18next"
+      addCarFormTitle: 'Add a car',
+      enterName: 'Enter name',
+      enterMileage: 'Enter mileage',
+      primaryFuelTitle: 'Primary fuel',
+      alternativeFuelTitle: 'Alternative fuel',
+
+      //units
+      petrol: 'Petrol',
+      diesel: 'Diesel',
+      electric: 'Electric',
+      gas: 'Gas',
+      km: 'KILOMETERS',
+      mi: 'MILES',
+      L: 'LITRES',
+      GAL: 'GALLONS',
     }
   },
-  fr: {
+  pl: {
     translation: {
-      "Welcome to React": "Bienvenue à React et react-i18next"
+      addCarFormTitle: 'Dodaj samochód',
+      enterName: 'Wprowadź nazwę',
+      enterMileage: 'Wprowadź przebieg',
+      primaryFuelTitle: 'Paliwo główne',
+      alternativeFuelTitle: 'Paliwo alternatywne',
+
+      //units
+      petrol: 'Benzyna',
+      diesel: 'Diesel',
+      electric: 'Elektryk',
+      gas: 'Gaz',
+      km: 'KILOMETRY',
+      mi: 'MILE',
+      L: 'LITRY',
+      GAL: 'GALONY',
     }
   }
 };
@@ -21,7 +49,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    lng: 'pl', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option
 
