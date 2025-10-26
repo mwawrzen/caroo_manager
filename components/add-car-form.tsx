@@ -98,7 +98,7 @@ export default function AddCarForm() {
               style={styles.buttonContainer}
             >
               <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
-                Remove
+                {t('removeButton')}
               </ThemedText>
             </ThemedView>
           </Pressable> : null
