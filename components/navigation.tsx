@@ -1,29 +1,21 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { navigationRoutes } from "@/utils/data";
+import { NavigationOptionType } from "@/utils/types";
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet } from "react-native";
 import { ThemedIcon } from "./themed/themed-icon";
 
-type NavigationOptionType = {
-  href: any, //! TEMP
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string
-};
+function NavigationOption({ href, icon, name }: NavigationOptionType) {
 
-const navigationRoutes: NavigationOptionType[] = [
-  { href: "/", icon: "chart-simple", label: "Dashboard" },
-  { href: "/refuels-list", icon: "gas-pump", label: "Refuels" },
-  { href: "/services-list", icon: "wrench", label: "Services" },
-  { href: "/menu", icon: "list", label: "Menu" }
-];
+  const { t } = useTranslation();
 
-function NavigationOption({ href, icon, label }: NavigationOptionType) {
   return (
     <Link href={href} asChild style={styles.option}>
       <Pressable>
         <ThemedIcon lightColor="orangered" name={icon} style={styles.icon} />
-        <ThemedText lightColor="orangered" style={styles.label}>{label}</ThemedText>
+        <ThemedText lightColor="orangered" style={styles.label}>{t(name)}</ThemedText>
       </Pressable>
     </Link>
   );
@@ -31,8 +23,8 @@ function NavigationOption({ href, icon, label }: NavigationOptionType) {
 
 export default function Navigation() {
 
-  const navigationOptions = navigationRoutes.map(({ href, icon, label }: NavigationOptionType) => (
-    <NavigationOption key={label as string} href={href} icon={icon} label={label} />
+  const navigationOptions = navigationRoutes.map(({ href, icon, name }: NavigationOptionType, i: number) => (
+    <NavigationOption key={i} href={href} icon={icon} name={name} />
   ));
 
   return (

@@ -90,9 +90,25 @@ export type InfoRowType = {
 // data types
 
 export type FuelType = {
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string,
+  icon: keyof typeof FontAwesome6.glyphMap;
   value: FuelEnum;
+};
+
+export type StatusType = {
+  icon: keyof typeof FontAwesome6.glyphMap;
+  value: ServiceStatusEnum;
+};
+
+export type NavigationOptionType = {
+  href: any, //! TEMP
+  icon: keyof typeof FontAwesome6.glyphMap,
+  name: string
+};
+
+export type MenuOptionType = {
+  href: any, //! TEMP
+  icon: keyof typeof FontAwesome6.glyphMap,
+  name: string
 };
 
 // action types

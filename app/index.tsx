@@ -7,6 +7,7 @@ import usePreferencesStore from "@/store/preferences-store";
 import { FuelEnum } from "@/utils/types";
 import { Link } from "expo-router";
 import React, { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 
 type InfoRowProps = {
@@ -81,6 +82,8 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 
 export default function Index() {
 
+  const { t } = useTranslation();
+
   const {
     currentCar,
     getServicesTotalPrice,
@@ -108,7 +111,7 @@ export default function Index() {
               <Pressable>
                 <ThemedView style={styles.button}>
                   <ThemedIcon name="wrench" style={styles.buttonIcon} />
-                  <ThemedText>Add service</ThemedText>
+                  <ThemedText>{t('addServiceLabel')}</ThemedText>
                 </ThemedView>
               </Pressable>
             </Link>
@@ -116,20 +119,20 @@ export default function Index() {
               <Pressable>
                 <ThemedView style={styles.button}>
                   <ThemedIcon name="gas-pump" style={styles.buttonIcon} />
-                  <ThemedText type="default">Add refuel</ThemedText>
+                  <ThemedText type="default">{t('addRefuelLabel')}</ThemedText>
                 </ThemedView>
               </Pressable>
             </Link>
           </ThemedView>
-          <InfoRow title="General info">
+          <InfoRow title={t('generalInfoTitle')}>
             <InfoBox value={getAvgConsumption()} label={`${capacityUnit} / 100${distanceUnit}`} />
             <InfoBox value={getAvgConsumptionPrice()} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
-          <InfoRow title="Summary for refuels">
-            { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={altFuelType} /> : null }
-            <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
+          <InfoRow title={t('summaryRefulesTitle')}>
+            { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={t(altFuelType)} /> : null }
+            <DetailedInfoBox value={fuelRefuelSumPrice} label={t(fuelType)} />
           </InfoRow>
-          <InfoRow title="Summary for services">
+          <InfoRow title={t('summaryServicesTitle')}>
             <DetailedInfoBox value={servicesSumPrice} />
           </InfoRow>
         </ThemedView>

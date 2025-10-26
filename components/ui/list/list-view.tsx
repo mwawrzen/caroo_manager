@@ -3,6 +3,7 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Link } from "expo-router";
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Dimensions, Pressable, ScrollView, StyleSheet } from "react-native";
 
 type ListViewProps = {
@@ -12,6 +13,9 @@ type ListViewProps = {
 };
 
 export default function ListView({ title, addHref, items }: ListViewProps) {
+
+  const { t } = useTranslation();
+
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.titleContainer}>
@@ -20,7 +24,7 @@ export default function ListView({ title, addHref, items }: ListViewProps) {
           <Pressable>
             <ThemedView style={styles.titleButtonContainer}>
               <ThemedIcon name="plus" style={styles.titleButtonIcon} />
-              <ThemedText style={styles.titleButtonText}>Add</ThemedText>
+              <ThemedText style={styles.titleButtonText}>{t('addButton')}</ThemedText>
             </ThemedView>
           </Pressable>
         </Link>

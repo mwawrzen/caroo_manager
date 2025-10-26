@@ -6,6 +6,7 @@ import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import { LangEnum, UnitEnumType } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, TextInputProps } from "react-native";
 import { De, Pl, Us } from "react-native-svg-circle-country-flags";
 import { ThemedIcon } from "./themed/themed-icon";
@@ -179,11 +180,14 @@ type FormSubmitType = {
 };
 
 Form.Submit = function FormSubmit({ onPress }: FormSubmitType) {
+
+  const { t } = useTranslation();
+
   return (
     <Pressable onPress={onPress}>
       <ThemedView style={styles.submitContainer}>
         <ThemedText lightColor={Colors['dark']['text']} style={styles.submit}>
-          Ready
+          {t('readyButton')}
         </ThemedText>
       </ThemedView>
     </Pressable>

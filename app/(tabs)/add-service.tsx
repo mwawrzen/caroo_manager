@@ -1,22 +1,14 @@
 import Form from "@/components/form";
 import useCarStore from "@/store/car-store";
+import { statusTypes } from "@/utils/data";
 import { ServiceStatusEnum } from "@/utils/types";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-
-type StatusType = {
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string,
-  value: ServiceStatusEnum;
-};
-
-const statusTypes: StatusType[] = [
-  { icon: 'question', label: 'Planned', value: ServiceStatusEnum.PLANNED },
-  // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
-];
+import { useTranslation } from "react-i18next";
 
 export default function AddService() {
+
+  const { t } = useTranslation();
 
   const { currentCar, addService } = useCarStore();
 
@@ -56,19 +48,19 @@ export default function AddService() {
   }
 
   return (
-    <Form title="Add service">
+    <Form title={t('addServiceLabel')}>
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
       <Form.Input
         value={serviceDescription}
         onChangeText={setServiceDescription}
-        placeholder="Enter description"
+        placeholder={t('enterDescription')}
       />
       <Form.Input
         value={serviceNote}
         onChangeText={setServiceNote}
-        placeholder="Enter note"
+        placeholder={t('enterNote')}
       />
       <Form.Submit onPress={handleAddService} />
     </Form>

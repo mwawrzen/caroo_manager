@@ -8,9 +8,12 @@ import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
 import { Car, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet } from "react-native";
 
 export default function EditCarForm({ car }: { car: Car }) {
+
+  const { t } = useTranslation();
 
   const router = useRouter();
 
@@ -22,12 +25,12 @@ export default function EditCarForm({ car }: { car: Car }) {
   const [fuel, setFuel] = useState<FuelEnum>(car.fuel);
   const [altFuel, setAltFuel] = useState<FuelEnum | undefined>(car.altFuel || undefined);
 
-  const fuelTypeOptions = fuelTypes.map(({ icon, label, value }) => {
+  const fuelTypeOptions = fuelTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
         isActive={fuel === value}
         onPress={setFuel}
@@ -35,12 +38,12 @@ export default function EditCarForm({ car }: { car: Car }) {
     );
   });
 
-  const altFuelTypeOptions = altFuelTypes.map(({ icon, label, value }) => {
+  const altFuelTypeOptions = altFuelTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
         isActive={altFuel === value}
         onPress={setAltFuel}
@@ -66,24 +69,24 @@ export default function EditCarForm({ car }: { car: Car }) {
   }
 
   return (
-    <Form title="Edit car">
+    <Form title={t('editCarButton')}>
       <Form.Input
         value={carName}
         onChangeText={setCarName}
-        placeholder="Enter name"
+        placeholder={t('enterName')}
       />
       <Form.InputUnit
         value={carMileage}
-        onChangeText={(val: string) => setCarMileage(getValidatedMileage(val))}
-        placeholder="Enter mileage"
+        onChangeText={(val: string) => setCarMileage(String(getValidatedMileage(val)))}
+        placeholder={t('enterMileage')}
         unit={distanceUnit}
         keyboardType="numeric"
       />
       {/* fuel type */}
-      <Form.RadioGroup title="Primary fuel">
+      <Form.RadioGroup title={t('primaryFuelTitle')}>
         {fuelTypeOptions}
       </Form.RadioGroup>
-      <Form.RadioGroup title="Alternative fuel">
+      <Form.RadioGroup title={t('alternativeFuelTitle')}>
         {altFuelTypeOptions}
       </Form.RadioGroup>
       {
@@ -95,7 +98,7 @@ export default function EditCarForm({ car }: { car: Car }) {
               style={styles.buttonContainer}
             >
               <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
-                Remove
+                {t('removeButton')}
               </ThemedText>
             </ThemedView>
           </Pressable> : null
