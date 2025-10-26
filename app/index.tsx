@@ -72,7 +72,7 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
           lightColor={Colors['dark']['text']}
           style={ styles.detailedItemNumber }
         >
-          {value}
+          {value.toFixed(2)}
         </ThemedText>
         <ThemedText
           lightColor={Colors['dark']['text']}
@@ -87,7 +87,13 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
 
 export default function Index() {
 
-  const { currentCar, getServicesSumPrice, getRefuelsSumPrice, getAvgConsumption } = useCarStore();
+  const {
+    currentCar,
+    getServicesTotalPrice,
+    getRefuelsTotalPrice,
+    getAvgConsumption,
+    getAvgConsumptionPrice
+  } = useCarStore();
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   if (!currentCar)
@@ -95,9 +101,9 @@ export default function Index() {
 
   const fuelType: FuelEnum = currentCar.fuel;
   const altFuelType: FuelEnum | null = currentCar.altFuel || null;
-  const servicesSumPrice = getServicesSumPrice();
-  const fuelRefuelSumPrice = getRefuelsSumPrice( fuelType );
-  const altFuelRefuelSumPrice = altFuelType ? getRefuelsSumPrice( altFuelType ) : 0;
+  const servicesSumPrice = getServicesTotalPrice();
+  const fuelRefuelSumPrice = getRefuelsTotalPrice( fuelType );
+  const altFuelRefuelSumPrice = altFuelType ? getRefuelsTotalPrice( altFuelType ) : 0;
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -123,11 +129,11 @@ export default function Index() {
           </ThemedView>
           <InfoRow title="General info">
             <InfoBox value={getAvgConsumption()} label={`${capacityUnit} / 100${distanceUnit}`} />
-            <InfoBox value={0} label={`${priceUnit} / 100${distanceUnit}`} />
+            <InfoBox value={getAvgConsumptionPrice()} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
           <InfoRow title="Summary for refuels">
-            <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
             { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={altFuelType} /> : null }
+            <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
           </InfoRow>
           <InfoRow title="Summary for services">
             <DetailedInfoBox value={servicesSumPrice} />
