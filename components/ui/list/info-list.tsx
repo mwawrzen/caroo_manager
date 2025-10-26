@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderLeftWidth: 6,
-    borderColor: "orangered"
+    borderColor: "orangered",
   },
   itemTitle: {
     color: "orangered",

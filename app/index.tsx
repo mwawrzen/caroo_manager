@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 12
+    gap: 12,
   },
   buttonGroup: {
     flexDirection: "row",
@@ -164,9 +164,13 @@ const styles = StyleSheet.create({
   },
   infoRow: {
     flexDirection: "row",
-    gap: 20
+    justifyContent: "center",
+    gap: 20,
+    width: "100%",
+    maxWidth: 600
   },
   itemBox: {
+    width: "40%",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -177,10 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 58,
     textAlign: "center",
     lineHeight: 76
-  },
-  itemNumberSmaller: {
-    fontSize: 20,
-    lineHeight: 28
   },
   itemUnit: {
     fontSize: 20,

@@ -3,7 +3,7 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { Link } from "expo-router";
 import { ReactNode } from "react";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { Dimensions, Pressable, ScrollView, StyleSheet } from "react-native";
 
 type ListViewProps = {
   title: string,
@@ -25,6 +25,7 @@ export default function ListView({ title, addHref, items }: ListViewProps) {
           </Pressable>
         </Link>
       </ThemedView>
+
       <ScrollView contentContainerStyle={styles.list}>
         {items}
       </ScrollView>
@@ -35,13 +36,16 @@ export default function ListView({ title, addHref, items }: ListViewProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     paddingHorizontal: 20
   },
   titleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 10
+    paddingBottom: 10,
+    width: "100%",
+    maxWidth: 600
   },
   titleText: {
 
@@ -65,6 +69,8 @@ const styles = StyleSheet.create({
     color: "#eee"
   },
   list: {
-    gap: 20
+    gap: 20,
+    width: Dimensions.get('window').width,
+    maxWidth: 600
   }
 });

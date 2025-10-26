@@ -217,6 +217,7 @@ export default function Form({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     paddingHorizontal: 20
   },
   heading: {
@@ -225,7 +226,9 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   formContainer: {
-    gap: 12
+    gap: 12,
+    width: "100%",
+    maxWidth: 600
   },
   inputRow: {
     flexDirection: "row",
@@ -275,7 +278,8 @@ const styles = StyleSheet.create({
   language: {
     borderWidth: 4,
     borderColor: "transparent",
-    borderRadius: "50%"
+    borderRadius: "50%",
+    overflow: "hidden"
   },
   checkboxContainer: {
     flexDirection: "row",

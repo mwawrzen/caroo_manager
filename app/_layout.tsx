@@ -76,7 +76,7 @@ export default function RootLayout() {
       <ThemedSafeAreaView>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Header />
-          <Stack screenOptions={{ headerShown: false }} />
+            <Stack screenOptions={{ headerShown: false }} />
           <Navigation />
         </ThemeProvider>
       </ThemedSafeAreaView>
