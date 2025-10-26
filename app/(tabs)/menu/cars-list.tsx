@@ -6,9 +6,12 @@ import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { Car, InfoRowType } from "@/utils/types";
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet } from "react-native";
 
 function CarItem({ car }: { car: Car }) {
+
+  const { t } = useTranslation();
 
   const { currentCar, setCurrentCar } = useCarStore();
   const { distanceUnit } = usePreferencesStore();
@@ -16,11 +19,11 @@ function CarItem({ car }: { car: Car }) {
   const { mileage, fuel, altFuel, refuels, services } = car;
 
   const infoRowsData: InfoRowType[] = [
-    { value: `${mileage} ${distanceUnit}`, label: "Last saved mileage:" },
-    { value: fuel, label: "Main fuel:" },
-    { value: altFuel ? String(altFuel) : null, label: "Alternative fuel:" },
-    { value: String(refuels.length), label: "Number of refuels:" },
-    { value: String(services.length), label: "Number of services:" }
+    { value: `${mileage} ${distanceUnit}`, label: t('savedMileageItem') },
+    { value: fuel, label: t('primaryFuelTitle') },
+    { value: altFuel ? String(altFuel) : null, label: t('alternativeFuelTitle') },
+    { value: String(refuels.length), label: t('refulesNumItem') },
+    { value: String(services.length), label: t('servicesNumItem') }
   ]
 
   function setCarAsDefault() {
@@ -35,13 +38,13 @@ function CarItem({ car }: { car: Car }) {
             <Pressable onPress={setCarAsDefault} style={{ width: "40%" }}>
               <ThemedView style={styles.itemButton}>
                 <ThemedText style={styles.itemButtonText}>
-                  Set as default
+                  {t('setDefaultCarButton')}
                 </ThemedText>
               </ThemedView>
             </Pressable> :
             <ThemedView style={styles.defaultItemButton}>
               <ThemedText style={styles.defaultItemButtonText}>
-                Default car
+                {t('defaultCarButton')}
               </ThemedText>
             </ThemedView>
         }
@@ -49,7 +52,7 @@ function CarItem({ car }: { car: Car }) {
           <Pressable style={{ width: "40%" }}>
             <ThemedView style={styles.itemButton}>
               <ThemedText style={styles.itemButtonText}>
-                Edit car
+                {t('editCarButton')}
               </ThemedText>
             </ThemedView>
           </Pressable>
@@ -61,12 +64,14 @@ function CarItem({ car }: { car: Car }) {
 
 export default function CarsList() {
 
+  const { t } = useTranslation();
+
   const { cars } = useCarStore();
 
   const carItems = cars.map(car => <CarItem key={car.id} car={car} />);
 
   return (
-    <ListView title="My cars" addHref="./add-car" items={carItems} />
+    <ListView title={t('myCarsItem')} addHref="./add-car" items={carItems} />
   );
 };
 

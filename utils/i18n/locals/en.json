@@ -3,6 +3,7 @@
   "no": "No",
   "addButton": "Add",
   "readyButton": "Ready",
+  "removeButton": "Remove",
 
   "enterName": "Enter name",
   "enterMileage": "Enter mileage",
@@ -46,5 +47,23 @@
   "servicesTitle": "Services",
   "statusItem": "Status",
   "priceItem": "Price",
-  "description": "Description"
+  "description": "Description",
+
+  "myCarsItem": "My cars",
+  "savedMileageItem": "Last saved mileage",
+  "refulesNumItem": "Number of refuels",
+  "servicesNumItem": "Number of services",
+  "setDefaultCarButton": "Set as default",
+  "defaultCarButton": "Default car",
+  "editCarButton": "Edit car",
+
+  "preferencesItem": "Preferences",
+  "currencyUnit": "Currency unit",
+  "distanceUnit": "Distance unit",
+  "capacityUnit": "Capacity unit",
+
+  "dashboardNav": "Dashboard",
+  "refuelsNav": "Refuels",
+  "servicesNav": "Services",
+  "menuNav": "Menu"
 }

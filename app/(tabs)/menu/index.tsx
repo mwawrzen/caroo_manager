@@ -1,6 +1,7 @@
 import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import i18n from "@/utils/i18n/i18n";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Link } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
@@ -12,8 +13,8 @@ type MenuOptionType = {
 };
 
 const menuRoutes: MenuOptionType[] = [
-  { href: "/menu/cars-list", icon: "car", label: "My cars" },
-  { href: "/menu/preferences", icon: "gears", label: "Preferences" }
+  { href: "/menu/cars-list", icon: "car", label: i18n.t('myCarsItem') },
+  { href: "/menu/preferences", icon: "gears", label: i18n.t('preferencesItem') }
 ];
 
 function MenuOption({ href, icon, label }: MenuOptionType) {

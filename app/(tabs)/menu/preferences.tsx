@@ -1,59 +1,14 @@
 import Form from "@/components/form";
 import { ThemedText } from "@/components/themed/themed-text";
-import { ThemedView } from "@/components/themed/themed-view";
 import usePreferencesStore from "@/store/preferences-store";
 import { availableLanguages, availableUnits } from "@/utils/data";
-import { LangEnum } from "@/utils/types";
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { Languages } from 'react-native-svg-circle-country-flags';
+import { useTranslation } from "react-i18next";
+import { StyleSheet } from "react-native";
 
 export default function Preferences() {
 
-  (
-    <ThemedView style={styles.container}>
-      <ThemedText type="subtitle">Language</ThemedText>
-      <ThemedView style={styles.sectionContainer}>
-        <Pressable style={styles.languageButton} onPress={() => setLanguage( LangEnum.ENGLISH )}>
-          <Languages.Uk width={50} height={50} />
-        </Pressable>
-        <Pressable style={styles.languageButton} onPress={() => setLanguage( LangEnum.POLISH )}>
-          <Languages.Pl width={50} height={50} />
-        </Pressable>
-        <Pressable style={styles.languageButton} onPress={() => setLanguage( LangEnum.GERMAN )}>
-          <Languages.De width={50} height={50} />
-        </Pressable>
-      </ThemedView>
-      <ThemedText type="subtitle">Units</ThemedText>
-      <ThemedView style={styles.sectionContainer}>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>km</ThemedText>
-        </Pressable>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>mi</ThemedText>
-        </Pressable>
-      </ThemedView>
-      <ThemedView style={styles.sectionContainer}>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>GBP</ThemedText>
-        </Pressable>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>PLN</ThemedText>
-        </Pressable>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>EUR</ThemedText>
-        </Pressable>
-      </ThemedView>
-      <ThemedView style={styles.sectionContainer}>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>Gallons</ThemedText>
-        </Pressable>
-        <Pressable style={styles.unitButton} onPress={()=>{}}>
-          <ThemedText style={styles.unitText}>Liters</ThemedText>
-        </Pressable>
-      </ThemedView>
-    </ThemedView>
-  )
+  const { t } = useTranslation();
 
   const {
     language, priceUnit, capacityUnit, distanceUnit,
@@ -104,15 +59,15 @@ export default function Preferences() {
       <Form.RadioGroup>
         {languageItems}
       </Form.RadioGroup>
-      <ThemedText style={styles.subtitle}>Currency unit</ThemedText>
+      <ThemedText style={styles.subtitle}>{t('currencyUnit')}</ThemedText>
       <Form.RadioGroup>
         {priceUnitItems}
       </Form.RadioGroup>
-      <ThemedText style={styles.subtitle}>Distance unit</ThemedText>
+      <ThemedText style={styles.subtitle}>{t('distanceUnit')}</ThemedText>
       <Form.RadioGroup>
         {distanceUnitItems}
       </Form.RadioGroup>
-      <ThemedText style={styles.subtitle}>Capacity unit</ThemedText>
+      <ThemedText style={styles.subtitle}>{t('capacityUnit')}</ThemedText>
       <Form.RadioGroup>
         {capacityUnitItems}
       </Form.RadioGroup>

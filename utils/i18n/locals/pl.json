@@ -3,6 +3,7 @@
   "no": "Nie",
   "addButton": "Dodaj",
   "readyButton": "Dodaj",
+  "removeButton": "Usuń",
 
   "enterName": "Wprowadź nazwę",
   "enterMileage": "Wprowadź przebieg",
@@ -46,5 +47,23 @@
   "servicesTitle": "Serwisy",
   "statusItem": "Status",
   "priceItem": "Cena",
-  "description": "Opis"
+  "description": "Opis",
+
+  "myCarsItem": "Moje samochody",
+  "savedMileageItem": "Ostatni przebieg",
+  "refulesNumItem": "Liczba tankowań",
+  "servicesNumItem": "Liczba serwisów",
+  "setDefaultCarButton": "Ustaw jako domyślny",
+  "defaultCarButton": "Domyślny",
+  "editCarButton": "Edytuj",
+
+  "preferencesItem": "Ustawienia",
+  "currencyUnit": "Waluta",
+  "distanceUnit": "Jednostka odległości",
+  "capacityUnit": "Jednostka paliwa",
+
+  "dashboardNav": "Dashboard",
+  "refuelsNav": "Tankowania",
+  "servicesNav": "Serwisy",
+  "menuNav": "Menu"
 }

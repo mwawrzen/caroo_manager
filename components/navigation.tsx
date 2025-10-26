@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import i18n from "@/utils/i18n/i18n";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Link } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
@@ -12,10 +13,10 @@ type NavigationOptionType = {
 };
 
 const navigationRoutes: NavigationOptionType[] = [
-  { href: "/", icon: "chart-simple", label: "Dashboard" },
-  { href: "/refuels-list", icon: "gas-pump", label: "Refuels" },
-  { href: "/services-list", icon: "wrench", label: "Services" },
-  { href: "/menu", icon: "list", label: "Menu" }
+  { href: "/", icon: "chart-simple", label: i18n.t('dashboardNav')},
+  { href: "/refuels-list", icon: "gas-pump", label: i18n.t('refuelsNav') },
+  { href: "/services-list", icon: "wrench", label: i18n.t('servicesNav') },
+  { href: "/menu", icon: "list", label: i18n.t('menuNav') }
 ];
 
 function NavigationOption({ href, icon, label }: NavigationOptionType) {
