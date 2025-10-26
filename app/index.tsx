@@ -167,13 +167,14 @@ const styles = StyleSheet.create({
     gap: 20
   },
   itemBox: {
-    padding: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     borderRadius: 20,
     backgroundColor: "orangered"
   },
   itemNumber: {
     fontFamily: "Quicksand_700Bold",
-    fontSize: 64,
+    fontSize: 58,
     textAlign: "center",
     lineHeight: 76
   },
