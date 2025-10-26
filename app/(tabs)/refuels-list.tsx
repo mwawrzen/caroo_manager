@@ -5,27 +5,32 @@ import usePreferencesStore from "@/store/preferences-store";
 import { formatDate } from "@/utils/format-date";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function RefuelItem({ refuel }: { refuel: any }) {
+
+  const { t } = useTranslation();
 
   const { date, unitPrice, amountOfFuel, sumPrice, fuel, mileage, avgConsumption, fullyRefueled, note } = refuel;
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   const refuelRowsData: InfoRowType[] = [
-    { label: 'Fuel:', value: fuel },
-    { label: 'Fully refueled:', value: fullyRefueled ? "Yes" : "No" },
-    { label: 'Amount of fuel:', value: `${amountOfFuel} ${capacityUnit}` },
-    { label: 'Unit price:', value: `${unitPrice} ${priceUnit}` },
-    { label: 'Sum price:', value: `${sumPrice.toFixed(2)} ${priceUnit}` },
-    { label: 'Average consumption:', value: `${avgConsumption?.toFixed(2) || '--'} ${capacityUnit}/100km`},
-    { label: 'Mileage:', value: `${mileage} ${distanceUnit}` },
-    { label: 'Note:', value: note },
+    { label: t('fuelItem'), value: fuel },
+    { label: t('fullyRefueledItem'), value: fullyRefueled ? t('yes') : t('no') },
+    { label: t('amountOfFuelItem'), value: `${amountOfFuel} ${capacityUnit}` },
+    { label: t('unitPriceItem'), value: `${unitPrice} ${priceUnit}` },
+    { label: t('sumPriceItem'), value: `${sumPrice.toFixed(2)} ${priceUnit}` },
+    { label: t('avgConsItem'), value: `${avgConsumption?.toFixed(2) || '--'} ${capacityUnit}/100km`},
+    { label: t('mileageItem'), value: `${mileage} ${distanceUnit}` },
+    { label: t('noteItem'), value: note },
   ];
 
   return <InfoList title={formatDate(date)} rowsData={refuelRowsData} />
 }
 
 export default function RefuelsList() {
+
+  const { t } = useTranslation();
 
   const { currentCar, getSortedRefuels } = useCarStore();
 
@@ -39,6 +44,6 @@ export default function RefuelsList() {
   useEffect(() => {}, [currentCar.refuels])
 
   return (
-    <ListView title="Refuels" addHref="./add-refuel" items={refuelItems} />
+    <ListView title={t('refuelsTitle')} addHref="./add-refuel" items={refuelItems} />
   );
 };

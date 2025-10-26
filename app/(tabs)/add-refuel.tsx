@@ -2,19 +2,15 @@ import Form from "@/components/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { checkStringIsDouble } from "@/utils/check-double-string";
-import { getValidatedMileage } from "@/utils/data";
-import { FuelEnum, FuelType } from "@/utils/types";
+import { allFuelTypes, getValidatedMileage } from "@/utils/data";
+import { FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-
-const fuelTypes: FuelType[] = [
-  { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
-  { icon: 'droplet', label: 'Diesel', value: FuelEnum.DIESEL },
-  { icon: 'fire', label: 'Gas', value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', label: 'Electric', value: FuelEnum.ELECTRIC }
-];
+import { useTranslation } from "react-i18next";
 
 export default function AddRefuel() {
+
+  const { t } = useTranslation();
 
   const { currentCar, addRefuel } = useCarStore();
   const { priceUnit, capacityUnit, distanceUnit } = usePreferencesStore();
@@ -31,7 +27,7 @@ export default function AddRefuel() {
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
   const [note, setNote] = useState<string>('');
 
-  const statusTypeOptions = fuelTypes.map(({ icon, label, value }, i) => {
+  const statusTypeOptions = allFuelTypes.map(({ icon, label, value }, i) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
       return null;
     return (
@@ -76,40 +72,40 @@ export default function AddRefuel() {
   }
 
   return (
-    <Form title="Add refuel">
+    <Form title={t('addRefuelLabel')}>
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
       <Form.Checkbox
-        label="Fully refueled"
+        label={t('fullyRefueledItem')}
         onPress={() => setIsFullyRefueled(!isFullyRefueled)}
         checked={isFullyRefueled}
       />
       <Form.InputUnit
         value={unitPrice}
         onChangeText={(val: string) => checkStringIsDouble(val) ? setUnitPrice(val) : {}}
-        placeholder="Enter unit price"
+        placeholder={t('enterUnitPrice')}
         keyboardType="numeric"
         unit={priceUnit}
       />
       <Form.InputUnit
         value={fuelAmount}
         onChangeText={(val: string) => checkStringIsDouble(val) ? setFuelAmount(val) : {}}
-        placeholder="Enter amount of fuel"
+        placeholder={t('enterAmountOfFuel')}
         keyboardType="numeric"
         unit={capacityUnit}
       />
       <Form.InputUnit
         value={mileage}
         onChangeText={(val: string) => setMileage(getValidatedMileage(val))}
-        placeholder="Enter mileage"
+        placeholder={t('enterMileage')}
         keyboardType="numeric"
         unit={distanceUnit}
       />
       <Form.Input
         value={note}
         onChangeText={setNote}
-        placeholder="Enter note"
+        placeholder={t('enterNote')}
       />
       { checkIsValidated() ? <Form.Submit onPress={handleAddRefuel} /> : null }
     </Form>

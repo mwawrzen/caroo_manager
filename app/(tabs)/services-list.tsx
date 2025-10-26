@@ -5,18 +5,21 @@ import usePreferencesStore from "@/store/preferences-store";
 import { formatDate } from "@/utils/format-date";
 import { InfoRowType } from "@/utils/types";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function ServiceItem({ service }: { service: any }) {
+
+  const { t } = useTranslation();
 
   const { createdDate, status, description, mileage, price, note } = service;
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
   const serviceRowsData: InfoRowType[] = [
-    { label: 'Status:', value: String(status) },
-    { label: 'Mileage', value: `${mileage} ${distanceUnit}` },
-    { label: 'Price:', value: `${price} ${priceUnit}` },
-    { label: 'Description:', value: description, column: true },
-    { label: 'Note:', value: note, column: true },
+    { label: t('statusItem'), value: t(status) },
+    { label: t('mileageItem'), value: `${mileage} ${distanceUnit}` },
+    { label: t('priceItem'), value: `${price} ${priceUnit}` },
+    { label: t('description'), value: description, column: true },
+    { label: t('noteItem'), value: note, column: true },
   ];
 
   //TODO: make date format nice
@@ -24,6 +27,8 @@ function ServiceItem({ service }: { service: any }) {
 }
 
 export default function ServicesList() {
+
+  const { t } = useTranslation();
 
   const { currentCar, getSortedServices } = useCarStore();
 
@@ -37,6 +42,6 @@ export default function ServicesList() {
   useEffect(() => {}, [currentCar.services])
 
   return (
-    <ListView title="Services" addHref="./add-service" items={serviceItems} />
+    <ListView title={t('servicesTitle')} addHref="./add-service" items={serviceItems} />
   );
 };
