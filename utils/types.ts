@@ -95,6 +95,12 @@ export type FuelType = {
   value: FuelEnum;
 };
 
+export type StatusType = {
+  icon: keyof typeof FontAwesome6.glyphMap,
+  label: string,
+  value: ServiceStatusEnum;
+};
+
 // action types
 
 export type AddCarType = {
