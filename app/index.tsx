@@ -68,16 +68,10 @@ function DetailedInfoBox({ value, label }: DetailedInfoBoxProps) {
           </ThemedText> : null
       }
       <ThemedView style={styles.detailedRow}>
-        <ThemedText
-          lightColor={Colors['dark']['text']}
-          style={ styles.detailedItemNumber }
-        >
+        <ThemedText style={ styles.detailedItemNumber }>
           {value.toFixed(2)}
         </ThemedText>
-        <ThemedText
-          lightColor={Colors['dark']['text']}
-          style={styles.detailedItemUnit}
-        >
+        <ThemedText style={styles.detailedItemUnit}>
           {priceUnit}
         </ThemedText>
       </ThemedView>
