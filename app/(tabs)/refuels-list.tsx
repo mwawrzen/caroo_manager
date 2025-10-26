@@ -16,9 +16,9 @@ function RefuelItem({ refuel }: { refuel: any }) {
     { label: 'Fully refueled:', value: fullyRefueled ? "Yes" : "No" },
     { label: 'Amount of fuel:', value: `${amountOfFuel} ${capacityUnit}` },
     { label: 'Unit price:', value: `${unitPrice} ${priceUnit}` },
-    { label: 'Sum price', value: `${sumPrice} ${priceUnit}` },
-    { label: 'Average consumption', value: `${avgConsumption || '--'} ${capacityUnit}/100km`},
-    { label: 'Mileage', value: `${mileage} ${distanceUnit}` },
+    { label: 'Sum price:', value: `${sumPrice.toFixed(2)} ${priceUnit}` },
+    { label: 'Average consumption:', value: `${avgConsumption?.toFixed(2) || '--'} ${capacityUnit}/100km`},
+    { label: 'Mileage:', value: `${mileage} ${distanceUnit}` },
     { label: 'Note:', value: note },
   ];
 
