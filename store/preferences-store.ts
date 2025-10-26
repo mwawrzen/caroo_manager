@@ -1,3 +1,5 @@
+import i18n from "@/utils/i18n/i18n";
+import { mapLanguage } from "@/utils/map-lang";
 import { CapacityUnitEnum, DistanceUnitEnum, LangEnum, PriceUnitEnum } from "@/utils/types";
 import { create } from "zustand";
 
@@ -17,10 +19,13 @@ const usePreferencesStore = create<PreferencesStore>()(set => ({
   priceUnit: PriceUnitEnum.EUR,
   distanceUnit: DistanceUnitEnum.KM,
   capacityUnit: CapacityUnitEnum.L,
-  setLanguage: language => set(state => ({ language })),
-  setPriceUnit: priceUnit => set(state => ({ priceUnit })),
-  setDistanceUnit: distanceUnit => set(state => ({ distanceUnit })),
-  setCapacityUnit: capacityUnit => set(state => ({ capacityUnit }))
+  setLanguage: language => set(() => {
+    i18n.changeLanguage(mapLanguage(language));
+    return { language };
+  }),
+  setPriceUnit: priceUnit => set(() => ({ priceUnit })),
+  setDistanceUnit: distanceUnit => set(() => ({ distanceUnit })),
+  setCapacityUnit: capacityUnit => set(() => ({ capacityUnit }))
 }));
 
 export default usePreferencesStore;

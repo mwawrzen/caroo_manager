@@ -37,9 +37,9 @@ export const statusTypes: StatusType[] = [
 
 export const availableUnits = {
   priceUnits: [
-    { label: PriceUnitEnum.USD, value: PriceUnitEnum.USD },
+    { label: PriceUnitEnum.EUR, value: PriceUnitEnum.EUR },
     { label: PriceUnitEnum.PLN, value: PriceUnitEnum.PLN },
-    { label: PriceUnitEnum.EUR, value: PriceUnitEnum.EUR }
+    { label: PriceUnitEnum.USD, value: PriceUnitEnum.USD }
   ],
   distanceUnits: [
     { label: i18n.t(DistanceUnitEnum.KM), value: DistanceUnitEnum.KM },
@@ -52,9 +52,9 @@ export const availableUnits = {
 };
 
 export const availableLanguages = [
-  LangEnum.ENGLISH,
-  LangEnum.POLISH,
-  LangEnum.GERMAN
+  { name: LangEnum.ENGLISH, code: 'en' },
+  { name: LangEnum.POLISH, code: 'pl' },
+  { name: LangEnum.GERMAN, code: 'de' }
 ];
 
 export function getValidatedMileage(value: string): string {

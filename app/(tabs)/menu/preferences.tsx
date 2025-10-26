@@ -18,8 +18,8 @@ export default function Preferences() {
   const languageItems = availableLanguages.map((lang, i) => (
     <Form.RadioLang
       key={i}
-      value={lang}
-      isActive={lang === language}
+      value={lang.name}
+      isActive={lang.name === language}
       onPress={setLanguage}
     />
   ));
