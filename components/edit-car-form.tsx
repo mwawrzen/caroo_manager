@@ -25,12 +25,12 @@ export default function EditCarForm({ car }: { car: Car }) {
   const [fuel, setFuel] = useState<FuelEnum>(car.fuel);
   const [altFuel, setAltFuel] = useState<FuelEnum | undefined>(car.altFuel || undefined);
 
-  const fuelTypeOptions = fuelTypes.map(({ icon, label, value }) => {
+  const fuelTypeOptions = fuelTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
         isActive={fuel === value}
         onPress={setFuel}
@@ -38,12 +38,12 @@ export default function EditCarForm({ car }: { car: Car }) {
     );
   });
 
-  const altFuelTypeOptions = altFuelTypes.map(({ icon, label, value }) => {
+  const altFuelTypeOptions = altFuelTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
         isActive={altFuel === value}
         onPress={setAltFuel}
@@ -77,7 +77,7 @@ export default function EditCarForm({ car }: { car: Car }) {
       />
       <Form.InputUnit
         value={carMileage}
-        onChangeText={(val: string) => setCarMileage(getValidatedMileage(val))}
+        onChangeText={(val: string) => setCarMileage(String(getValidatedMileage(val)))}
         placeholder={t('enterMileage')}
         unit={distanceUnit}
         keyboardType="numeric"

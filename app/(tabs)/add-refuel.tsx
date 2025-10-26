@@ -27,16 +27,16 @@ export default function AddRefuel() {
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
   const [note, setNote] = useState<string>('');
 
-  const statusTypeOptions = allFuelTypes.map(({ icon, label, value }, i) => {
+  const statusTypeOptions = allFuelTypes.map(({ icon, value }, i) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
       return null;
     return (
       <Form.Radio
         key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
-        isActive={fuelType === label.toLowerCase()}
+        isActive={fuelType === value}
         onPress={setFuelType}
       />
     );
@@ -97,7 +97,7 @@ export default function AddRefuel() {
       />
       <Form.InputUnit
         value={mileage}
-        onChangeText={(val: string) => setMileage(getValidatedMileage(val))}
+        onChangeText={(val: string) => setMileage(String(getValidatedMileage(val)))}
         placeholder={t('enterMileage')}
         keyboardType="numeric"
         unit={distanceUnit}

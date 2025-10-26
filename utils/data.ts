@@ -1,37 +1,38 @@
 import { checkStringIsInt } from "@/utils/check-int-string";
-import i18n from "@/utils/i18n/i18n";
 import {
   CapacityUnitEnum,
   DistanceUnitEnum,
   FuelEnum,
   FuelType,
   LangEnum,
+  NavigationOptionType,
   PriceUnitEnum,
   ServiceStatusEnum,
   StatusType
 } from "@/utils/types";
 
+const MAX_MILEAGE = 999999;
+
 export const fuelTypes: FuelType[] = [
-  // { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
-  { icon: 'gas-pump', label: i18n.t(FuelEnum.PETROL), value: FuelEnum.PETROL },
-  { icon: 'droplet', label: i18n.t(FuelEnum.DIESEL), value: FuelEnum.DIESEL },
-  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC },
+  { icon: 'gas-pump', value: FuelEnum.PETROL },
+  { icon: 'droplet', value: FuelEnum.DIESEL },
+  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
 ];
 
 export const altFuelTypes: FuelType[] = [
-  { icon: 'fire', label: i18n.t(FuelEnum.GAS), value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC },
+  { icon: 'fire', value: FuelEnum.GAS },
+  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
 ];
 
 export const allFuelTypes: FuelType[] = [
-  { icon: 'gas-pump', label: i18n.t(FuelEnum.PETROL), value: FuelEnum.PETROL },
-  { icon: 'droplet', label: i18n.t(FuelEnum.DIESEL), value: FuelEnum.DIESEL },
-  { icon: 'fire', label: i18n.t(FuelEnum.GAS), value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC }
+  { icon: 'gas-pump', value: FuelEnum.PETROL },
+  { icon: 'droplet', value: FuelEnum.DIESEL },
+  { icon: 'fire', value: FuelEnum.GAS },
+  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC }
 ];
 
 export const statusTypes: StatusType[] = [
-  { icon: 'question', label: i18n.t(ServiceStatusEnum.PLANNED), value: ServiceStatusEnum.PLANNED },
+  { icon: 'question', value: ServiceStatusEnum.PLANNED },
   // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
 ];
 
@@ -42,27 +43,34 @@ export const availableUnits = {
     { label: PriceUnitEnum.USD, value: PriceUnitEnum.USD }
   ],
   distanceUnits: [
-    { label: i18n.t(DistanceUnitEnum.KM), value: DistanceUnitEnum.KM },
-    { label: i18n.t(DistanceUnitEnum.MI), value: DistanceUnitEnum.MI }
+    DistanceUnitEnum.KM,
+    DistanceUnitEnum.MI
   ],
   capacityUnits: [
-    { label: i18n.t(CapacityUnitEnum.L), value: CapacityUnitEnum.L },
-    { label: i18n.t(CapacityUnitEnum.GAL), value: CapacityUnitEnum.GAL }
+    CapacityUnitEnum.L,
+    CapacityUnitEnum.GAL
   ]
 };
 
-export const availableLanguages = [
-  { name: LangEnum.ENGLISH, code: 'en' },
-  { name: LangEnum.POLISH, code: 'pl' },
-  { name: LangEnum.GERMAN, code: 'de' }
+export const navigationRoutes: NavigationOptionType[] = [
+  { href: "/", icon: "chart-simple", name: 'dashboardNav'},
+  { href: "/refuels-list", icon: "gas-pump", name: 'refuelsNav' },
+  { href: "/services-list", icon: "wrench", name: 'servicesNav' },
+  { href: "/menu", icon: "list", name: 'menuNav' }
 ];
 
-export function getValidatedMileage(value: string): string {
-  if(Number(value) >= 999999)
-    return "999999"
+export const availableLanguages = [
+  { name: LangEnum.ENGLISH, code: 'en' },
+  { name: LangEnum.POLISH, code: 'pl' }
+  // { name: LangEnum.GERMAN, code: 'de' }
+];
+
+export function getValidatedMileage(value: string): number {
+  if(Number(value) >= MAX_MILEAGE)
+    return MAX_MILEAGE;
   if (value === '')
-    return '';
+    return 0;
   if(checkStringIsInt(value) && Number(value) > 0)
-    return value;
-  return '';
+    return Number(value);
+  return 0;
 };

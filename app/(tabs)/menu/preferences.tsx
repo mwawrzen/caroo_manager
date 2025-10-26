@@ -37,9 +37,9 @@ export default function Preferences() {
   const distanceUnitItems = availableUnits.distanceUnits.map((unit, i) => (
     <Form.Radio
       key={i}
-      label={unit.label}
-      value={unit.value}
-      isActive={unit.value === distanceUnit}
+      label={t(unit)}
+      value={unit}
+      isActive={unit === distanceUnit}
       onPress={setDistanceUnit}
     />
   ));
@@ -47,9 +47,9 @@ export default function Preferences() {
   const capacityUnitItems = availableUnits.capacityUnits.map((unit, i) => (
     <Form.Radio
       key={i}
-      label={unit.label}
-      value={unit.value}
-      isActive={unit.value === capacityUnit}
+      label={t(unit)}
+      value={unit}
+      isActive={unit === capacityUnit}
       onPress={setCapacityUnit}
     />
   ));
