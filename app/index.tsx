@@ -129,8 +129,8 @@ export default function Index() {
             <InfoBox value={getAvgConsumptionPrice()} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
           <InfoRow title={t('summaryRefulesTitle')}>
-            { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={altFuelType} /> : null }
-            <DetailedInfoBox value={fuelRefuelSumPrice} label={fuelType} />
+            { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={t(altFuelType)} /> : null }
+            <DetailedInfoBox value={fuelRefuelSumPrice} label={t(fuelType)} />
           </InfoRow>
           <InfoRow title={t('summaryServicesTitle')}>
             <DetailedInfoBox value={servicesSumPrice} />
