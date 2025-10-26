@@ -22,12 +22,12 @@ export default function AddService() {
   const [serviceStatus, setServiceStatus] =
     useState<ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED>(ServiceStatusEnum.PLANNED);
 
-  const statusTypeOptions = statusTypes.map(({ icon, label, value }) => {
+  const statusTypeOptions = statusTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
         isActive={serviceStatus === value}
         onPress={setServiceStatus}
