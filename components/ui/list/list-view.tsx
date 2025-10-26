@@ -26,7 +26,10 @@ export default function ListView({ title, addHref, items }: ListViewProps) {
         </Link>
       </ThemedView>
 
-      <ScrollView contentContainerStyle={styles.list}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.list}
+      >
         {items}
       </ScrollView>
     </ThemedView>

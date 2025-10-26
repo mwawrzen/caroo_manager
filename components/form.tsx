@@ -202,7 +202,7 @@ export default function Form({
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ThemedView style={styles.container}>
           <ThemedText style={styles.heading}>{title}</ThemedText>
           <ThemedView style={styles.formContainer}>

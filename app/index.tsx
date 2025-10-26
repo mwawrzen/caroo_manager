@@ -101,7 +101,7 @@ export default function Index() {
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ThemedView style={styles.container}>
           <ThemedView style={styles.buttonGroup}>
             <Link href="/add-service" asChild>
