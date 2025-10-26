@@ -15,7 +15,7 @@ function RefuelItem({ refuel }: { refuel: any }) {
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   const refuelRowsData: InfoRowType[] = [
-    { label: t('fuelItem'), value: fuel },
+    { label: t('fuelItem'), value: t(fuel) },
     { label: t('fullyRefueledItem'), value: fullyRefueled ? t('yes') : t('no') },
     { label: t('amountOfFuelItem'), value: `${amountOfFuel} ${capacityUnit}` },
     { label: t('unitPriceItem'), value: `${unitPrice} ${priceUnit}` },
