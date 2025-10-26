@@ -5,6 +5,7 @@ import {
   FuelEnum,
   FuelType,
   LangEnum,
+  MenuOptionType,
   NavigationOptionType,
   PriceUnitEnum,
   ServiceStatusEnum,
@@ -57,6 +58,11 @@ export const navigationRoutes: NavigationOptionType[] = [
   { href: "/refuels-list", icon: "gas-pump", name: 'refuelsNav' },
   { href: "/services-list", icon: "wrench", name: 'servicesNav' },
   { href: "/menu", icon: "list", name: 'menuNav' }
+];
+
+export const menuRoutes: MenuOptionType[] = [
+  { href: "/menu/cars-list", icon: "car", name: 'myCarsItem' },
+  { href: "/menu/preferences", icon: "gears", name: 'preferencesItem' }
 ];
 
 export const availableLanguages = [

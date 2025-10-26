@@ -105,6 +105,12 @@ export type NavigationOptionType = {
   name: string
 };
 
+export type MenuOptionType = {
+  href: any, //! TEMP
+  icon: keyof typeof FontAwesome6.glyphMap,
+  name: string
+};
+
 // action types
 
 export type AddCarType = {

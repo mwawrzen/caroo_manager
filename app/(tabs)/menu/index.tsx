@@ -1,29 +1,22 @@
 import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import i18n from "@/utils/i18n/i18n";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { menuRoutes } from "@/utils/data";
+import { MenuOptionType } from "@/utils/types";
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet } from "react-native";
 
-type MenuOptionType = {
-  href: any, //! TEMP
-  icon: keyof typeof FontAwesome6.glyphMap,
-  label: string
-};
+function MenuOption({ href, icon, name }: MenuOptionType) {
 
-const menuRoutes: MenuOptionType[] = [
-  { href: "/menu/cars-list", icon: "car", label: i18n.t('myCarsItem') },
-  { href: "/menu/preferences", icon: "gears", label: i18n.t('preferencesItem') }
-];
+  const { t } = useTranslation();
 
-function MenuOption({ href, icon, label }: MenuOptionType) {
   return (
     <Link href={href} asChild>
       <Pressable>
         <ThemedView style={styles.menuOptionContainer}>
           <ThemedIcon name={icon} lightColor="orangered" style={styles.menuOptionIcon} />
-          <ThemedText style={styles.menuOptionLabel}>{label}</ThemedText>
+          <ThemedText style={styles.menuOptionLabel}>{t(name)}</ThemedText>
         </ThemedView>
       </Pressable>
     </Link>
@@ -32,8 +25,8 @@ function MenuOption({ href, icon, label }: MenuOptionType) {
 
 export default function Menu() {
 
-  const menuOptions = menuRoutes.map(({ href, icon, label }: MenuOptionType) => (
-    <MenuOption key={String(label)} href={href} icon={icon} label={label} />
+  const menuOptions = menuRoutes.map(({ href, icon, name }: MenuOptionType, i: number) => (
+    <MenuOption key={i} href={href} icon={icon} name={name} />
   ));
 
   return (
