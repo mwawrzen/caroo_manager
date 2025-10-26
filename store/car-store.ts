@@ -33,7 +33,7 @@ interface CarStore {
 
 const useCarStore = create<CarStore>()((set, get) => ({
   cars,
-  currentCar: null, // cars[0]
+  currentCar: cars[0],
   addCar: newCar => set(state => {
     const newCarObject: Car = {
       ...newCar,
