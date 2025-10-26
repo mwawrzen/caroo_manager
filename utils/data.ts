@@ -1,6 +1,15 @@
-import { checkStringIsInt } from "./check-int-string";
-import i18n from "./i18n";
-import { CapacityUnitEnum, DistanceUnitEnum, FuelEnum, FuelType, LangEnum, PriceUnitEnum } from "./types";
+import { checkStringIsInt } from "@/utils/check-int-string";
+import i18n from "@/utils/i18n";
+import {
+  CapacityUnitEnum,
+  DistanceUnitEnum,
+  FuelEnum,
+  FuelType,
+  LangEnum,
+  PriceUnitEnum,
+  ServiceStatusEnum,
+  StatusType
+} from "@/utils/types";
 
 export const fuelTypes: FuelType[] = [
   // { icon: 'gas-pump', label: 'Petrol', value: FuelEnum.PETROL },
@@ -12,6 +21,18 @@ export const fuelTypes: FuelType[] = [
 export const altFuelTypes: FuelType[] = [
   { icon: 'fire', label: i18n.t(FuelEnum.GAS), value: FuelEnum.GAS },
   { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC },
+];
+
+export const allFuelTypes: FuelType[] = [
+  { icon: 'gas-pump', label: i18n.t(FuelEnum.PETROL), value: FuelEnum.PETROL },
+  { icon: 'droplet', label: i18n.t(FuelEnum.DIESEL), value: FuelEnum.DIESEL },
+  { icon: 'fire', label: i18n.t(FuelEnum.GAS), value: FuelEnum.GAS },
+  { icon: 'bolt-lightning', label: i18n.t(FuelEnum.ELECTRIC), value: FuelEnum.ELECTRIC }
+];
+
+export const statusTypes: StatusType[] = [
+  { icon: 'question', label: i18n.t(ServiceStatusEnum.PLANNED), value: ServiceStatusEnum.PLANNED },
+  // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
 ];
 
 export const availableUnits = {
