@@ -1,5 +1,5 @@
 import { checkStringIsInt } from "@/utils/check-int-string";
-import i18n from "@/utils/i18n";
+import i18n from "@/utils/i18n/i18n";
 import {
   CapacityUnitEnum,
   DistanceUnitEnum,

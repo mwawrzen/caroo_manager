@@ -12,7 +12,7 @@ import AddCarForm from "@/components/add-car-form";
 import Header from "@/components/header";
 import Navigation from "@/components/navigation";
 import useCarStore from "@/store/car-store";
-import "@/utils/i18n";
+import "@/utils/i18n/i18n";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { useEffect } from "react";

@@ -1,0 +1,50 @@
+{
+  "yes": "Yes",
+  "no": "No",
+  "addButton": "Add",
+  "readyButton": "Ready",
+
+  "enterName": "Enter name",
+  "enterMileage": "Enter mileage",
+  "enterUnitPrice": "Enter unit price",
+  "enterAmountOfFuel": "Enter amount of fuel",
+  "enterDescription": "Enter description",
+  "enterNote": "Enter note",
+
+  "addCarFormTitle": "Add car",
+  "primaryFuelTitle": "Primary fuel",
+  "alternativeFuelTitle": "Alternative fuel",
+
+  "petrol": "Petrol",
+  "diesel": "Diesel",
+  "electric": "Electric",
+  "gas": "Gas",
+  "km": "KILOMETERS",
+  "mi": "MILES",
+  "L": "LITRES",
+  "GAL": "GALLONS",
+  "planned": "Planned",
+  "schedulded": "Schedulded",
+  "completed": "Completed",
+
+  "addServiceLabel": "Add service",
+  "addRefuelLabel": "Add refuel",
+  "generalInfoTitle": "General info",
+  "summaryRefulesTitle": "Summary for refuels",
+  "summaryServicesTitle": "Summary for services",
+
+  "refuelsTitle": "Refuels",
+  "fuelItem": "Fuel",
+  "fullyRefueledItem": "Fully refueled",
+  "amountOfFuelItem": "Amount of fuel",
+  "unitPriceItem": "Unit price",
+  "sumPriceItem": "Sum price",
+  "avgConsItem": "Average consumption",
+  "mileageItem": "Mileage",
+  "noteItem": "Note",
+
+  "servicesTitle": "Services",
+  "statusItem": "Status",
+  "priceItem": "Price",
+  "description": "Description"
+}
