@@ -19,7 +19,7 @@ function InfoListRow({ rowData }: { rowData: InfoRowType }) { //! TEMP
 
   return (
     <ThemedView style={rowData.column ? styles.itemRowColumn : styles.itemRow}>
-      <ThemedText style={styles.itemLabel}>{rowData.label}</ThemedText>
+      <ThemedText style={styles.itemLabel}>{rowData.label}:</ThemedText>
       <ThemedText style={styles.itemText}>{rowData.value}</ThemedText>
     </ThemedView>
   );
