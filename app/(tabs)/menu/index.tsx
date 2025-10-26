@@ -13,7 +13,7 @@ function MenuOption({ href, icon, name }: MenuOptionType) {
 
   return (
     <Link href={href} asChild>
-      <Pressable>
+      <Pressable style={styles.menuOption}>
         <ThemedView style={styles.menuOptionContainer}>
           <ThemedIcon name={icon} lightColor="orangered" style={styles.menuOptionIcon} />
           <ThemedText style={styles.menuOptionLabel}>{t(name)}</ThemedText>
@@ -39,7 +39,12 @@ export default function Menu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     gap: 10
+  },
+  menuOption: {
+    width: "100%",
+    maxWidth: 600
   },
   menuOptionContainer: {
     flexDirection: "row",
@@ -50,9 +55,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderLeftWidth: 6,
-    borderColor: "orangered",
-    // borderRadius: 20
-    // backgroundColor: "darkgreen"
+    borderColor: "orangered"
   },
   menuOptionIcon: {
     width: 34,
