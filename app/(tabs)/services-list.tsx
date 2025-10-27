@@ -11,18 +11,39 @@ function ServiceItem({ service }: { service: any }) {
 
   const { t } = useTranslation();
 
-  const { createdDate, status, description, mileage, price, note } = service;
+  const { createdDate, status, date, description, mileage, price, note } = service;
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
   const serviceRowsData: InfoRowType[] = [
-    { label: t('statusItem'), value: t(status) },
-    { label: t('mileageItem'), value: `${mileage} ${distanceUnit}` },
-    { label: t('priceItem'), value: `${price} ${priceUnit}` },
-    { label: t('description'), value: description, column: true },
-    { label: t('noteItem'), value: note, column: true },
+    { label: t('statusItem'), value: t(status) }
   ];
 
-  //TODO: make date format nice
+  if (date) {
+    serviceRowsData.push({
+      label: t('dateItem'),
+      value: date.toLocaleDateString(), //! FORMAT
+    });
+  }
+
+  if (price) {
+    serviceRowsData.push({
+      label: t('priceItem'),
+      value: `${price} ${priceUnit}`
+    });
+  }
+
+  if (mileage) {
+    serviceRowsData.push({
+      label: t('mileageItem'),
+      value: `${mileage} ${distanceUnit}`
+    });
+  }
+
+  serviceRowsData.push(
+    { label: t('description'), value: description, column: true },
+    { label: t('noteItem'), value: note, column: true }
+  );
+
   return <InfoList title={formatDate(createdDate)} rowsData={serviceRowsData} />
 }
 

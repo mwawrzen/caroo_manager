@@ -10,15 +10,14 @@ type InfoListProps = {
   children?: ReactNode | null
 };
 
-function InfoListRow({ rowData }: { rowData: InfoRowType }) { //! TEMP
+function InfoListRow({ rowData }: { rowData: InfoRowType }) {
 
   if (!rowData.value)
     return null;
 
-  // const columnStyle: any = rowData.column ? { flexDirection: "column" } : {};
-
   return (
-    <ThemedView style={rowData.column ? styles.itemRowColumn : styles.itemRow}>
+    // <ThemedView style={rowData.column ? styles.itemRowColumn : styles.itemRow}>
+    <ThemedView style={styles.itemRow}>
       <ThemedText style={styles.itemLabel}>{rowData.label}:</ThemedText>
       <ThemedText style={styles.itemText}>{rowData.value}</ThemedText>
     </ThemedView>

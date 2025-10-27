@@ -2,7 +2,7 @@ import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { statusTypes } from "@/utils/data";
-import { FormInputTypeEnum, ServiceStatusEnum } from "@/utils/types";
+import { AddServiceType, FormInputTypeEnum, ServiceStatusEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,7 +22,7 @@ export default function AddService() {
 
   const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [price, setPrice] = useState<string>('');
-  const [mileage, setMileage] = useState<string>('');
+  const [mileage, setMileage] = useState<string>(String(currentCar.mileage));
   const [description, setDescription] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [status, setStatus] =
@@ -41,14 +41,34 @@ export default function AddService() {
     );
   });
 
+  // status: ServiceStatusEnum;
+  // price?: number;
+  // mileage?: number;
+  // date?: Date;
+  // description: string;
+  // note: string;
+
   function handleAddService() {
     if (!currentCar)
       return null;
-    addService(currentCar.id, {
+
+    const payload: AddServiceType = {
       status: status,
       description: description,
       note: note
-    });
+    };
+
+    if (status === ServiceStatusEnum.SCHEDULDED) {
+      payload.date = date;
+    }
+
+    if (status === ServiceStatusEnum.COMPLETED) {
+      payload.date = date;
+      payload.price = Number(price);
+      payload.mileage = Number(mileage);
+    }
+
+    addService(currentCar.id, payload);
     if (router.canGoBack())
       router.back();
   }

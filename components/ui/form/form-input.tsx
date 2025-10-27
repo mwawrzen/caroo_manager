@@ -30,12 +30,15 @@ export default function FormInput({
       case FormInputTypeEnum.TEXT:
         if (text.length <= MAX_TEXT_LENGTH)
           onChangeText(text);
+        break;
       case FormInputTypeEnum.INT:
         if (checkStringIsInt(text))
           onChangeText(text);
+        break;
       case FormInputTypeEnum.FLOAT:
         if (checkStringIsFloat(text))
           onChangeText(text);
+        break;
     }
   }
 
