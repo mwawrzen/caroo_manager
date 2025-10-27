@@ -1,8 +1,8 @@
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
-import { Car, FuelEnum } from "@/utils/types";
+import { altFuelTypes, fuelTypes, MAX_MILEAGE } from "@/utils/data";
+import { Car, FormInputTypeEnum, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,8 +17,8 @@ export default function EditCarForm({ car }: { car: Car }) {
   const { editCar } = useCarStore();
   const { distanceUnit } = usePreferencesStore();
 
-  const [carName, setCarName] = useState<string>(car.name);
-  const [carMileage, setCarMileage] = useState<string>(String(car.mileage));
+  const [name, setName] = useState<string>(car.name);
+  const [mileage, setMileage] = useState<string>(String(car.mileage));
   const [fuel, setFuel] = useState<FuelEnum>(car.fuel);
   const [altFuel, setAltFuel] = useState<FuelEnum | undefined>(car.altFuel || undefined);
 
@@ -50,8 +50,8 @@ export default function EditCarForm({ car }: { car: Car }) {
 
   function handleEditCar() {
     editCar(car.id, {
-      name: carName,
-      mileage: Number(carMileage),
+      name: name,
+      mileage: Number(mileage),
       fuel,
       altFuel
     });
@@ -60,7 +60,11 @@ export default function EditCarForm({ car }: { car: Car }) {
   }
 
   function checkIsValidated(): boolean {
-    if (carName.length < 3 || +carMileage < car.mileage)
+    if (
+      name.length < 3 ||
+      Number(mileage) < car.mileage ||
+      Number(mileage) > MAX_MILEAGE
+    )
       return false;
     return true;
   }
@@ -68,18 +72,18 @@ export default function EditCarForm({ car }: { car: Car }) {
   return (
     <Form title={t('editCarButton')}>
       <Form.Input
-        value={carName}
-        onChangeText={setCarName}
+        value={name}
+        onChangeText={setName}
         placeholder={t('enterName')}
       />
-      <Form.InputUnit
-        value={carMileage}
-        onChangeText={(val: string) => setCarMileage(String(getValidatedMileage(val)))}
+      <Form.Input
+        value={mileage}
+        onChangeText={setMileage}
         placeholder={t('enterMileage')}
         unit={distanceUnit}
         keyboardType="numeric"
+        type={FormInputTypeEnum.INT}
       />
-      {/* fuel type */}
       <Form.RadioGroup title={t('primaryFuelTitle')}>
         {fuelTypeOptions}
       </Form.RadioGroup>
@@ -87,10 +91,7 @@ export default function EditCarForm({ car }: { car: Car }) {
         {altFuelTypeOptions}
       </Form.RadioGroup>
       { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
-      {
-        checkIsValidated() ?
-        <Form.Submit onPress={handleEditCar} /> : null
-      }
+      { checkIsValidated() ? <Form.Submit onPress={handleEditCar} /> : null }
     </Form>
   );
 };
