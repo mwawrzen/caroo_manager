@@ -1,4 +1,3 @@
-import Form from "@/components/form";
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
@@ -19,11 +18,13 @@ export default function AddService() {
 
   const router = useRouter();
 
+  const { distanceUnit, priceUnit } = usePreferencesStore();
+
   const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [description, setDescription] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [status, setStatus] =
-    useState<ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED>(ServiceStatusEnum.PLANNED);
+    useState<ServiceStatusEnum>(ServiceStatusEnum.PLANNED);
 
   const statusTypeOptions = statusTypes.map(({ icon, value }, i) => {
     return (
@@ -62,8 +63,26 @@ export default function AddService() {
         {statusTypeOptions}
       </Form.RadioGroup>
       {
-        status === ServiceStatusEnum.SCHEDULDED ?
+        status !== ServiceStatusEnum.PLANNED ?
           <Form.DateInput dateObj={date} /> : null
+      }
+      {
+        status === ServiceStatusEnum.COMPLETED ? (
+          <>
+            <Form.Input
+              value={description}
+              onChangeText={setDescription}
+              placeholder={t('enterPrice')}
+              unit={priceUnit}
+            />
+            <Form.Input
+              value={description}
+              onChangeText={setDescription}
+              placeholder={t('enterMileage')}
+              unit={distanceUnit}
+            />
+          </>
+        ): null
       }
       <Form.Input
         value={description}
