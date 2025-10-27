@@ -1,4 +1,4 @@
-import Form from "@/components/form";
+import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
