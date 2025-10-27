@@ -34,7 +34,7 @@ export const allFuelTypes: FuelType[] = [
 
 export const statusTypes: StatusType[] = [
   { icon: 'question', value: ServiceStatusEnum.PLANNED },
-  // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
+  { icon: 'calendar-days', value: ServiceStatusEnum.SCHEDULDED }
 ];
 
 export const availableUnits = {
