@@ -5,7 +5,7 @@ import { Pressable, StyleSheet } from "react-native";
 type FormCheckboxProps = {
   label: string;
   onPress: () => void;
-  checked: boolean;
+  checked?: boolean;
 };
 
 export default function FormCheckbox({ label, onPress, checked = true }: FormCheckboxProps) {
