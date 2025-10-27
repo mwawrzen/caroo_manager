@@ -93,7 +93,7 @@ export default function AddService() {
       </Form.RadioGroup>
       {
         status !== ServiceStatusEnum.PLANNED ?
-          <Form.DateInput dateObj={date} /> : null
+          <Form.DateInput dateObj={date} setDate={setDate} /> : null
       }
       {
         status === ServiceStatusEnum.COMPLETED ? (
