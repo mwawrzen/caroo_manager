@@ -1,12 +1,11 @@
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
+import { altFuelTypes, fuelTypes, MAX_MILEAGE } from "@/utils/data";
 import { FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
 import RemoveButton from "./ui/button/remove-button";
 
 export default function AddCarForm() {
@@ -18,8 +17,8 @@ export default function AddCarForm() {
   const { addCar } = useCarStore();
   const { distanceUnit } = usePreferencesStore();
 
-  const [carName, setCarName] = useState<string>('');
-  const [carMileage, setCarMileage] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [mileage, setMileage] = useState<string>('');
   const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
   const [altFuel, setAltFuel] = useState<FuelEnum | undefined>();
 
@@ -51,8 +50,8 @@ export default function AddCarForm() {
 
   function handleAddCar() {
     addCar({
-      name: carName,
-      mileage: Number(carMileage),
+      name: name,
+      mileage: Number(mileage),
       fuel,
       altFuel: altFuel || undefined
     });
@@ -61,7 +60,11 @@ export default function AddCarForm() {
   }
 
   function checkIsValidated(): boolean {
-    if (carName.length < 3 || +carMileage < 1)
+    if (
+      name.length < 3 ||
+      Number(mileage) < 1 ||
+      Number(mileage) > MAX_MILEAGE
+    )
       return false;
     return true;
   }
@@ -69,13 +72,13 @@ export default function AddCarForm() {
   return (
     <Form title={t('addCarFormTitle')}>
       <Form.Input
-        value={carName}
-        onChangeText={setCarName}
+        value={name}
+        onChangeText={setName}
         placeholder={t('enterName')}
       />
       <Form.Input
-        value={carMileage}
-        onChangeText={(val: string) => setCarMileage(String(getValidatedMileage(val)))}
+        value={mileage}
+        onChangeText={setMileage}
         placeholder={t('enterMileage')}
         unit={distanceUnit}
         keyboardType="numeric"
@@ -88,23 +91,7 @@ export default function AddCarForm() {
         {altFuelTypeOptions}
       </Form.RadioGroup>
       { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
-      {
-        checkIsValidated() ?
-        <Form.Submit onPress={handleAddCar} /> : null
-      }
+      { checkIsValidated() ? <Form.Submit onPress={handleAddCar} /> : null }
     </Form>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    alignItems: "center",
-    paddingTop: 6,
-    paddingBottom: 8,
-    borderRadius: 20
-  },
-  button: {
-    fontSize: 12,
-    textTransform: "uppercase"
-  }
-});
