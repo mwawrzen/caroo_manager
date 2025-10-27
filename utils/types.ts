@@ -87,10 +87,15 @@ export interface Car {
 
 // components types
 
-export type InfoRowType = {
+export type ListItemRowType = {
   value: string | null;
   label: string;
   column?: boolean;
+};
+
+export type ListItemType = {
+  title: string;
+  rows: ListItemRowType[];
 };
 
 // data types
