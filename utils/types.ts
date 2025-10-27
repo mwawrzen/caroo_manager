@@ -38,6 +38,12 @@ export enum CapacityUnitEnum {
   GAL = 'GAL'
 };
 
+export enum FormInputTypeEnum {
+  TEXT = 'text',
+  INT = 'int',
+  FLOAT = 'float'
+}
+
 export type UnitEnumType =
   PriceUnitEnum |
   DistanceUnitEnum |
