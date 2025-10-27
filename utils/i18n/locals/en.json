@@ -4,6 +4,8 @@
   "addButton": "Add",
   "readyButton": "Ready",
   "removeButton": "Remove",
+  "changeDateButton": "Change date",
+  "changeTimeButton": "Change time",
 
   "enterName": "Enter name",
   "enterMileage": "Enter mileage",
