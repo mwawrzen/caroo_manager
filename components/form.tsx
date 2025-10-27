@@ -5,11 +5,13 @@ import { Colors } from "@/constants/theme";
 import { useOpositeColorScheme } from "@/hooks/use-color-schemes";
 import { LangEnum, UnitEnumType } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import RNDateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, TextInputProps } from "react-native";
 import { De, Pl, Us } from "react-native-svg-circle-country-flags";
 import { ThemedIcon } from "./themed/themed-icon";
+import ActionButton from "./ui/button/action-button";
 
 type FormInputProps = TextInputProps & {
   value: string;
@@ -199,6 +201,45 @@ type FormProps = {
   children: ReactNode;
 };
 
+// Form.DateInput
+
+type FormDateInputProps = {
+  dateObj: Date;
+};
+
+Form.DateInput = function FormDateInput({ dateObj }: FormDateInputProps) {
+
+  const { t } = useTranslation();
+  const [isOpen, setisOpen] = useState<boolean>(false);
+  const [date, setDate] = useState<Date>(dateObj);
+
+  const updateDate = (event: DateTimePickerEvent, newDate?: Date) => {
+    if (newDate && event.type !== 'dismissed')
+      setDate( newDate );
+    setisOpen(false);
+  };
+
+  return (
+    <ThemedView style={styles.dateContainer}>
+      <ThemedView style={styles.dateRow}>
+        <ThemedText type="subtitle" style={styles.dateText}>
+          {date.toLocaleDateString()}
+        </ThemedText>
+        <ThemedView style={{}}>
+          <ActionButton
+            onPress={() => setisOpen(!isOpen)}
+            value={t('changeDateButton')}
+            style={styles.dateButton}
+          />
+        </ThemedView>
+        { isOpen ? <RNDateTimePicker value={date} onChange={updateDate} display="spinner" /> : null }
+      </ThemedView>
+    </ThemedView>
+  );
+};
+
+// form
+
 export default function Form({
   title = 'Form',
   children
@@ -319,5 +360,23 @@ const styles = StyleSheet.create({
   },
   submit: {
     fontSize: 22
+  },
+  dateContainer: {
+    alignItems: "center",
+    gap: 10,
+    marginVertical: 20
+  },
+  dateRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    width: "100%"
+  },
+  dateText: {
+    // flex: 1,
+    textAlign: "right"
+  },
+  dateButton: {
   }
 });
