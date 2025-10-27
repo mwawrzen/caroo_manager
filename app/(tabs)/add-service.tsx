@@ -17,6 +17,7 @@ export default function AddService() {
 
   const router = useRouter();
 
+  const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [description, setDescription] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [status, setStatus] =
@@ -58,6 +59,10 @@ export default function AddService() {
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
+      {
+        status === ServiceStatusEnum.SCHEDULDED ?
+          <Form.DateInput dateObj={date} /> : null
+      }
       <Form.Input
         value={description}
         onChangeText={setDescription}
