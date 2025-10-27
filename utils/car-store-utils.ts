@@ -61,12 +61,19 @@ export function getAvgConsumptionPrice(refuels: Refuel[]): number {
 };
 
 export function sortServicesByDate(services: Service[]): Service[] {
-  const planned = services.filter(service => service.status === ServiceStatusEnum.PLANNED);
-  const notPlanned = services.filter(service => service.status !== ServiceStatusEnum.PLANNED);
-  const sorted = notPlanned.sort((a: Service, b: Service) => {
+
+  const sortedPlanned = services
+    .filter(service => service.status === ServiceStatusEnum.PLANNED)
+    .sort((a, b) => b.createdDate.getTime() - a.createdDate.getTime());
+
+  const notPlanned = services.filter(service => service.status
+    !== ServiceStatusEnum.PLANNED);
+
+  const sortedNotPlanned = notPlanned.sort((a: Service, b: Service) => {
     if (b.date && a.date)
       return b.date.getTime() - a.date.getTime();
     return 0;
   });
-  return [ ...sorted, ...planned ];
+
+  return [ ...sortedNotPlanned, ...sortedPlanned ];
 };
