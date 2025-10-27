@@ -1,16 +1,16 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import { InfoRowType } from "@/utils/types";
+import { ListItemRowType } from "@/utils/types";
 import { ReactNode } from "react";
 import { StyleSheet } from "react-native";
 
 type InfoListProps = {
   title: string,
-  rowsData: InfoRowType[],
+  rowsData: ListItemRowType[],
   children?: ReactNode | null
 };
 
-function InfoListRow({ rowData }: { rowData: InfoRowType }) {
+function ListItemRow({ rowData }: { rowData: ListItemRowType }) {
 
   if (!rowData.value)
     return null;
@@ -24,10 +24,10 @@ function InfoListRow({ rowData }: { rowData: InfoRowType }) {
   );
 }
 
-export default function InfoList({ title, rowsData, children = null }: InfoListProps) {
+export default function ListItem({ title, rowsData, children = null }: InfoListProps) {
 
   const rows = rowsData.map(row =>
-    <InfoListRow key={row.label} rowData={row} />
+    <ListItemRow key={row.label} rowData={row} />
   );
 
   return (
