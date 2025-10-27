@@ -67,8 +67,8 @@ export const menuRoutes: MenuOptionType[] = [
 
 export const availableLanguages = [
   { name: LangEnum.ENGLISH, code: 'en' },
-  { name: LangEnum.POLISH, code: 'pl' }
-  // { name: LangEnum.GERMAN, code: 'de' }
+  { name: LangEnum.POLISH, code: 'pl' },
+  { name: LangEnum.GERMAN, code: 'de' }
 ];
 
 export function getValidatedMileage(value: string): number {
