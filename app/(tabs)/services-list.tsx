@@ -45,7 +45,7 @@ function ServiceItem({ service }: { service: any }) {
     { label: t('noteItem'), value: note, column: true }
   );
 
-  return <InfoList title={formatDate(createdDate)} rowsData={serviceRowsData} />
+  return <InfoList title={date? formatDate(date) : ''} rowsData={serviceRowsData} />
 }
 
 export default function ServicesList() {
