@@ -41,7 +41,7 @@ export default function AddService() {
     );
   });
 
-  function handleAddService() { //TODO form validation
+  function handleAddService() {
     if (!currentCar)
       return null;
     addService(currentCar.id, {
@@ -54,7 +54,14 @@ export default function AddService() {
   }
 
   function checkIsValidated(): boolean {
-    if (!currentCar || description.length <= 0)
+    if (
+      !currentCar ||
+      description.length <= 0 ||
+      (
+        status === ServiceStatusEnum.COMPLETED &&
+        (Number(price) <= 0 || Number(mileage) <= 0)
+      )
+    )
       return false;
     return true;
   }

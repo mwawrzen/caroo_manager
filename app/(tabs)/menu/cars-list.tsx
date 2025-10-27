@@ -21,8 +21,8 @@ function CarItem({ car }: { car: Car }) {
 
   const infoRowsData: InfoRowType[] = [
     { value: `${mileage} ${distanceUnit}`, label: t('savedMileageItem') },
-    { value: fuel, label: t('primaryFuelTitle') },
-    { value: altFuel ? String(altFuel) : null, label: t('alternativeFuelTitle') },
+    { value: t(fuel), label: t('primaryFuelTitle') },
+    { value: altFuel ? t(altFuel) : null, label: t('alternativeFuelTitle') },
     { value: String(refuels.length), label: t('refulesNumItem') },
     { value: String(services.length), label: t('servicesNumItem') }
   ]
