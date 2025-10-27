@@ -2,11 +2,11 @@ import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import ActionButton from "@/components/ui/button/action-button";
 import LinkButton from "@/components/ui/button/link-button";
-import InfoList from "@/components/ui/list/info-list";
+import InfoList from "@/components/ui/list/list-item";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { Car, InfoRowType } from "@/utils/types";
+import { Car, ListItemRowType } from "@/utils/types";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
@@ -19,7 +19,7 @@ function CarItem({ car }: { car: Car }) {
 
   const { mileage, fuel, altFuel, refuels, services } = car;
 
-  const infoRowsData: InfoRowType[] = [
+  const infoRowsData: ListItemRowType[] = [
     { value: `${mileage} ${distanceUnit}`, label: t('savedMileageItem') },
     { value: t(fuel), label: t('primaryFuelTitle') },
     { value: altFuel ? t(altFuel) : null, label: t('alternativeFuelTitle') },
@@ -66,7 +66,7 @@ export default function CarsList() {
   const carItems = cars.map(car => <CarItem key={car.id} car={car} />);
 
   return (
-    <ListView title={t('myCarsItem')} addHref="./add-car" items={carItems} />
+    <ListView title={t('myCarsItem')} addHref="./add-car" node={carItems} />
   );
 };
 

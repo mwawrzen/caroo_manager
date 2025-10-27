@@ -1,4 +1,4 @@
-import InfoList from "@/components/ui/list/info-list";
+import InfoList from "@/components/ui/list/list-item";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
