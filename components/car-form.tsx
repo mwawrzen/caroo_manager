@@ -1,26 +1,26 @@
+import RemoveButton from "@/components/ui/button/remove-button";
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { altFuelTypes, fuelTypes, MAX_MILEAGE } from "@/utils/data";
-import { FuelEnum } from "@/utils/types";
+import { Car, FormInputTypeEnum, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import RemoveButton from "./ui/button/remove-button";
 
-export default function AddCarForm() {
+export default function CarForm({ car = null }: { car?: Car | null }) {
 
   const { t } = useTranslation();
 
   const router = useRouter();
 
-  const { addCar } = useCarStore();
+  const { addCar, editCar } = useCarStore();
   const { distanceUnit } = usePreferencesStore();
 
-  const [name, setName] = useState<string>('');
-  const [mileage, setMileage] = useState<string>('');
-  const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
-  const [altFuel, setAltFuel] = useState<FuelEnum | undefined>();
+  const [name, setName] = useState<string>(car?.name || '');
+  const [mileage, setMileage] = useState<string>(String(car?.mileage || ''));
+  const [fuel, setFuel] = useState<FuelEnum>(car?.fuel || FuelEnum.PETROL);
+  const [altFuel, setAltFuel] = useState<FuelEnum | undefined>(car?.altFuel || undefined);
 
   const fuelTypeOptions = fuelTypes.map(({ icon, value }, i) => {
     return (
@@ -48,13 +48,19 @@ export default function AddCarForm() {
     );
   });
 
-  function handleAddCar() {
-    addCar({
+  function handleSubmit() {
+    const payload = {
       name: name,
       mileage: Number(mileage),
       fuel,
-      altFuel: altFuel || undefined
-    });
+      altFuel
+    };
+
+    if (car)
+      editCar(car.id, payload);
+    else
+      addCar(payload);
+
     if (router.canGoBack())
       router.back();
   }
@@ -62,7 +68,7 @@ export default function AddCarForm() {
   function checkIsValidated(): boolean {
     if (
       name.length < 3 ||
-      Number(mileage) < 1 ||
+      Number(mileage) < (car?.mileage || 1) ||
       Number(mileage) > MAX_MILEAGE
     )
       return false;
@@ -70,7 +76,7 @@ export default function AddCarForm() {
   }
 
   return (
-    <Form title={t('addCarFormTitle')}>
+    <Form title={t(car ? 'editCarButton' : 'addCarButton')}>
       <Form.Input
         value={name}
         onChangeText={setName}
@@ -82,8 +88,8 @@ export default function AddCarForm() {
         placeholder={t('enterMileage')}
         unit={distanceUnit}
         keyboardType="numeric"
+        type={FormInputTypeEnum.INT}
       />
-      {/* fuel type */}
       <Form.RadioGroup title={t('primaryFuelTitle')}>
         {fuelTypeOptions}
       </Form.RadioGroup>
@@ -91,7 +97,7 @@ export default function AddCarForm() {
         {altFuelTypeOptions}
       </Form.RadioGroup>
       { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
-      { checkIsValidated() ? <Form.Submit onPress={handleAddCar} /> : null }
+      { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );
 };

@@ -1,5 +1,5 @@
-import AddCarForm from "@/components/add-car-form";
+import CarForm from "@/components/car-form";
 
 export default function AddCar() {
-  return <AddCarForm />;
+  return <CarForm />;
 };

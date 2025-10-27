@@ -1,4 +1,4 @@
-import EditCarForm from "@/components/edit-car-form";
+import CarForm from "@/components/car-form";
 import useCarStore from "@/store/car-store";
 import { Car } from "@/utils/types";
 import { useLocalSearchParams } from "expo-router";
@@ -13,5 +13,5 @@ export default function EditCar() {
   if (!editableCar)
     return null;
 
-  return <EditCarForm car={editableCar} />;
+  return <CarForm car={editableCar} />;
 };
