@@ -60,9 +60,8 @@ export default function AddRefuel() {
   }
 
   function checkIsValidated(): boolean {
-    if (!currentCar)
-      return false;
     if (
+      !currentCar ||
       Number(unitPrice) <= 0 ||
       Number(fuelAmount) <= 0 ||
       Number(mileage) <= currentCar.mileage
