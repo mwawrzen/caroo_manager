@@ -1,4 +1,4 @@
-import { filterRefuelsByType, getAvgConsumption, getAvgConsumptionPrice, getOneRefuelTotalPrice, getRefuelsTotalPrice, getUnitAvgConsumption, sortRefuelsByDate } from '@/utils/car-store-utils';
+import { filterRefuelsByType, getAvgConsumption, getAvgConsumptionPrice, getOneRefuelTotalPrice, getRefuelsTotalPrice, getUnitAvgConsumption, sortRefuelsByDate, sortServicesByDate } from '@/utils/car-store-utils';
 import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
@@ -138,8 +138,12 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
-  getSortedServices: () => get().currentCar?.services
-    .sort((a: Service, b: Service) => b.createdDate.getTime() - a.createdDate.getTime()) || [],
+  getSortedServices: () => {
+    const currentCar = get().currentCar;
+    if (!currentCar)
+      return [];
+    return sortServicesByDate(currentCar.services);
+  },
   getServicesTotalPrice: () => get().currentCar?.services
     .reduce((acc, curr: Service) => acc + (curr.price || 0), 0) || 0
 }));

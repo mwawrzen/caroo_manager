@@ -15,15 +15,16 @@ function ServiceItem({ service }: { service: any }) {
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
   const serviceRowsData: InfoRowType[] = [
-    { label: t('statusItem'), value: t(status) }
+    { label: t('statusItem'), value: t(status) },
+    { label: t('createdDateItem'), value: createdDate.toLocaleString() }
   ];
 
-  if (date) {
-    serviceRowsData.push({
-      label: t('dateItem'),
-      value: date.toLocaleDateString(), //! FORMAT
-    });
-  }
+  // if (date) {
+  //   serviceRowsData.push({
+  //     label: t('dateItem'),
+  //     value: date.toLocaleDateString(), //! FORMAT
+  //   });
+  // }
 
   if (price) {
     serviceRowsData.push({

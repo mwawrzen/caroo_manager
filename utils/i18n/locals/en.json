@@ -49,6 +49,7 @@
 
   "servicesTitle": "Services",
   "statusItem": "Status",
+    "createdDateItem": "Created date",
   "priceItem": "Price",
   "description": "Description",
 
