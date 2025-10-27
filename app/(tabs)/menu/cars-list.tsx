@@ -1,13 +1,14 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
+import ActionButton from "@/components/ui/button/action-button";
+import LinkButton from "@/components/ui/button/link-button";
 import InfoList from "@/components/ui/list/info-list";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { Car, InfoRowType } from "@/utils/types";
-import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 function CarItem({ car }: { car: Car }) {
 
@@ -35,28 +36,22 @@ function CarItem({ car }: { car: Car }) {
       <ThemedView style={styles.itemButtonGroup}>
         {
           currentCar && currentCar.id !== car.id ?
-            <Pressable onPress={setCarAsDefault} style={{ width: "40%" }}>
-              <ThemedView style={styles.itemButton}>
-                <ThemedText style={styles.itemButtonText}>
-                  {t('setDefaultCarButton')}
-                </ThemedText>
-              </ThemedView>
-            </Pressable> :
+            <ActionButton
+              onPress={setCarAsDefault}
+              style={{ width: "40%" }}
+              value={t('setDefaultCarButton')}
+            /> :
             <ThemedView style={styles.defaultItemButton}>
               <ThemedText style={styles.defaultItemButtonText}>
                 {t('defaultCarButton')}
               </ThemedText>
             </ThemedView>
         }
-        <Link href={{ pathname: './edit-car/[id]', params: { id: car.id } }} asChild>
-          <Pressable style={{ width: "40%" }}>
-            <ThemedView style={styles.itemButton}>
-              <ThemedText style={styles.itemButtonText}>
-                {t('editCarButton')}
-              </ThemedText>
-            </ThemedView>
-          </Pressable>
-        </Link>
+        <LinkButton
+          value={t('editCarButton')}
+          style={{ width: "40%" }}
+          href={{ pathname: './edit-car/[id]', params: { id: car.id } }}
+        />
       </ThemedView>
     </InfoList>
   );

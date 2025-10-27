@@ -1,7 +1,4 @@
 import Form from "@/components/form";
-import { ThemedText } from "@/components/themed/themed-text";
-import { ThemedView } from "@/components/themed/themed-view";
-import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
@@ -9,7 +6,8 @@ import { FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import RemoveButton from "./ui/button/remove-button";
 
 export default function AddCarForm() {
 
@@ -23,7 +21,7 @@ export default function AddCarForm() {
   const [carName, setCarName] = useState<string>('');
   const [carMileage, setCarMileage] = useState<string>('');
   const [fuel, setFuel] = useState<FuelEnum>(FuelEnum.PETROL);
-  const [altFuel, setAltFuel] = useState<FuelEnum | null>(null);
+  const [altFuel, setAltFuel] = useState<FuelEnum | undefined>();
 
   const fuelTypeOptions = fuelTypes.map(({ icon, value }, i) => {
     return (
@@ -89,20 +87,7 @@ export default function AddCarForm() {
       <Form.RadioGroup title={t('alternativeFuelTitle')}>
         {altFuelTypeOptions}
       </Form.RadioGroup>
-      {
-        altFuel ?
-          <Pressable onPress={() => setAltFuel(null)}>
-            <ThemedView
-              lightColor="orangered"
-              darkColor="#000"
-              style={styles.buttonContainer}
-            >
-              <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
-                {t('removeButton')}
-              </ThemedText>
-            </ThemedView>
-          </Pressable> : null
-      }
+      { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
       {
         checkIsValidated() ?
         <Form.Submit onPress={handleAddCar} /> : null

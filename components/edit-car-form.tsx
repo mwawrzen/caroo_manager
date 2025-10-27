@@ -1,7 +1,4 @@
 import Form from "@/components/form";
-import { ThemedText } from "@/components/themed/themed-text";
-import { ThemedView } from "@/components/themed/themed-view";
-import { Colors } from "@/constants/theme";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { altFuelTypes, fuelTypes, getValidatedMileage } from "@/utils/data";
@@ -9,7 +6,7 @@ import { Car, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet } from "react-native";
+import RemoveButton from "./ui/button/remove-button";
 
 export default function EditCarForm({ car }: { car: Car }) {
 
@@ -89,20 +86,7 @@ export default function EditCarForm({ car }: { car: Car }) {
       <Form.RadioGroup title={t('alternativeFuelTitle')}>
         {altFuelTypeOptions}
       </Form.RadioGroup>
-      {
-        altFuel ?
-          <Pressable onPress={() => setAltFuel(undefined)}>
-            <ThemedView
-              lightColor="orangered"
-              darkColor="#000"
-              style={styles.buttonContainer}
-            >
-              <ThemedText lightColor={Colors['dark']['text']} style={styles.button}>
-                {t('removeButton')}
-              </ThemedText>
-            </ThemedView>
-          </Pressable> : null
-      }
+      { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
       {
         checkIsValidated() ?
         <Form.Submit onPress={handleEditCar} /> : null
@@ -110,16 +94,3 @@ export default function EditCarForm({ car }: { car: Car }) {
     </Form>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    alignItems: "center",
-    paddingTop: 6,
-    paddingBottom: 8,
-    borderRadius: 20
-  },
-  button: {
-    fontSize: 12,
-    textTransform: "uppercase"
-  }
-});
