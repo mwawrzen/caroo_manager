@@ -1,5 +1,4 @@
 import EditCarForm from "@/components/edit-car-form";
-import { ThemedView } from "@/components/themed/themed-view";
 import useCarStore from "@/store/car-store";
 import { Car } from "@/utils/types";
 import { useLocalSearchParams } from "expo-router";
@@ -14,9 +13,5 @@ export default function EditCar() {
   if (!editableCar)
     return null;
 
-  return (
-    <ThemedView style={{ flex: 1 }}>
-      <EditCarForm car={editableCar} />
-    </ThemedView>
-  );
+  return <EditCarForm car={editableCar} />;
 };
