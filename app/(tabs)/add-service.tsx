@@ -17,9 +17,9 @@ export default function AddService() {
 
   const router = useRouter();
 
-  const [serviceDescription, setServiceDescription] = useState<string>('');
-  const [serviceNote, setServiceNote] = useState<string>('');
-  const [serviceStatus, setServiceStatus] =
+  const [description, setDescription] = useState<string>('');
+  const [note, setNote] = useState<string>('');
+  const [status, setStatus] =
     useState<ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED>(ServiceStatusEnum.PLANNED);
 
   const statusTypeOptions = statusTypes.map(({ icon, value }, i) => {
@@ -29,8 +29,8 @@ export default function AddService() {
         icon={icon}
         label={t(value)}
         value={value}
-        isActive={serviceStatus === value}
-        onPress={setServiceStatus}
+        isActive={status === value}
+        onPress={setStatus}
       />
     );
   });
@@ -39,12 +39,18 @@ export default function AddService() {
     if (!currentCar)
       return null;
     addService(currentCar.id, {
-      status: serviceStatus,
-      description: serviceDescription,
-      note: serviceNote
+      status: status,
+      description: description,
+      note: note
     });
     if (router.canGoBack())
       router.back();
+  }
+
+  function checkIsValidated(): boolean {
+    if (!currentCar || description.length <= 0)
+      return false;
+    return true;
   }
 
   return (
@@ -53,16 +59,16 @@ export default function AddService() {
         {statusTypeOptions}
       </Form.RadioGroup>
       <Form.Input
-        value={serviceDescription}
-        onChangeText={setServiceDescription}
+        value={description}
+        onChangeText={setDescription}
         placeholder={t('enterDescription')}
       />
       <Form.Input
-        value={serviceNote}
-        onChangeText={setServiceNote}
+        value={note}
+        onChangeText={setNote}
         placeholder={t('enterNote')}
       />
-      <Form.Submit onPress={handleAddService} />
+      { checkIsValidated() ? <Form.Submit onPress={handleAddService} /> : null }
     </Form>
   );
 }
