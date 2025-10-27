@@ -132,9 +132,10 @@ export type AddRefuelType = {
 };
 
 export type AddServiceType = {
-  status: ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED;
-  description: string; //! TEMP
-  mileage?: number;
+  status: ServiceStatusEnum;
   price?: number;
+  mileage?: number;
+  date?: Date;
+  description: string;
   note: string;
 };
