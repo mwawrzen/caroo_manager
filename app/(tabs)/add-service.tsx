@@ -2,7 +2,7 @@ import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { statusTypes } from "@/utils/data";
-import { ServiceStatusEnum } from "@/utils/types";
+import { FormInputTypeEnum, ServiceStatusEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,6 +21,8 @@ export default function AddService() {
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
   const [date, setDate] = useState<Date>(new Date(Date.now()));
+  const [price, setPrice] = useState<string>('');
+  const [mileage, setMileage] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [status, setStatus] =
@@ -70,16 +72,18 @@ export default function AddService() {
         status === ServiceStatusEnum.COMPLETED ? (
           <>
             <Form.Input
-              value={description}
-              onChangeText={setDescription}
+              value={price}
+              onChangeText={setPrice}
               placeholder={t('enterPrice')}
               unit={priceUnit}
+              type={FormInputTypeEnum.FLOAT}
             />
             <Form.Input
-              value={description}
-              onChangeText={setDescription}
+              value={mileage}
+              onChangeText={setMileage}
               placeholder={t('enterMileage')}
               unit={distanceUnit}
+              type={FormInputTypeEnum.INT}
             />
           </>
         ): null
