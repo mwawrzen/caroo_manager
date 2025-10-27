@@ -1,4 +1,4 @@
-import Form from "@/components/form";
+import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { checkStringIsDouble } from "@/utils/check-double-string";
@@ -80,21 +80,21 @@ export default function AddRefuel() {
         onPress={() => setIsFullyRefueled(!isFullyRefueled)}
         checked={isFullyRefueled}
       />
-      <Form.InputUnit
+      <Form.Input
         value={unitPrice}
         onChangeText={(val: string) => checkStringIsDouble(val) ? setUnitPrice(val) : {}}
         placeholder={t('enterUnitPrice')}
         keyboardType="numeric"
         unit={priceUnit}
       />
-      <Form.InputUnit
+      <Form.Input
         value={fuelAmount}
         onChangeText={(val: string) => checkStringIsDouble(val) ? setFuelAmount(val) : {}}
         placeholder={t('enterAmountOfFuel')}
         keyboardType="numeric"
         unit={capacityUnit}
       />
-      <Form.InputUnit
+      <Form.Input
         value={mileage}
         onChangeText={(val: string) => setMileage(String(getValidatedMileage(val)))}
         placeholder={t('enterMileage')}
