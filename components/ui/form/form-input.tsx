@@ -1,6 +1,10 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedTextInput } from "@/components/themed/themed-text-input";
 import { ThemedView } from "@/components/themed/themed-view";
+import { checkStringIsFloat } from "@/utils/check-float-string";
+import { checkStringIsInt } from "@/utils/check-int-string";
+import { MAX_TEXT_LENGTH } from "@/utils/data";
+import { FormInputTypeEnum } from "@/utils/types";
 import { Dispatch, SetStateAction } from "react";
 import { StyleSheet, TextInputProps } from "react-native";
 
@@ -9,6 +13,7 @@ type FormInputProps = TextInputProps & {
   onChangeText: Dispatch<SetStateAction<string>> | ((value: string) => void);
   placeholder?: string;
   unit?: string;
+  type?: FormInputTypeEnum;
 };
 
 export default function FormInput({
@@ -16,14 +21,30 @@ export default function FormInput({
   onChangeText,
   placeholder = '',
   unit,
+  type = FormInputTypeEnum.TEXT,
   ...rest
 }: FormInputProps) {
+
+  function handleInput(text: string) {
+    switch(type) {
+      case FormInputTypeEnum.TEXT:
+        if (text.length <= MAX_TEXT_LENGTH)
+          onChangeText(text);
+      case FormInputTypeEnum.INT:
+        if (checkStringIsInt(text))
+          onChangeText(text);
+      case FormInputTypeEnum.FLOAT:
+        if (checkStringIsFloat(text))
+          onChangeText(text);
+    }
+  }
+
   return (
     <ThemedView style={styles.inputRow}>
       <ThemedTextInput
         style={styles.input}
         value={value}
-        onChangeText={onChangeText}
+        onChangeText={handleInput}
         placeholder={placeholder}
         {...rest}
       />
