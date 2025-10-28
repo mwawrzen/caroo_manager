@@ -4,12 +4,11 @@
   "addButton": "Add",
   "readyButton": "Ready",
   "removeButton": "Remove",
-    "changeDateButton": "Change date",
-    "changeTimeButton": "Change time",
+  "changeDateButton": "Change date",
 
   "enterName": "Enter name",
   "enterMileage": "Enter mileage",
-    "enterPrice": "Enter price",
+  "enterPrice": "Enter price",
   "enterUnitPrice": "Enter unit price",
   "enterAmountOfFuel": "Enter amount of fuel",
   "enterDescription": "Enter description",
@@ -49,7 +48,7 @@
 
   "servicesTitle": "Services",
   "statusItem": "Status",
-    "createdDateItem": "Created date",
+  "createdDateItem": "Created date",
   "priceItem": "Price",
   "description": "Description",
 

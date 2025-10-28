@@ -4,9 +4,11 @@
   "addButton": "Hinzufügen",
   "readyButton": "Fertig",
   "removeButton": "Entfernen",
+  "changeDateButton": "Datum ändern",
 
   "enterName": "Namen eingeben",
   "enterMileage": "Kilometerstand eingeben",
+  "enterPrice": "Preis eingeben",
   "enterUnitPrice": "Stückpreis eingeben",
   "enterAmountOfFuel": "Kraftstoffmenge eingeben",
   "enterDescription": "Beschreibung eingeben",
@@ -46,6 +48,7 @@
 
   "servicesTitle": "Services",
   "statusItem": "Status",
+  "createdDateItem": "Erstellungsdatum",
   "priceItem": "Preis",
   "description": "Beschreibung",
 
