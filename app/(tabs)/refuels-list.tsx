@@ -3,7 +3,7 @@ import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { formatDate } from "@/utils/format-date";
-import { InfoRowType } from "@/utils/types";
+import { ListItemRowType } from "@/utils/types";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +14,7 @@ function RefuelItem({ refuel }: { refuel: any }) {
   const { date, unitPrice, amountOfFuel, sumPrice, fuel, mileage, avgConsumption, fullyRefueled, note } = refuel;
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
-  const refuelRowsData: InfoRowType[] = [
+  const refuelRowsData: ListItemRowType[] = [
     { label: t('fuelItem'), value: t(fuel) },
     { label: t('fullyRefueledItem'), value: fullyRefueled ? t('yes') : t('no') },
     { label: t('amountOfFuelItem'), value: `${amountOfFuel} ${capacityUnit}` },
@@ -44,6 +44,6 @@ export default function RefuelsList() {
   useEffect(() => {}, [currentCar.refuels])
 
   return (
-    <ListView title={t('refuelsTitle')} addHref="./add-refuel" items={refuelItems} />
+    <ListView title={t('refuelsTitle')} addHref="./add-refuel" node={refuelItems} />
   );
 };
