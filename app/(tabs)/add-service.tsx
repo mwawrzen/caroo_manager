@@ -62,7 +62,7 @@ export default function AddService() {
     }
 
     addService(currentCar.id, payload);
-    router.navigate('./services-list');
+    router.navigate('/services-list');
   }
 
   function checkIsValidated(): boolean {

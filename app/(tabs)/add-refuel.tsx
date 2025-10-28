@@ -53,8 +53,7 @@ export default function AddRefuel() {
       note
     });
     setIsFullyRefueled(true);
-    if (router.canGoBack())
-      router.back();
+    router.navigate('/refuels-list');
   }
 
   function checkIsValidated(): boolean {
