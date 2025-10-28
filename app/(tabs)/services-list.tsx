@@ -7,11 +7,6 @@ import { ListItemRowType, ListItemType, Service, ServiceStatusEnum } from "@/uti
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-type Filter = {
-  value: ServiceStatusEnum;
-  active: boolean;
-};
-
 export default function ServicesList() {
 
   const { t } = useTranslation();
