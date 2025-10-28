@@ -32,7 +32,7 @@ export default function ListItem({ title, rowsData, children = null }: InfoListP
 
   return (
     <ThemedView style={styles.itemContainer}>
-      <ThemedText style={styles.itemTitle}>{title}</ThemedText>
+      { title.length ? <ThemedText style={styles.itemTitle}>{title}</ThemedText> : null }
       {rows}
       {children}
     </ThemedView>
