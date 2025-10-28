@@ -1,9 +1,16 @@
+import FormCheckbox from "@/components/ui/form/form-checkbox";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { ListItemRowType, ListItemType, ServiceStatusEnum } from "@/utils/types";
-import { useEffect } from "react";
+import { statusTypes } from "@/utils/data";
+import { ListItemRowType, ListItemType, Service, ServiceStatusEnum } from "@/utils/types";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+
+type Filter = {
+  value: ServiceStatusEnum;
+  active: boolean;
+};
 
 export default function ServicesList() {
 
@@ -12,10 +19,17 @@ export default function ServicesList() {
   const { currentCar, getSortedServices } = useCarStore();
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
+  const [services, setServices] = useState<Service[]>(getSortedServices());
+  const [activeFilters, setActiveFilters] = useState<ServiceStatusEnum[]>([
+    ServiceStatusEnum.PLANNED,
+    ServiceStatusEnum.SCHEDULDED,
+    ServiceStatusEnum.COMPLETED,
+  ]);
+
   if (!currentCar)
     return null;
 
-  const data: ListItemType[] = getSortedServices().map(service => {
+  const data: ListItemType[] = services.map(service => {
     const { createdDate, status, date, description, mileage, price, note } = service;
 
     const serviceRowsData: ListItemRowType[] = [
@@ -45,18 +59,41 @@ export default function ServicesList() {
     return { title: date?.toLocaleDateString() || '', rows: serviceRowsData };
   });
 
+  function updateFilters(value: ServiceStatusEnum) {
+
+    const index = activeFilters.findIndex(filter => filter === value);
+    const newFilters = [...activeFilters];
+
+    if (index === -1 && activeFilters.length >= 1)
+      newFilters.push(value);
+    else if (activeFilters.length > 1)
+      newFilters.splice(index, 1);
+
+    setActiveFilters(newFilters);
+  }
+
+  const filterItems = statusTypes.map(({ value }, i) => (
+    <FormCheckbox
+      key={i}
+      label={t(value)}
+      onPress={() => updateFilters(value)}
+      checked={activeFilters.some(filter => filter === value)}
+    />
+  ));
+
   useEffect(() => {}, [currentCar.services])
+
+  useEffect(() => {
+    console.log(activeFilters);
+    setServices(getSortedServices().filter(service => activeFilters.includes(service.status)));
+  }, [activeFilters]);
 
   return (
     <ListView
       title={t('servicesTitle')}
       addHref="./add-service"
       data={data}
-      filters={[
-        {name: t(ServiceStatusEnum.PLANNED), value: ServiceStatusEnum.PLANNED},
-        {name: t(ServiceStatusEnum.SCHEDULDED), value: ServiceStatusEnum.SCHEDULDED},
-        {name: t(ServiceStatusEnum.COMPLETED), value: ServiceStatusEnum.COMPLETED}
-      ]}
+      subheading={filterItems}
     />
   );
 };

@@ -1,20 +1,34 @@
 import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import { Link } from "expo-router";
+import ListItem from "@/components/ui/list/list-item";
+import { ListItemType } from "@/utils/types";
+import { Href, Link } from "expo-router";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Dimensions, Pressable, ScrollView, StyleSheet } from "react-native";
 
 type ListViewProps = {
-  title: string,
-  addHref: any, //! TEMP
-  items: ReactNode
-};
+  title: string;
+  addHref: Href;
+  data?: ListItemType[];
+  node?: ReactNode;
+  subheading?: ReactNode;
+}
 
-export default function ListView({ title, addHref, items }: ListViewProps) {
+export default function ListView({
+  title,
+  addHref,
+  data,
+  node,
+  subheading = null
+}: ListViewProps) {
 
   const { t } = useTranslation();
+
+  const items = data ? data.map(({ title, rows }: ListItemType, i) => (
+    <ListItem key={i} title={title} rowsData={rows} />
+  )) : node || [];
 
   return (
     <ThemedView style={styles.container}>
@@ -29,7 +43,7 @@ export default function ListView({ title, addHref, items }: ListViewProps) {
           </Pressable>
         </Link>
       </ThemedView>
-
+      { subheading }
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.list}
