@@ -138,9 +138,8 @@ export const cars: Car[] = [
       {
         id: uuid.v4(),
         createdDate: new Date(2025, 9, 14),
-        status: ServiceStatusEnum.SCHEDULDED,
+        status: ServiceStatusEnum.COMPLETED, // SCHEDULDED
         description: 'Timing belt replacement',
-        mileage: 246000,
         price: 1250,
         note: ''
       },

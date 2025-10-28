@@ -8,7 +8,7 @@ import {
 import * as NavigationBar from "expo-navigation-bar";
 import * as SplashScreen from "expo-splash-screen";
 // import { StatusBar } from "expo-status-bar";
-import AddCarForm from "@/components/add-car-form";
+import CarForm from "@/components/car-form";
 import Header from "@/components/header";
 import Navigation from "@/components/navigation";
 import useCarStore from "@/store/car-store";
@@ -57,7 +57,7 @@ export default function RootLayout() {
       <ThemedSafeAreaView>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Header />
-          <AddCarForm />
+          <CarForm />
         </ThemeProvider>
       </ThemedSafeAreaView>
       {/* <StatusBar style="dark" hidden={false} /> */}

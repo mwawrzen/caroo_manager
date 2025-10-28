@@ -1,7 +1,8 @@
-import Form from "@/components/form";
+import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
+import usePreferencesStore from "@/store/preferences-store";
 import { statusTypes } from "@/utils/data";
-import { ServiceStatusEnum } from "@/utils/types";
+import { AddServiceType, FormInputTypeEnum, ServiceStatusEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,34 +18,64 @@ export default function AddService() {
 
   const router = useRouter();
 
-  const [serviceDescription, setServiceDescription] = useState<string>('');
-  const [serviceNote, setServiceNote] = useState<string>('');
-  const [serviceStatus, setServiceStatus] =
-    useState<ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED>(ServiceStatusEnum.PLANNED);
+  const { distanceUnit, priceUnit } = usePreferencesStore();
 
-  const statusTypeOptions = statusTypes.map(({ icon, label, value }) => {
+  const [date, setDate] = useState<Date>(new Date(Date.now()));
+  const [price, setPrice] = useState<string>('');
+  const [mileage, setMileage] = useState<string>(String(currentCar.mileage));
+  const [description, setDescription] = useState<string>('');
+  const [note, setNote] = useState<string>('');
+  const [status, setStatus] =
+    useState<ServiceStatusEnum>(ServiceStatusEnum.PLANNED);
+
+  const statusTypeOptions = statusTypes.map(({ icon, value }, i) => {
     return (
       <Form.Radio
-        key={label}
+        key={i}
         icon={icon}
-        label={label}
+        label={t(value)}
         value={value}
-        isActive={serviceStatus === value}
-        onPress={setServiceStatus}
+        isActive={status === value}
+        onPress={setStatus}
       />
     );
   });
 
-  function handleAddService() { //TODO form validation
+  function handleAddService() {
     if (!currentCar)
       return null;
-    addService(currentCar.id, {
-      status: serviceStatus,
-      description: serviceDescription,
-      note: serviceNote
-    });
-    if (router.canGoBack())
-      router.back();
+
+    const payload: AddServiceType = {
+      status: status,
+      description: description,
+      note: note
+    };
+
+    if (status === ServiceStatusEnum.SCHEDULDED) {
+      payload.date = date;
+    }
+
+    if (status === ServiceStatusEnum.COMPLETED) {
+      payload.date = date;
+      payload.price = Number(price);
+      payload.mileage = Number(mileage);
+    }
+
+    addService(currentCar.id, payload);
+    router.navigate('/services-list');
+  }
+
+  function checkIsValidated(): boolean {
+    if (
+      !currentCar ||
+      description.length <= 0 ||
+      (
+        status === ServiceStatusEnum.COMPLETED &&
+        (Number(price) <= 0 || Number(mileage) <= 0)
+      )
+    )
+      return false;
+    return true;
   }
 
   return (
@@ -52,17 +83,41 @@ export default function AddService() {
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
+      {
+        status !== ServiceStatusEnum.PLANNED ?
+          <Form.DateInput currentDate={date} setCurrentDate={setDate} /> : null
+      }
+      {
+        status === ServiceStatusEnum.COMPLETED ? (
+          <>
+            <Form.Input
+              value={price}
+              onChangeText={setPrice}
+              placeholder={t('enterPrice')}
+              unit={priceUnit}
+              type={FormInputTypeEnum.FLOAT}
+            />
+            <Form.Input
+              value={mileage}
+              onChangeText={setMileage}
+              placeholder={t('enterMileage')}
+              unit={distanceUnit}
+              type={FormInputTypeEnum.INT}
+            />
+          </>
+        ): null
+      }
       <Form.Input
-        value={serviceDescription}
-        onChangeText={setServiceDescription}
+        value={description}
+        onChangeText={setDescription}
         placeholder={t('enterDescription')}
       />
       <Form.Input
-        value={serviceNote}
-        onChangeText={setServiceNote}
+        value={note}
+        onChangeText={setNote}
         placeholder={t('enterNote')}
       />
-      <Form.Submit onPress={handleAddService} />
+      { checkIsValidated() ? <Form.Submit onPress={handleAddService} /> : null }
     </Form>
   );
 }

@@ -4,9 +4,11 @@
   "addButton": "Dodaj",
   "readyButton": "Dodaj",
   "removeButton": "Usuń",
+  "changeDateButton": "Zmień datę",
 
   "enterName": "Wprowadź nazwę",
   "enterMileage": "Wprowadź przebieg",
+  "enterPrice": "Wprowadź cenę",
   "enterUnitPrice": "Wprowadź cenę jednostkową",
   "enterAmountOfFuel": "Wprowadź ilość paliwa",
   "enterDescription": "Wprowadź opis",
@@ -46,8 +48,11 @@
 
   "servicesTitle": "Serwisy",
   "statusItem": "Status",
+  "createdDateItem": "Data utworzenia",
   "priceItem": "Cena",
   "description": "Opis",
+
+  "filtersTitle": "Filtry",
 
   "myCarsItem": "Moje samochody",
   "savedMileageItem": "Ostatni przebieg",

@@ -38,6 +38,18 @@ export enum CapacityUnitEnum {
   GAL = 'GAL'
 };
 
+export enum FormInputTypeEnum {
+  TEXT = 'text',
+  INT = 'int',
+  FLOAT = 'float'
+}
+
+export enum DateUnitEnum {
+  DAY = 'day',
+  MONTH = 'month',
+  YEAR = 'year'
+}
+
 export type UnitEnumType =
   PriceUnitEnum |
   DistanceUnitEnum |
@@ -81,10 +93,15 @@ export interface Car {
 
 // components types
 
-export type InfoRowType = {
+export type ListItemRowType = {
   value: string | null;
   label: string;
   column?: boolean;
+};
+
+export type ListItemType = {
+  title: string;
+  rows: ListItemRowType[];
 };
 
 // data types
@@ -132,9 +149,10 @@ export type AddRefuelType = {
 };
 
 export type AddServiceType = {
-  status: ServiceStatusEnum.PLANNED | ServiceStatusEnum.SCHEDULDED;
-  description: string; //! TEMP
-  mileage?: number;
+  status: ServiceStatusEnum;
   price?: number;
+  mileage?: number;
+  date?: Date;
+  description: string;
   note: string;
 };

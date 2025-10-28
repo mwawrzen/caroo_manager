@@ -1,5 +1,5 @@
-import Form from "@/components/form";
 import { ThemedText } from "@/components/themed/themed-text";
+import Form from "@/components/ui/form/form";
 import usePreferencesStore from "@/store/preferences-store";
 import { availableLanguages, availableUnits } from "@/utils/data";
 import React from "react";

@@ -1,4 +1,3 @@
-import { checkStringIsInt } from "@/utils/check-int-string";
 import {
   CapacityUnitEnum,
   DistanceUnitEnum,
@@ -12,7 +11,8 @@ import {
   StatusType
 } from "@/utils/types";
 
-const MAX_MILEAGE = 999999;
+export const MAX_TEXT_LENGTH = 300;
+export const MAX_MILEAGE = 999999;
 
 export const fuelTypes: FuelType[] = [
   { icon: 'gas-pump', value: FuelEnum.PETROL },
@@ -34,7 +34,8 @@ export const allFuelTypes: FuelType[] = [
 
 export const statusTypes: StatusType[] = [
   { icon: 'question', value: ServiceStatusEnum.PLANNED },
-  // { icon: 'calendar-days', label: 'Schedulded', value: ServiceStatusEnum.SCHEDULDED }
+  { icon: 'calendar-days', value: ServiceStatusEnum.SCHEDULDED },
+  { icon: 'check', value: ServiceStatusEnum.COMPLETED }
 ];
 
 export const availableUnits = {
@@ -67,16 +68,6 @@ export const menuRoutes: MenuOptionType[] = [
 
 export const availableLanguages = [
   { name: LangEnum.ENGLISH, code: 'en' },
-  { name: LangEnum.POLISH, code: 'pl' }
-  // { name: LangEnum.GERMAN, code: 'de' }
+  { name: LangEnum.POLISH, code: 'pl' },
+  { name: LangEnum.GERMAN, code: 'de' }
 ];
-
-export function getValidatedMileage(value: string): number {
-  if(Number(value) >= MAX_MILEAGE)
-    return MAX_MILEAGE;
-  if (value === '')
-    return 0;
-  if(checkStringIsInt(value) && Number(value) > 0)
-    return Number(value);
-  return 0;
-};
