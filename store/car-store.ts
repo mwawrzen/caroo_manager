@@ -133,6 +133,8 @@ const useCarStore = create<CarStore>()((set, get) => ({
       ...newService,
     };
     car.services.push(newServiceObject);
+    if (newServiceObject.mileage && newServiceObject.mileage >= car.mileage)
+      car.mileage = newServiceObject.mileage;
     const newState = {
       cars: newCarsState
     };
