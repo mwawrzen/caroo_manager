@@ -1,4 +1,5 @@
 import FormCheckbox from "@/components/ui/form/form-checkbox";
+import { FormCheckBoxGroup } from "@/components/ui/form/form-checkbox-group";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
@@ -67,14 +68,20 @@ export default function ServicesList() {
     setActiveFilters(newFilters);
   }
 
-  const filterItems = statusTypes.map(({ value }, i) => (
-    <FormCheckbox
-      key={i}
-      label={t(value)}
-      onPress={() => updateFilters(value)}
-      checked={activeFilters.some(filter => filter === value)}
-    />
-  ));
+  const filter = (
+    <FormCheckBoxGroup>
+      {
+        statusTypes.map(({ value }, i) => (
+          <FormCheckbox
+            key={i}
+            label={t(value)}
+            onPress={() => updateFilters(value)}
+            checked={activeFilters.some(filter => filter === value)}
+          />
+        ))
+      }
+    </FormCheckBoxGroup>
+  );
 
   useEffect(() => {}, [currentCar.services])
 
@@ -87,7 +94,7 @@ export default function ServicesList() {
       title={t('servicesTitle')}
       addHref="./add-service"
       data={data}
-      subheading={filterItems}
+      subheading={filter}
     />
   );
 };

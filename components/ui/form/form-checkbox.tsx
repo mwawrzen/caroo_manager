@@ -10,40 +10,49 @@ type FormCheckboxProps = {
 
 export default function FormCheckbox({ label, onPress, checked = true }: FormCheckboxProps) {
   return (
-    <ThemedView style={styles.checkboxContainer}>
-      <ThemedText style={styles.checkboxLabel}>{label}</ThemedText>
-      <Pressable onPress={onPress}>
+    <Pressable onPress={onPress}>
+      <ThemedView style={styles.checkboxContainer}>
+        <ThemedText style={styles.checkboxLabel}>{label}</ThemedText>
         <ThemedView style={styles.checkbox}>
           { checked ? <ThemedView style={styles.checkboxIndicator} /> : null }
         </ThemedView>
-      </Pressable>
-    </ThemedView>
+      </ThemedView>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
+  // checkboxContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   gap: 10,
+  //   padding: 6
+  // },
   checkboxContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    width: "60%",
+    marginHorizontal: "auto",
     gap: 10,
     padding: 6
   },
   checkboxLabel: {
-    fontSize: 20
+    fontSize: 18
   },
   checkbox: {
-    width: 40,
-    height: 40,
-    borderRadius: 18,
+    width: 30,
+    height: 30,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: "orangered",
     backgroundColor: "transparent",
-    padding: 6
+    padding: 4
   },
   checkboxIndicator: {
     flex: 1,
-    borderRadius: 10,
+    borderRadius: 4,
     backgroundColor: "orangered"
   }
 });

@@ -1,6 +1,7 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import FormCheckbox from "@/components/ui/form/form-checkbox";
+import { FormCheckBoxGroup } from "@/components/ui/form/form-checkbox-group";
 import FormDateInput from "@/components/ui/form/form-date-input";
 import FormInput from "@/components/ui/form/form-input";
 import FormRadio from "@/components/ui/form/form-radio";
@@ -15,6 +16,7 @@ Form.DateInput = FormDateInput;
 Form.RadioGroup = FormRadioGroup;
 Form.Radio = FormRadio;
 Form.RadioLang = FormRadioLang;
+Form.CheckboxGroup = FormCheckBoxGroup;
 Form.Checkbox = FormCheckbox;
 Form.Submit = FormSubmit;
 
