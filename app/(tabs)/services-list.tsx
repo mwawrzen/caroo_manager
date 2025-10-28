@@ -84,7 +84,6 @@ export default function ServicesList() {
   useEffect(() => {}, [currentCar.services])
 
   useEffect(() => {
-    console.log(activeFilters);
     setServices(getSortedServices().filter(service => activeFilters.includes(service.status)));
   }, [activeFilters]);
 

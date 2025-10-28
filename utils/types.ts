@@ -44,6 +44,12 @@ export enum FormInputTypeEnum {
   FLOAT = 'float'
 }
 
+export enum DateUnitEnum {
+  DAY = 'day',
+  MONTH = 'month',
+  YEAR = 'year'
+}
+
 export type UnitEnumType =
   PriceUnitEnum |
   DistanceUnitEnum |

@@ -1,62 +1,95 @@
+import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import ActionButton from "@/components/ui/button/action-button";
-import RNDateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { Dispatch, SetStateAction, useState } from "react";
+import { DateUnitEnum } from "@/utils/types";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 type FormDateInputProps = {
-  dateObj: Date;
-  setDate: Dispatch<SetStateAction<any>> | (() => void); //! temp (any)
+  currentDate: Date;
+  setCurrentDate: Dispatch<SetStateAction<any>> | (() => void); //! temp (any)
 };
 
-export default function FormDateInput({ dateObj, setDate }: FormDateInputProps) {
+export default function FormDateInput({ currentDate, setCurrentDate }: FormDateInputProps) {
 
   const { t } = useTranslation();
-  const [isOpen, setisOpen] = useState<boolean>(false);
-  // const [newDate, setNewDate] = useState<Date>(dateObj);
+  const [date, setDate] = useState<Date>(currentDate);
 
-  const updateDate = (event: DateTimePickerEvent, date?: Date) => {
-    if (date && event.type !== 'dismissed')
-      setDate( date );
-    setisOpen(false);
-  };
+  function updateDate() {
+    setCurrentDate(date);
+  }
+
+  function updateDateUnitValue(dayUnit: DateUnitEnum, value: number) {
+
+    const newDate = new Date(date);
+
+    switch (dayUnit) {
+      case DateUnitEnum.DAY:
+        newDate.setDate(date.getDate() + value);
+        break;
+      case DateUnitEnum.MONTH:
+        newDate.setMonth(date.getMonth() + value);
+        break;
+      case DateUnitEnum.YEAR:
+        newDate.setFullYear(date.getFullYear() + value);
+        break;
+    }
+    setDate(newDate);
+    updateDate();
+  }
+
+  const dateUnits = [
+    { name: DateUnitEnum.DAY, value: String(date.getDate()).padStart(2, '0') },
+    { name: DateUnitEnum.MONTH, value: String(date.getMonth() + 1).padStart(2, '0') },
+    { name: DateUnitEnum.YEAR, value: String(date.getFullYear()) }
+  ];
+
+  const dateItems = dateUnits.map(({ name, value }, i) => {
+    return (
+      <ThemedView key={i} style={[
+        styles.dateColumn,
+        name === DateUnitEnum.YEAR ? styles.dateYearColumn : {}
+      ]}>
+        <Pressable onPress={()=>{updateDateUnitValue(name, 1)}}>
+          <ThemedIcon name="chevron-up" style={styles.dateIcon}/>
+        </Pressable>
+        <ThemedText style={styles.dateText}>{value}</ThemedText>
+        <Pressable onPress={()=>{updateDateUnitValue(name, -1)}}>
+          <ThemedIcon name="chevron-down" style={styles.dateIcon}/>
+        </Pressable>
+      </ThemedView>
+    );
+  });
 
   return (
     <ThemedView style={styles.dateContainer}>
-      <ThemedView style={styles.dateRow}>
-        <ThemedText type="subtitle" style={styles.dateText}>
-          {dateObj.toLocaleDateString()}
-        </ThemedText>
-        <ThemedView style={{}}>
-          <ActionButton
-            onPress={() => setisOpen(!isOpen)}
-            value={t('changeDateButton')}
-            style={styles.dateButton}
-          />
-        </ThemedView>
-        { isOpen ? <RNDateTimePicker value={dateObj} onChange={updateDate} display="spinner" /> : null }
-      </ThemedView>
+      {dateItems}
     </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
   dateContainer: {
-    alignItems: "center",
-    gap: 10,
-    marginVertical: 20
-  },
-  dateRow: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     gap: 10,
-    width: "100%"
+    marginVertical: 20
+  },
+  dateColumn: {
+    alignItems: "center",
+    width: 40
+  },
+  dateYearColumn: {
+    width: 60
+  },
+  dateIcon: {
+    fontSize: 32
   },
   dateText: {
-    textAlign: "right"
-  },
-  dateButton: {}
+    fontSize: 22,
+    lineHeight: 22,
+    fontFamily: "Quicksand_700Bold"
+  }
 });

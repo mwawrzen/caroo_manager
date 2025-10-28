@@ -41,13 +41,6 @@ export default function AddService() {
     );
   });
 
-  // status: ServiceStatusEnum;
-  // price?: number;
-  // mileage?: number;
-  // date?: Date;
-  // description: string;
-  // note: string;
-
   function handleAddService() {
     if (!currentCar)
       return null;
@@ -69,8 +62,7 @@ export default function AddService() {
     }
 
     addService(currentCar.id, payload);
-    if (router.canGoBack())
-      router.back();
+    router.navigate('./services-list');
   }
 
   function checkIsValidated(): boolean {
@@ -93,7 +85,7 @@ export default function AddService() {
       </Form.RadioGroup>
       {
         status !== ServiceStatusEnum.PLANNED ?
-          <Form.DateInput dateObj={date} setDate={setDate} /> : null
+          <Form.DateInput currentDate={date} setCurrentDate={setDate} /> : null
       }
       {
         status === ServiceStatusEnum.COMPLETED ? (
