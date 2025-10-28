@@ -22,18 +22,11 @@ export default function FormCheckbox({ label, onPress, checked = true }: FormChe
 };
 
 const styles = StyleSheet.create({
-  // checkboxContainer: {
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   gap: 10,
-  //   padding: 6
-  // },
   checkboxContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "60%",
+    width: "80%",
     marginHorizontal: "auto",
     gap: 10,
     padding: 6
