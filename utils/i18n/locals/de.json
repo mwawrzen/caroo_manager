@@ -52,6 +52,8 @@
   "priceItem": "Preis",
   "description": "Beschreibung",
 
+  "filtersTitle": "Filter",
+
   "myCarsItem": "Meine Fahrzeuge",
   "savedMileageItem": "Zuletzt gespeicherter Kilometerstand",
   "refulesNumItem": "Anzahl der Tankvorgänge",

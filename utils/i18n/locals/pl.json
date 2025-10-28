@@ -52,6 +52,8 @@
   "priceItem": "Cena",
   "description": "Opis",
 
+  "filtersTitle": "Filtry",
+
   "myCarsItem": "Moje samochody",
   "savedMileageItem": "Ostatni przebieg",
   "refulesNumItem": "Liczba tankowań",

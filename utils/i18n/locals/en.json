@@ -52,6 +52,8 @@
   "priceItem": "Price",
   "description": "Description",
 
+    "filtersTitle": "Filters",
+
   "myCarsItem": "My cars",
   "savedMileageItem": "Last saved mileage",
   "refulesNumItem": "Number of refuels",
