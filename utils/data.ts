@@ -17,19 +17,19 @@ export const MAX_MILEAGE = 999999;
 export const fuelTypes: FuelType[] = [
   { icon: 'gas-pump', value: FuelEnum.PETROL },
   { icon: 'droplet', value: FuelEnum.DIESEL },
-  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
+  // { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
 ];
 
 export const altFuelTypes: FuelType[] = [
   { icon: 'fire', value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
+  // { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC },
 ];
 
 export const allFuelTypes: FuelType[] = [
   { icon: 'gas-pump', value: FuelEnum.PETROL },
   { icon: 'droplet', value: FuelEnum.DIESEL },
   { icon: 'fire', value: FuelEnum.GAS },
-  { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC }
+  // { icon: 'bolt-lightning', value: FuelEnum.ELECTRIC }
 ];
 
 export const statusTypes: StatusType[] = [
