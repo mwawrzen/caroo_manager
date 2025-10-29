@@ -6,6 +6,7 @@ import {
   AddServiceType,
   Car,
   EditCarType,
+  EditServiceType,
   FuelEnum,
   Refuel,
   Service
@@ -20,13 +21,15 @@ interface CarStore {
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
   setCurrentCar: (id: Car['id']) => void;
   getCarById: ( id: Car['id'] ) => Car | null;
+
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   getSortedRefuels: () => Refuel[];
   getRefuelsTotalPrice: (fuel: FuelEnum) => number;
   getAvgConsumption: () => number;
   getAvgConsumptionPrice: () => number;
+
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
-  editService: ( carId: Car['id'], serviceId: Service['id'], newService: AddServiceType ) => void;
+  editService: ( carId: Car['id'], serviceId: Service['id'], newService: EditServiceType ) => void;
   getServiceById: ( id: Service['id'] ) => Service | null;
   getSortedServices: () => Service[];
   getServicesTotalPrice: () => number;
