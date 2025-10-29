@@ -6,6 +6,7 @@ import { Car, FormInputTypeEnum, FuelEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import RemoveButton from "./ui/button/remove-button";
 
 export default function CarForm({ car = null }: { car?: Car | null }) {
 
@@ -13,7 +14,7 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
 
   const router = useRouter();
 
-  const { addCar, editCar } = useCarStore();
+  const { addCar, editCar, removeCar } = useCarStore();
   const { distanceUnit } = usePreferencesStore();
 
   const [name, setName] = useState<string>(car?.name || '');
@@ -52,6 +53,13 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
       setAltFuel(undefined);
     else
       setAltFuel(fuel);
+  }
+
+  function handleRemoveCar() {
+    if (!car)
+      return null;
+    removeCar(car.id);
+    router.navigate('/menu/cars-list');
   }
 
   function handleSubmit() {
@@ -101,6 +109,7 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
       <Form.RadioGroup title={t('alternativeFuelTitle')}>
         {altFuelTypeOptions}
       </Form.RadioGroup>
+      { car ? <RemoveButton onPress={handleRemoveCar} /> : null }
       { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );

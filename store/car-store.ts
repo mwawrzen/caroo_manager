@@ -68,7 +68,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
     car.altFuel = newCar.altFuel || undefined;
     return { cars: newCarsState };
   }),
-  removeCar: id => set(state => ({
+  removeCar: id => set(state => ({ //TODO handle currentcar
     cars: state.cars.filter(car => car.id !== id)
   })),
   setCurrentCar: id => set(state => ({
