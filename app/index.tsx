@@ -39,7 +39,7 @@ function InfoBox({ value, label }: InfoBoxProps) {
         lightColor={Colors['dark']['text']}
         style={ styles.itemNumber }
       >
-        {value.toFixed(2) || "--.--"}
+        {value ? value.toFixed(2) : "--.--"}
       </ThemedText>
       {
         label ?
