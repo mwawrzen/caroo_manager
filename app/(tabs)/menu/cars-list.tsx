@@ -51,6 +51,7 @@ function CarItem({ car }: { car: Car }) {
           value={t('editCarButton')}
           style={{ width: "40%" }}
           href={{ pathname: './edit-car/[id]', params: { id: car.id } }}
+          replace
         />
       </ThemedView>
     </InfoList>
