@@ -150,6 +150,8 @@ export type AddRefuelType = {
   note: string;
 };
 
+export type EditRefuelType = AddRefuelType;
+
 export type AddServiceType = {
   status: ServiceStatusEnum;
   price?: number;

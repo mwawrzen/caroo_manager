@@ -41,7 +41,7 @@ export default function ServiceForm({ service = null }: { service?: Service | nu
     );
   });
 
-  function handleAddService() {
+  function handleSubmit() {
     if (!currentCar)
       return null;
 
@@ -121,7 +121,7 @@ export default function ServiceForm({ service = null }: { service?: Service | nu
         onChangeText={setNote}
         placeholder={t('enterNote')}
       />
-      { checkIsValidated() ? <Form.Submit onPress={handleAddService} /> : null }
+      { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );
 }

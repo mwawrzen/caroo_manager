@@ -6,6 +6,7 @@ import {
   AddServiceType,
   Car,
   EditCarType,
+  EditRefuelType,
   EditServiceType,
   FuelEnum,
   Refuel,
@@ -23,6 +24,8 @@ interface CarStore {
   getCarById: ( id: Car['id'] ) => Car | null;
 
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
+  editRefuel: ( carId: Car['id'], refuelId: Refuel['id'], newRefuel: EditRefuelType ) => void;
+  getRefuelById: ( id: Refuel['id'] ) => Refuel | null;
   getSortedRefuels: () => Refuel[];
   getRefuelsTotalPrice: (fuel: FuelEnum) => number;
   getAvgConsumption: () => number;
@@ -52,7 +55,6 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
-  //TODO: optimize
   editCar: (id, newCar) => set(state => {
     const newCarsState = [...state.cars];
     const car = state.cars.find(car => car.id === id);
@@ -69,7 +71,6 @@ const useCarStore = create<CarStore>()((set, get) => ({
   })),
   getCarById: id => get().cars.find(car => car.id === id) || null,
   // removeCar: id => set(state => ({ cars: [ ...state.cars, newCar ]}))
-  //TODO: optimize
   addRefuel: (id, newRefuel) => set(state => {
     const newCarsState = [ ...state.cars];
     const car = newCarsState.find(car => car.id === id);
@@ -91,6 +92,26 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
+  editRefuel: ( carId, refuelId, newRefuel ) => set(state => { //TODO recalculate avg consumption
+    const newCarsState = [...state.cars];
+    const car = newCarsState.find(car => car.id === carId);
+    if (!car)
+      return state;
+    const refuel = car.refuels.find(refuel => refuel.id === refuelId);
+    if (!refuel)
+      return state;
+    refuel.unitPrice = newRefuel.unitPrice;
+    refuel.amountOfFuel = newRefuel.amountOfFuel;
+    refuel.fuel = newRefuel.fuel;
+    refuel.mileage = newRefuel.mileage;
+    refuel.fullyRefueled = newRefuel.fullyRefueled;
+    refuel.note = newRefuel.note;
+    return { cars: newCarsState };
+  }),
+  getRefuelById: id => {
+    const refuels: Refuel[] = get().cars.map(car => car.refuels).flat();
+    return refuels.find(refuel => refuel.id === id) || null;
+  },
   getSortedRefuels: () => {
     const currentCar = get().currentCar;
     if (!currentCar)
@@ -120,7 +141,6 @@ const useCarStore = create<CarStore>()((set, get) => ({
     const filteredRefuels = filterRefuelsByType( refuels, altFuel || fuel);
     return getAvgConsumptionPrice(filteredRefuels);
   },
-  //TODO: optimize
   addService: (id, newService) => set(state => {
     const newCarsState = [ ...state.cars];
     const car = newCarsState.find(car => car.id === id);
