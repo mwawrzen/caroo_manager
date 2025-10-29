@@ -5,7 +5,7 @@ import { Href, Link, usePathname } from "expo-router";
 import { ReactNode } from "react";
 import { Pressable, StyleSheet } from "react-native";
 
-type InfoListProps = {
+type ListItemProps = {
   title: string;
   rowsData: ListItemRowType[];
   children?: ReactNode | null;
@@ -31,7 +31,7 @@ export default function ListItem({
   rowsData,
   children = null,
   href
-}: InfoListProps) {
+}: ListItemProps) {
 
   const rows = rowsData.map(row =>
     <ListItemRow key={row.label} rowData={row} />
