@@ -18,7 +18,6 @@ function ListItemRow({ rowData }: { rowData: ListItemRowType }) {
     return null;
 
   return (
-    // <ThemedView style={rowData.column ? styles.itemRowColumn : styles.itemRow}>
     <ThemedView style={styles.itemRow}>
       <ThemedText style={styles.itemLabel}>{rowData.label}:</ThemedText>
       <ThemedText style={styles.itemText}>{rowData.value}</ThemedText>
@@ -71,7 +70,6 @@ const styles = StyleSheet.create({
     gap: 10
   },
   itemRowColumn: {
-    // alignItems: "center"
   },
   itemLabel: {
 
