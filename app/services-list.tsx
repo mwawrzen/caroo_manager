@@ -26,11 +26,10 @@ export default function ServicesList() {
     return null;
 
   const data: ListItemType[] = services.map(service => {
-    const { id, createdDate, status, date, description, mileage, price, note } = service;
+    const { id, status, date, description, mileage, price, note } = service;
 
     const serviceRowsData: ListItemRowType[] = [
-      { label: t('statusItem'), value: t(status) },
-      { label: t('createdDateItem'), value: createdDate.toLocaleString() }
+      { label: t('statusItem'), value: t(status) }
     ];
 
     if (price) {
