@@ -76,7 +76,7 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
   }
 
   return (
-    <Form title={t(car ? 'editCarButton' : 'addCarButton')}>
+    <Form title={t(car ? 'editCarButton' : 'addCarFormTitle')}>
       <Form.Input
         value={name}
         onChangeText={setName}

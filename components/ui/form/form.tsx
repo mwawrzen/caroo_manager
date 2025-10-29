@@ -9,7 +9,7 @@ import FormRadioGroup from "@/components/ui/form/form-radio-group";
 import FormRadioLang from "@/components/ui/form/form-radio-lang";
 import FormSubmit from "@/components/ui/form/form-submit";
 import React, { ReactNode } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 
 Form.Input = FormInput;
 Form.DateInput = FormDateInput;
@@ -32,14 +32,19 @@ export default function Form({
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ThemedView style={styles.container}>
-          <ThemedText style={styles.heading}>{title}</ThemedText>
-          <ThemedView style={styles.formContainer}>
-            {children}
+      <KeyboardAvoidingView
+        behavior="padding"
+        keyboardVerticalOffset={140}
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <ThemedView style={styles.container}>
+            <ThemedText style={styles.heading}>{title}</ThemedText>
+            <ThemedView style={styles.formContainer}>
+              {children}
+            </ThemedView>
           </ThemedView>
-        </ThemedView>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ThemedView>
   );
 };
