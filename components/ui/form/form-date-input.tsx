@@ -2,8 +2,7 @@ import { ThemedIcon } from "@/components/themed/themed-icon";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { DateUnitEnum } from "@/utils/types";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { Dispatch, SetStateAction } from "react";
 import { Pressable, StyleSheet } from "react-native";
 
 type FormDateInputProps = {
@@ -13,36 +12,28 @@ type FormDateInputProps = {
 
 export default function FormDateInput({ currentDate, setCurrentDate }: FormDateInputProps) {
 
-  const { t } = useTranslation();
-  const [date, setDate] = useState<Date>(currentDate);
-
-  function updateDate() {
-    setCurrentDate(date);
-  }
-
   function updateDateUnitValue(dayUnit: DateUnitEnum, value: number) {
 
-    const newDate = new Date(date);
+    const newDate = new Date(currentDate);
 
     switch (dayUnit) {
       case DateUnitEnum.DAY:
-        newDate.setDate(date.getDate() + value);
+        newDate.setDate(currentDate.getDate() + value);
         break;
       case DateUnitEnum.MONTH:
-        newDate.setMonth(date.getMonth() + value);
+        newDate.setMonth(currentDate.getMonth() + value);
         break;
       case DateUnitEnum.YEAR:
-        newDate.setFullYear(date.getFullYear() + value);
+        newDate.setFullYear(currentDate.getFullYear() + value);
         break;
     }
-    setDate(newDate);
-    updateDate();
+    setCurrentDate(newDate);
   }
 
   const dateUnits = [
-    { name: DateUnitEnum.DAY, value: String(date.getDate()).padStart(2, '0') },
-    { name: DateUnitEnum.MONTH, value: String(date.getMonth() + 1).padStart(2, '0') },
-    { name: DateUnitEnum.YEAR, value: String(date.getFullYear()) }
+    { name: DateUnitEnum.DAY, value: String(currentDate.getDate()).padStart(2, '0') },
+    { name: DateUnitEnum.MONTH, value: String(currentDate.getMonth() + 1).padStart(2, '0') },
+    { name: DateUnitEnum.YEAR, value: String(currentDate.getFullYear()) }
   ];
 
   const dateItems = dateUnits.map(({ name, value }, i) => {
