@@ -35,6 +35,7 @@ export default function Form({
       <KeyboardAvoidingView
         behavior="padding"
         keyboardVerticalOffset={140}
+        style={{ flex: 1 }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <ThemedView style={styles.container}>
