@@ -1,3 +1,4 @@
+import RemoveButton from "@/components/ui/button/remove-button";
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
@@ -6,7 +7,6 @@ import { AddServiceType, FormInputTypeEnum, Service, ServiceStatusEnum } from "@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import RemoveButton from "./ui/button/remove-button";
 
 export default function ServiceForm({ service = null }: { service?: Service | null }) {
 
