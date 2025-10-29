@@ -49,6 +49,7 @@ export default function FormInput({
         value={value}
         onChangeText={handleInput}
         placeholder={placeholder}
+        multiline
         {...rest}
       />
       { unit ? <ThemedText style={styles.inputUnit}>{unit}</ThemedText> : null }
