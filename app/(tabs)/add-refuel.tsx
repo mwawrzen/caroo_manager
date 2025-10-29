@@ -19,10 +19,10 @@ export default function AddRefuel() {
 
   const router = useRouter();
 
-  const [unitPrice, setUnitPrice] = useState<string>(""); //! number
-  const [fuelAmount, setFuelAmount] = useState<string>(""); //! number
-  const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel); //! current car
-  const [mileage, setMileage] = useState<string>(String(currentCar.mileage)); //!  number
+  const [unitPrice, setUnitPrice] = useState<string>('');
+  const [fuelAmount, setFuelAmount] = useState<string>('');
+  const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel);
+  const [mileage, setMileage] = useState<string>(String(currentCar.mileage));
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
   const [note, setNote] = useState<string>('');
 
