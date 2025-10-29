@@ -6,7 +6,7 @@ export function getOneRefuelTotalPrice(refuel: AddRefuelType): number {
 
 export function getRefuelsTotalPrice(refuels: Refuel[]): number {
   const total = refuels.reduce((acc, curr) => acc + getOneRefuelTotalPrice(curr), 0);
-  return total || 0;
+  return total;
 };
 
 export function sortRefuelsByDate(refuels: Refuel[]): Refuel[] {
@@ -55,6 +55,10 @@ export function getAvgConsumptionPrice(refuels: Refuel[]): number {
 
   const sortedRefuels = sortRefuelsByDate(refuels);
   const totalMileage = sortedRefuels[0].mileage - sortedRefuels[refuels.length - 1].mileage;
+
+  if (totalMileage === 0)
+    return 0;
+
   const totalPrice = getRefuelsTotalPrice(sortedRefuels);
 
   return (1 * totalPrice) / totalMileage;
