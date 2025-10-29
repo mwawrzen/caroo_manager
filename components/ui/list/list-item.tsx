@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   itemRowColumn: {},
   itemLabel: {},
   itemText: {
+    flexShrink: 1,
     fontFamily: "Quicksand_700Bold",
     fontSize: 16
   }
