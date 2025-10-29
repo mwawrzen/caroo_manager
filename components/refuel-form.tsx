@@ -75,7 +75,7 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
       !currentCar ||
       Number(unitPrice) <= 0 ||
       Number(fuelAmount) <= 0 ||
-      (refuel ? false : Number(mileage) <= currentCar.mileage) || //TODO add validation
+      (refuel ? false : Number(mileage) < currentCar.mileage) || //TODO add validation
       Number(mileage) > MAX_MILEAGE
     )
       return false;
