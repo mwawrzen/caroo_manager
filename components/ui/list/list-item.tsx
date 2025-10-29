@@ -68,11 +68,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10
   },
-  itemRowColumn: {
-  },
-  itemLabel: {
-
-  },
+  itemRowColumn: {},
+  itemLabel: {},
   itemText: {
     fontFamily: "Quicksand_700Bold",
     fontSize: 16
