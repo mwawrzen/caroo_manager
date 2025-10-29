@@ -1,4 +1,3 @@
-import RemoveButton from "@/components/ui/button/remove-button";
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
@@ -43,10 +42,17 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
         label={t(value)}
         value={value}
         isActive={altFuel === value}
-        onPress={setAltFuel}
+        onPress={handleAltFuelRadio}
       />
     );
   });
+
+  function handleAltFuelRadio(fuel: FuelEnum) {
+    if (altFuel === fuel)
+      setAltFuel(undefined);
+    else
+      setAltFuel(fuel);
+  }
 
   function handleSubmit() {
     const payload = {
@@ -95,7 +101,6 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
       <Form.RadioGroup title={t('alternativeFuelTitle')}>
         {altFuelTypeOptions}
       </Form.RadioGroup>
-      { altFuel ? <RemoveButton onPress={() => setAltFuel(undefined)} /> : null }
       { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );
