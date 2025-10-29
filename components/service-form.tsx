@@ -6,12 +6,13 @@ import { AddServiceType, FormInputTypeEnum, Service, ServiceStatusEnum } from "@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import RemoveButton from "./ui/button/remove-button";
 
 export default function ServiceForm({ service = null }: { service?: Service | null }) {
 
   const { t } = useTranslation();
 
-  const { currentCar, addService, editService } = useCarStore();
+  const { currentCar, addService, editService, removeService } = useCarStore();
 
   if (!currentCar)
     return null;
@@ -40,6 +41,13 @@ export default function ServiceForm({ service = null }: { service?: Service | nu
       />
     );
   });
+
+  function handleRemove() {
+    if (!currentCar || !service)
+      return null;
+    removeService(currentCar.id, service.id);
+    router.navigate('/services-list');
+  }
 
   function handleSubmit() {
     if (!currentCar)
@@ -121,6 +129,7 @@ export default function ServiceForm({ service = null }: { service?: Service | nu
         onChangeText={setNote}
         placeholder={t('enterNote')}
       />
+      { service ? <RemoveButton onPress={handleRemove} /> : null }
       { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );

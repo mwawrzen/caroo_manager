@@ -6,12 +6,13 @@ import { AddRefuelType, FormInputTypeEnum, FuelEnum, Refuel } from "@/utils/type
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import RemoveButton from "./ui/button/remove-button";
 
 export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
 
   const { t } = useTranslation();
 
-  const { currentCar, addRefuel, editRefuel } = useCarStore();
+  const { currentCar, addRefuel, editRefuel, removeRefuel } = useCarStore();
   const { priceUnit, capacityUnit, distanceUnit } = usePreferencesStore();
 
   if (!currentCar)
@@ -40,6 +41,13 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
       />
     );
   });
+
+  function handleRemove() {
+    if (!currentCar || !refuel)
+      return null;
+    removeRefuel(currentCar.id, refuel.id);
+    router.navigate('/refuels-list');
+  }
 
   function handleSubmit() {
     if (!currentCar)
@@ -113,6 +121,7 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
         onChangeText={setNote}
         placeholder={t('enterNote')}
       />
+      { refuel ? <RemoveButton onPress={handleRemove} /> : null }
       { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );

@@ -20,11 +20,13 @@ interface CarStore {
   currentCar: Car | null;
   addCar: (newCar: AddCarType) => void;
   editCar: ( id: Car['id'], newCar: EditCarType ) => void;
+  removeCar: ( id: Car['id'] ) => void;
   setCurrentCar: (id: Car['id']) => void;
   getCarById: ( id: Car['id'] ) => Car | null;
 
   addRefuel: ( id: Car['id'], newRefuel: AddRefuelType ) => void;
   editRefuel: ( carId: Car['id'], refuelId: Refuel['id'], newRefuel: EditRefuelType ) => void;
+  removeRefuel: ( carId: Car['id'], id: Refuel['id'] ) => void;
   getRefuelById: ( id: Refuel['id'] ) => Refuel | null;
   getSortedRefuels: () => Refuel[];
   getRefuelsTotalPrice: (fuel: FuelEnum) => number;
@@ -33,10 +35,10 @@ interface CarStore {
 
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
   editService: ( carId: Car['id'], serviceId: Service['id'], newService: EditServiceType ) => void;
+  removeService: ( carId: Car['id'], id: Service['id'] ) => void;
   getServiceById: ( id: Service['id'] ) => Service | null;
   getSortedServices: () => Service[];
   getServicesTotalPrice: () => number;
-  // removeCar: ( id: Car['id'] ) => void;
 }
 
 const useCarStore = create<CarStore>()((set, get) => ({
@@ -66,11 +68,13 @@ const useCarStore = create<CarStore>()((set, get) => ({
     car.altFuel = newCar.altFuel || undefined;
     return { cars: newCarsState };
   }),
+  removeCar: id => set(state => ({
+    cars: state.cars.filter(car => car.id !== id)
+  })),
   setCurrentCar: id => set(state => ({
     currentCar: state.cars.find(car => car.id === id) || state.currentCar
   })),
   getCarById: id => get().cars.find(car => car.id === id) || null,
-  // removeCar: id => set(state => ({ cars: [ ...state.cars, newCar ]}))
   addRefuel: (id, newRefuel) => set(state => {
     const newCarsState = [ ...state.cars];
     const car = newCarsState.find(car => car.id === id);
@@ -106,6 +110,15 @@ const useCarStore = create<CarStore>()((set, get) => ({
     refuel.mileage = newRefuel.mileage;
     refuel.fullyRefueled = newRefuel.fullyRefueled;
     refuel.note = newRefuel.note;
+    return { cars: newCarsState };
+  }),
+  removeRefuel: (carId, id) => set(state => { //TODO recalculate close refules avgs ...
+    const newCarsState = [...state.cars];
+    const car = newCarsState.find(car => car.id === carId);
+    if (!car)
+      return state;
+    const refuelIndex = car.refuels.findIndex(refuel => refuel.id === id);
+    car.refuels.splice(refuelIndex, 1);
     return { cars: newCarsState };
   }),
   getRefuelById: id => {
@@ -173,6 +186,15 @@ const useCarStore = create<CarStore>()((set, get) => ({
     service.date = newService.date || undefined;
     service.description = newService.description;
     service.note = newService.note;
+    return { cars: newCarsState };
+  }),
+  removeService: (carId, id) => set(state => { //TODO recalculate close refules avgs ...
+    const newCarsState = [...state.cars];
+    const car = newCarsState.find(car => car.id === carId);
+    if (!car)
+      return state;
+    const serviceIndex = car.services.findIndex(service => service.id === id);
+    car.services.splice(serviceIndex, 1);
     return { cars: newCarsState };
   }),
   getServiceById: id => {
