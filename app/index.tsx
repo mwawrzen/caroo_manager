@@ -107,7 +107,7 @@ export default function Index() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <ThemedView style={styles.container}>
           <ThemedView style={styles.buttonGroup}>
-            <Link push href="/add-service" asChild>
+            <Link href="/add-service" asChild>
               <Pressable>
                 <ThemedView style={styles.button}>
                   <ThemedIcon name="wrench" style={styles.buttonIcon} />
@@ -115,7 +115,7 @@ export default function Index() {
                 </ThemedView>
               </Pressable>
             </Link>
-            <Link push href="/add-refuel" asChild>
+            <Link href="/add-refuel" asChild>
               <Pressable>
                 <ThemedView style={styles.button}>
                   <ThemedIcon name="gas-pump" style={styles.buttonIcon} />

@@ -61,8 +61,7 @@ export default function CarForm({ car = null }: { car?: Car | null }) {
     else
       addCar(payload);
 
-    if (router.canGoBack())
-      router.back();
+    router.navigate('/menu/cars-list');
   }
 
   function checkIsValidated(): boolean {

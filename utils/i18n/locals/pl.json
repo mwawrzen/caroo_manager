@@ -2,7 +2,7 @@
   "yes": "Tak",
   "no": "Nie",
   "addButton": "Dodaj",
-  "readyButton": "Dodaj",
+  "readyButton": "Gotowe",
   "removeButton": "Usuń",
   "changeDateButton": "Zmień datę",
 
@@ -51,6 +51,7 @@
   "createdDateItem": "Data utworzenia",
   "priceItem": "Cena",
   "description": "Opis",
+  "editServiceButton": "Edytuj serwis",
 
   "filtersTitle": "Filtry",
 

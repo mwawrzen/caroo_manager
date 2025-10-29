@@ -26,15 +26,15 @@ export default function ListView({
 
   const { t } = useTranslation();
 
-  const items = data ? data.map(({ title, rows }: ListItemType, i) => (
-    <ListItem key={i} title={title} rowsData={rows} />
+  const items = data ? data.map(({ title, href, rows }: ListItemType, i) => (
+    <ListItem key={i} title={title} rowsData={rows} href={href} />
   )) : node || [];
 
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title" style={styles.titleText}>{title}</ThemedText>
-        <Link push href={addHref} asChild>
+        <Link href={addHref} asChild>
           <Pressable>
             <ThemedView style={styles.titleButtonContainer}>
               <ThemedIcon name="plus" style={styles.titleButtonIcon} />

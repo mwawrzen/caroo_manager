@@ -1,13 +1,15 @@
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
 import { ListItemRowType } from "@/utils/types";
+import { Href, Link, usePathname } from "expo-router";
 import { ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 type InfoListProps = {
-  title: string,
-  rowsData: ListItemRowType[],
-  children?: ReactNode | null
+  title: string;
+  rowsData: ListItemRowType[];
+  children?: ReactNode | null;
+  href?: Href;
 };
 
 function ListItemRow({ rowData }: { rowData: ListItemRowType }) {
@@ -24,16 +26,29 @@ function ListItemRow({ rowData }: { rowData: ListItemRowType }) {
   );
 }
 
-export default function ListItem({ title, rowsData, children = null }: InfoListProps) {
+export default function ListItem({
+  title,
+  rowsData,
+  children = null,
+  href
+}: InfoListProps) {
 
   const rows = rowsData.map(row =>
     <ListItemRow key={row.label} rowData={row} />
   );
 
+  const pathname = usePathname();
+  if (!href)
+    href = pathname as Href;
+
   return (
     <ThemedView style={styles.itemContainer}>
-      { title.length ? <ThemedText style={styles.itemTitle}>{title}</ThemedText> : null }
-      {rows}
+      <Link href={href} asChild>
+        <Pressable>
+          { title.length ? <ThemedText style={styles.itemTitle}>{title}</ThemedText> : null }
+          {rows}
+        </Pressable>
+      </Link>
       {children}
     </ThemedView>
   );

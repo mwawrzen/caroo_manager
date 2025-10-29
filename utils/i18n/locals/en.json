@@ -51,8 +51,9 @@
   "createdDateItem": "Created date",
   "priceItem": "Price",
   "description": "Description",
+  "editServiceButton": "Edit service",
 
-    "filtersTitle": "Filters",
+  "filtersTitle": "Filters",
 
   "myCarsItem": "My cars",
   "savedMileageItem": "Last saved mileage",

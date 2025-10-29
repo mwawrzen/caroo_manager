@@ -26,7 +26,7 @@ export default function ServicesList() {
     return null;
 
   const data: ListItemType[] = services.map(service => {
-    const { createdDate, status, date, description, mileage, price, note } = service;
+    const { id, createdDate, status, date, description, mileage, price, note } = service;
 
     const serviceRowsData: ListItemRowType[] = [
       { label: t('statusItem'), value: t(status) },
@@ -52,7 +52,11 @@ export default function ServicesList() {
       { label: t('noteItem'), value: note, column: true }
     );
 
-    return { title: date?.toLocaleDateString() || '', rows: serviceRowsData };
+    return {
+      title: date?.toLocaleDateString() || '',
+      href: {pathname: '/edit-service/[id]', params: { id }},
+      rows: serviceRowsData
+    };
   });
 
   function updateFilters(value: ServiceStatusEnum) {

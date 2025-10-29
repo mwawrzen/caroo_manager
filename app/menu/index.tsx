@@ -12,7 +12,7 @@ function MenuOption({ href, icon, name }: MenuOptionType) {
   const { t } = useTranslation();
 
   return (
-    <Link push href={href} asChild>
+    <Link href={href} asChild>
       <Pressable style={styles.menuOption}>
         <ThemedView style={styles.menuOptionContainer}>
           <ThemedIcon name={icon} lightColor="orangered" style={styles.menuOptionIcon} />

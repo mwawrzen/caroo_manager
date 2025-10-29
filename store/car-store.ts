@@ -26,6 +26,8 @@ interface CarStore {
   getAvgConsumption: () => number;
   getAvgConsumptionPrice: () => number;
   addService: ( id: Car['id'], newService: AddServiceType ) => void;
+  editService: ( carId: Car['id'], serviceId: Service['id'], newService: AddServiceType ) => void;
+  getServiceById: ( id: Service['id'] ) => Service | null;
   getSortedServices: () => Service[];
   getServicesTotalPrice: () => number;
   // removeCar: ( id: Car['id'] ) => void;
@@ -49,21 +51,15 @@ const useCarStore = create<CarStore>()((set, get) => ({
   }),
   //TODO: optimize
   editCar: (id, newCar) => set(state => {
-    const car = state.cars.find(car => car.id === id);
-    const carIndex = state.cars.findIndex(car => car.id === id);
     const newCarsState = [...state.cars];
+    const car = state.cars.find(car => car.id === id);
     if (!car)
       return state;
-    const newCarObject: Car = { ...car };
-    newCarObject.name = newCar.name;
-    newCarObject.mileage = newCar.mileage;
-    newCarObject.fuel = newCar.fuel;
-    newCarObject.altFuel = newCar.altFuel || undefined;
-    newCarsState.splice(carIndex, 1, newCarObject);
-    return {
-      cars: newCarsState,
-      currentCar: state.currentCar?.id === car.id ? newCarObject : state.currentCar
-    };
+    car.name = newCar.name;
+    car.mileage = newCar.mileage;
+    car.fuel = newCar.fuel;
+    car.altFuel = newCar.altFuel || undefined;
+    return { cars: newCarsState };
   }),
   setCurrentCar: id => set(state => ({
     currentCar: state.cars.find(car => car.id === id) || state.currentCar
@@ -140,6 +136,26 @@ const useCarStore = create<CarStore>()((set, get) => ({
     };
     return newState;
   }),
+  editService: ( carId, serviceId, newService ) => set(state => {
+    const newCarsState = [...state.cars];
+    const car = newCarsState.find(car => car.id === carId);
+    if (!car)
+      return state;
+    const service = car.services.find(service => service.id === serviceId);
+    if (!service)
+      return state;
+    service.status = newService.status;
+    service.price = newService.price || undefined;
+    service.mileage = newService.mileage || undefined;
+    service.date = newService.date || undefined;
+    service.description = newService.description;
+    service.note = newService.note;
+    return { cars: newCarsState };
+  }),
+  getServiceById: id => {
+    const services: Service[] = get().cars.map(car => car.services).flat();
+    return services.find(service => service.id === id) || null;
+  },
   getSortedServices: () => {
     const currentCar = get().currentCar;
     if (!currentCar)

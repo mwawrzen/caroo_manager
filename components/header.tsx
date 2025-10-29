@@ -11,12 +11,12 @@ export default function Header() {
   const router = useRouter();
   const segments = useSegments();
   const { currentCar } = useCarStore();
-  const [isBack, setIsBack] = useState<boolean>(true);
+  const [isBack, setIsBack] = useState<boolean>(false);
 
   const title = currentCar ? currentCar.name : "Caroo Manager";
 
   useEffect(() => {
-    setIsBack(router.canGoBack())
+    // setIsBack(router.canGoBack())
   }, [segments]);
 
   return (
