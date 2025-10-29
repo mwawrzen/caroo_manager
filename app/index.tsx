@@ -102,6 +102,9 @@ export default function Index() {
   const fuelRefuelSumPrice = getRefuelsTotalPrice( fuelType );
   const altFuelRefuelSumPrice = altFuelType ? getRefuelsTotalPrice( altFuelType ) : 0;
 
+  const avgConsumption = getAvgConsumption();
+  const avgConsumptionPrice = getAvgConsumptionPrice();
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -125,8 +128,8 @@ export default function Index() {
             </Link>
           </ThemedView>
           <InfoRow title={t('generalInfoTitle')}>
-            <InfoBox value={getAvgConsumption()} label={`${capacityUnit} / 100${distanceUnit}`} />
-            <InfoBox value={getAvgConsumptionPrice()} label={`${priceUnit} / ${distanceUnit}`} />
+            <InfoBox value={avgConsumption} label={`${capacityUnit} / 100${distanceUnit}`} />
+            <InfoBox value={avgConsumptionPrice} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
           <InfoRow title={t('summaryRefulesTitle')}>
             { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={t(altFuelType)} /> : null }
