@@ -34,7 +34,7 @@ export default function ListView({
     <ThemedView style={styles.container}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title" style={styles.titleText}>{title}</ThemedText>
-        <Link replace href={addHref} asChild>
+        <Link push href={addHref} asChild>
           <Pressable>
             <ThemedView style={styles.titleButtonContainer}>
               <ThemedIcon name="plus" style={styles.titleButtonIcon} />
