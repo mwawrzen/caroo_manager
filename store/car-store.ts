@@ -1,4 +1,4 @@
-import { filterRefuelsByType, getAvgConsumption, getAvgConsumptionPrice, getOneRefuelTotalPrice, getRefuelsTotalPrice, getUnitAvgConsumption, sortRefuelsByDate, sortServicesByDate } from '@/utils/car-store-utils';
+import { filterRefuelsByType, getAvgConsumption, getAvgConsumptionPrice, getOneRefuelTotalPrice, getRefuelsTotalPrice, setRefuelsUnitAvgConsumption, sortRefuelsByDate, sortServicesByDate } from '@/utils/car-store-utils';
 import { cars } from '@/utils/sample-data';
 import {
   AddCarType,
@@ -76,24 +76,34 @@ const useCarStore = create<CarStore>()((set, get) => ({
   })),
   getCarById: id => get().cars.find(car => car.id === id) || null,
   addRefuel: (id, newRefuel) => set(state => {
+
     const newCarsState = [ ...state.cars];
     const car = newCarsState.find(car => car.id === id);
+
     if (!car)
       return state;
-    const filteredRefuels = filterRefuelsByType(car.refuels, newRefuel.fuel);
-    const lastRefuel = sortRefuelsByDate(filteredRefuels)[0];
+
+    // const filteredRefuels = filterRefuelsByType(car.refuels, newRefuel.fuel);
+    // const lastRefuel = sortRefuelsByDate(filteredRefuels)[0];
     const newRefuelObject: Refuel = {
       id: uuid.v4(),
       date: new Date(Date.now()),
       sumPrice: getOneRefuelTotalPrice(newRefuel),
-      avgConsumption: getUnitAvgConsumption(lastRefuel, newRefuel),
+      avgConsumption: null,
       ...newRefuel,
     };
     car.refuels.push(newRefuelObject);
     car.mileage = newRefuel.mileage;
+
+    const refuels = get().getSortedRefuels();
+    setRefuelsUnitAvgConsumption(refuels, car.fuel);
+    if (car.altFuel)
+      setRefuelsUnitAvgConsumption(refuels, car.altFuel);
+
     const newState = {
       cars: newCarsState
     };
+
     return newState;
   }),
   editRefuel: ( carId, refuelId, newRefuel ) => set(state => { //TODO recalculate avg consumption
@@ -110,15 +120,25 @@ const useCarStore = create<CarStore>()((set, get) => ({
     refuel.mileage = newRefuel.mileage;
     refuel.fullyRefueled = newRefuel.fullyRefueled;
     refuel.note = newRefuel.note;
+
+    const refuels = get().getSortedRefuels();
+    setRefuelsUnitAvgConsumption(refuels, car.fuel);
+    if (car.altFuel)
+      setRefuelsUnitAvgConsumption(refuels, car.altFuel);
+
     return { cars: newCarsState };
   }),
-  removeRefuel: (carId, id) => set(state => { //TODO recalculate close refules avgs ...
+  removeRefuel: (carId, id) => set(state => {
     const newCarsState = [...state.cars];
     const car = newCarsState.find(car => car.id === carId);
     if (!car)
       return state;
     const refuelIndex = car.refuels.findIndex(refuel => refuel.id === id);
     car.refuels.splice(refuelIndex, 1);
+    const refuels = get().getSortedRefuels();
+    setRefuelsUnitAvgConsumption(refuels, car.fuel);
+    if (car.altFuel)
+      setRefuelsUnitAvgConsumption(refuels, car.altFuel);
     return { cars: newCarsState };
   }),
   getRefuelById: id => {
