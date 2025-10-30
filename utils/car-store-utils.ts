@@ -13,6 +13,10 @@ export function sortRefuelsByDate(refuels: Refuel[]): Refuel[] {
     return refuels.sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
+export function sortRefuelsByMileage(refuels: Refuel[]): Refuel[] {
+    return refuels.sort((a, b) => b.mileage - a.mileage);
+};
+
 export function filterRefuelsByType(refuels: Refuel[], type: FuelEnum): Refuel[] {
   return refuels.filter(refuel => refuel.fuel === type);
 };
@@ -53,7 +57,7 @@ export function getAvgConsumptionPrice(refuels: Refuel[]): number {
   if (!refuels.length)
     return 0;
 
-  const sortedRefuels = sortRefuelsByDate(refuels);
+  const sortedRefuels = sortRefuelsByMileage(refuels);
   const totalMileage = sortedRefuels[0].mileage - sortedRefuels[refuels.length - 1].mileage;
 
   if (totalMileage === 0)
