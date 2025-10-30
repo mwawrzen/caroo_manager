@@ -87,7 +87,6 @@ const useCarStore = create<CarStore>()((set, get) => ({
     // const lastRefuel = sortRefuelsByDate(filteredRefuels)[0];
     const newRefuelObject: Refuel = {
       id: uuid.v4(),
-      date: new Date(Date.now()),
       sumPrice: getOneRefuelTotalPrice(newRefuel),
       avgConsumption: null,
       ...newRefuel,
@@ -106,7 +105,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
 
     return newState;
   }),
-  editRefuel: ( carId, refuelId, newRefuel ) => set(state => { //TODO recalculate avg consumption
+  editRefuel: ( carId, refuelId, newRefuel ) => set(state => {
     const newCarsState = [...state.cars];
     const car = newCarsState.find(car => car.id === carId);
     if (!car)
@@ -115,6 +114,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
     if (!refuel)
       return state;
     refuel.unitPrice = newRefuel.unitPrice;
+    refuel.date = newRefuel.date;
     refuel.amountOfFuel = newRefuel.amountOfFuel;
     refuel.fuel = newRefuel.fuel;
     refuel.mileage = newRefuel.mileage;

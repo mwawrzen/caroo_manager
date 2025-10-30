@@ -142,6 +142,7 @@ export type AddCarType = {
 export type EditCarType = AddCarType;
 
 export type AddRefuelType = {
+  date: Date;
   unitPrice: number;
   amountOfFuel: number;
   fuel: FuelEnum;

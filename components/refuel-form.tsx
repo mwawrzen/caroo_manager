@@ -21,6 +21,7 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
   const router = useRouter();
 
   const [unitPrice, setUnitPrice] = useState<string>(String(refuel?.unitPrice || ''));
+  const [date, setDate] = useState<Date>(refuel?.date || new Date(Date.now()));
   const [fuelAmount, setFuelAmount] = useState<string>(String(refuel?.amountOfFuel || ''));
   const [fuelType, setFuelType] = useState<FuelEnum>(refuel?.fuel || currentCar.fuel);
   const [mileage, setMileage] = useState<string>(String(refuel?.mileage || currentCar.mileage));
@@ -56,6 +57,7 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
     const payload: AddRefuelType = {
       unitPrice: Number(unitPrice),
       amountOfFuel: Number(fuelAmount),
+      date,
       fuel: fuelType,
       mileage: Number(mileage),
       fullyRefueled: isFullyRefueled,
@@ -87,6 +89,7 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
+      <Form.DateInput currentDate={date} setCurrentDate={setDate} />
       <Form.Checkbox
         label={t('fullyRefueledItem')}
         onPress={() => setIsFullyRefueled(!isFullyRefueled)}
