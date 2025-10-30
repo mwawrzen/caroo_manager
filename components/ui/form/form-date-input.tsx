@@ -27,6 +27,7 @@ export default function FormDateInput({ currentDate, setCurrentDate }: FormDateI
         newDate.setFullYear(currentDate.getFullYear() + value);
         break;
     }
+    newDate.setHours(0, 0, 0, 0);
     setCurrentDate(newDate);
   }
 

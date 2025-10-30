@@ -69,7 +69,7 @@ export function setRefuelsUnitAvgConsumption(
   fuel: FuelEnum
 ) {
 
-  const filtered = refuels.filter(refuel => refuel.fuel === fuel);
+  const filtered = filterRefuelsByType(refuels, fuel);
 
   if (filtered.length === 1)
     filtered[0].avgConsumption = null;
@@ -77,6 +77,46 @@ export function setRefuelsUnitAvgConsumption(
   for (let i = 0; i < filtered.length - 1; i++) {
     filtered[i].avgConsumption = getUnitAvgConsumption(filtered[i + 1], filtered[i]);
   }
+};
+
+export function checkIsMileageInScopeByDate(
+  refuels: Refuel[],
+  date: Date,
+  mileage: number,
+  fuel: FuelEnum
+): boolean {
+
+  const refuelsObj = filterRefuelsByType([...refuels], fuel);
+
+  let lastRefuel: Refuel | null = null;
+  let nextRefuel: Refuel | null = null;
+
+  refuelsObj.forEach((refuel: Refuel) => {
+    if (refuel.date > date && (nextRefuel ? refuel.date < nextRefuel.date : true))
+      nextRefuel = refuel as Refuel;
+    if (refuel.date < date && (lastRefuel ? refuel.date > lastRefuel.date : true))
+      lastRefuel = refuel as Refuel;
+  });
+
+  if (
+    (lastRefuel && (lastRefuel as Refuel).mileage >= mileage) ||
+    (nextRefuel && (nextRefuel as Refuel).mileage <= mileage)
+  ) {
+    console.log(lastRefuel ? (lastRefuel as Refuel).mileage : '');
+    console.log(mileage);
+    console.log(nextRefuel ? (nextRefuel as Refuel).mileage : '');
+    return false;
+  }
+
+  // console.clear();
+  // console.log(
+  //   '\n\n\n',
+  //   nextRefuel ? (nextRefuel as Refuel).date.toLocaleString() : '', '\n',
+  //   date.toLocaleString(), '\n',
+  //   lastRefuel ? (lastRefuel as Refuel).date.toLocaleString() : ''
+  // );
+
+  return true;
 };
 
 export function sortServicesByDate(services: Service[]): Service[] {

@@ -1,14 +1,15 @@
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { allFuelTypes, MAX_MILEAGE } from "@/utils/data";
+import { checkIsMileageInScopeByDate } from "@/utils/car-store-utils";
+import { allFuelTypes } from "@/utils/data";
 import { AddRefuelType, FormInputTypeEnum, FuelEnum, Refuel } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import RemoveButton from "./ui/button/remove-button";
 
-export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
+export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }) {
 
   const { t } = useTranslation();
 
@@ -72,13 +73,21 @@ export default function RefuelForm({ refuel }: { refuel?: Refuel | null }) {
     router.navigate('/refuels-list');
   }
 
+  /*
+    założenia:
+
+      przebieg musi się mieścić w zakresie przebiegu najbliższego pożniejszego tankowania,
+      a najbliższego poprzedniego tankowania
+
+  */
+
   function checkIsValidated(): boolean {
     if (
       !currentCar ||
-      Number(unitPrice) <= 0 ||
-      Number(fuelAmount) <= 0 ||
-      (refuel ? false : Number(mileage) < currentCar.mileage) || //TODO add validation
-      Number(mileage) > MAX_MILEAGE
+      // Number(unitPrice) <= 0 ||
+      // Number(fuelAmount) <= 0 ||
+      // Number(mileage) > MAX_MILEAGE ||
+      !checkIsMileageInScopeByDate(currentCar.refuels, date, Number(mileage), fuelType)
     )
       return false;
     return true;
