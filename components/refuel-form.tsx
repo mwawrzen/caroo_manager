@@ -87,7 +87,13 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
       // Number(unitPrice) <= 0 ||
       // Number(fuelAmount) <= 0 ||
       // Number(mileage) > MAX_MILEAGE ||
-      !checkIsMileageInScopeByDate(currentCar.refuels, date, Number(mileage), fuelType)
+      !checkIsMileageInScopeByDate(
+        currentCar.refuels,
+        date,
+        Number(mileage),
+        fuelType,
+        refuel?.date
+      )
     )
       return false;
     return true;

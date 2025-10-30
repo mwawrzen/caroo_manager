@@ -87,8 +87,12 @@ export function checkIsMileageInScopeByDate(
   refuels: Refuel[],
   date: Date,
   mileage: number,
-  fuel: FuelEnum
+  fuel: FuelEnum,
+  currentDate?: Date,
 ): boolean {
+
+  if (currentDate)
+    refuels = refuels.filter(refuel => refuel.date !== currentDate);
 
   const refuelsObj = filterRefuelsByType([...refuels], fuel);
 
@@ -102,23 +106,22 @@ export function checkIsMileageInScopeByDate(
       lastRefuel = refuel as Refuel;
   });
 
+  console.log(lastRefuel ? (lastRefuel as Refuel).mileage : '');
+  console.log(mileage);
+  console.log(nextRefuel ? (nextRefuel as Refuel).mileage : '');
+
+  console.log(
+    nextRefuel ? (nextRefuel as Refuel).date.toLocaleString() : '', '\n',
+    date.toLocaleString(), '\n',
+    lastRefuel ? (lastRefuel as Refuel).date.toLocaleString() : ''
+  );
+
   if (
     (lastRefuel && (lastRefuel as Refuel).mileage >= mileage) ||
     (nextRefuel && (nextRefuel as Refuel).mileage <= mileage)
   ) {
-    console.log(lastRefuel ? (lastRefuel as Refuel).mileage : '');
-    console.log(mileage);
-    console.log(nextRefuel ? (nextRefuel as Refuel).mileage : '');
     return false;
   }
-
-  // console.clear();
-  // console.log(
-  //   '\n\n\n',
-  //   nextRefuel ? (nextRefuel as Refuel).date.toLocaleString() : '', '\n',
-  //   date.toLocaleString(), '\n',
-  //   lastRefuel ? (lastRefuel as Refuel).date.toLocaleString() : ''
-  // );
 
   return true;
 };
