@@ -106,15 +106,15 @@ export function checkIsMileageInScopeByDate(
       lastRefuel = refuel as Refuel;
   });
 
-  console.log(lastRefuel ? (lastRefuel as Refuel).mileage : '');
-  console.log(mileage);
-  console.log(nextRefuel ? (nextRefuel as Refuel).mileage : '');
+  // console.log(lastRefuel ? (lastRefuel as Refuel).mileage : '');
+  // console.log(mileage);
+  // console.log(nextRefuel ? (nextRefuel as Refuel).mileage : '');
 
-  console.log(
-    nextRefuel ? (nextRefuel as Refuel).date.toLocaleString() : '', '\n',
-    date.toLocaleString(), '\n',
-    lastRefuel ? (lastRefuel as Refuel).date.toLocaleString() : ''
-  );
+  // console.log(
+  //   nextRefuel ? (nextRefuel as Refuel).date.toLocaleString() : '', '\n',
+  //   date.toLocaleString(), '\n',
+  //   lastRefuel ? (lastRefuel as Refuel).date.toLocaleString() : ''
+  // );
 
   if (
     (lastRefuel && (lastRefuel as Refuel).mileage >= mileage) ||
