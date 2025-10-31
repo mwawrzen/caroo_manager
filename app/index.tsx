@@ -113,16 +113,16 @@ export default function Index() {
             <Link href="/add-service" asChild>
               <Pressable>
                 <ThemedView style={styles.button}>
+                  <ThemedIcon name="plus" style={styles.buttonPlus} />
                   <ThemedIcon name="wrench" style={styles.buttonIcon} />
-                  <ThemedText>{t('addServiceLabel')}</ThemedText>
                 </ThemedView>
               </Pressable>
             </Link>
             <Link href="/add-refuel" asChild>
               <Pressable>
                 <ThemedView style={styles.button}>
+                  <ThemedIcon name="plus" style={styles.buttonPlus} />
                   <ThemedIcon name="gas-pump" style={styles.buttonIcon} />
-                  <ThemedText>{t('addRefuelLabel')}</ThemedText>
                 </ThemedView>
               </Pressable>
             </Link>
@@ -153,20 +153,29 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flexDirection: "row",
+    justifyContent: "center",
     gap: 20,
+    width: "80%",
     marginBottom: 10
   },
   button: {
+    flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 26,
     borderWidth: 2,
     borderColor: "orangered",
     borderRadius: 20
   },
+  buttonPlus: {
+    fontSize: 12
+  },
   buttonIcon: {
-    fontSize: 20
+    fontSize: 24
+  },
+  buttonText: {
+    textAlign: "center"
   },
   infoRow: {
     flexDirection: "row",
