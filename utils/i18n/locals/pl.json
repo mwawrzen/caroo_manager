@@ -30,6 +30,8 @@
   "schedulded": "Umówiony",
   "completed": "Zakończony",
 
+  "addServiceLabel": "Dodaj serwis",
+  "addRefuelLabel": "Dodaj tankowanie",
   "generalInfoTitle": "Ogólne informacje",
   "summaryRefuelsTitle": "Podsumowanie tankowań",
   "summaryServicesTitle": "Podsumowanie serwisów",

@@ -30,6 +30,8 @@
   "schedulded": "Schedulded",
   "completed": "Completed",
 
+  "addServiceLabel": "Add service",
+  "addRefuelLabel": "Add refuel",
   "generalInfoTitle": "General info",
   "summaryRefuelsTitle": "Summary for refuels",
   "summaryServicesTitle": "Summary for services",

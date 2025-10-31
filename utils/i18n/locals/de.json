@@ -30,6 +30,8 @@
   "schedulded": "Eingeplant",
   "completed": "Abgeschlossen",
 
+  "addServiceLabel": "Service hinzufügen",
+  "addRefuelLabel": "Tankvorgang hinzufügen",
   "generalInfoTitle": "Allgemeine Informationen",
   "summaryRefuelsTitle": "Zusammenfassung Tankvorgänge",
   "summaryServicesTitle": "Zusammenfassung Services",
