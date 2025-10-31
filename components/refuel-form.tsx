@@ -29,6 +29,7 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
   const [fuelType, setFuelType] = useState<FuelEnum>(initFuelType);
   const [mileage, setMileage] = useState<string>(String(refuel?.mileage || currentCar.mileage));
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(refuel ? refuel.fullyRefueled : true);
+  const [isLastSkipped, setIsLastSkipped] = useState<boolean | undefined>(refuel?.lastSkipped);
   const [note, setNote] = useState<string>(refuel?.note || '');
 
   const statusTypeOptions = allFuelTypes.map(({ icon, value }, i) => {
@@ -104,6 +105,14 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
         onPress={() => setIsFullyRefueled(!isFullyRefueled)}
         checked={isFullyRefueled}
       />
+      {
+        isLastSkipped !== undefined ?
+          <Form.Checkbox
+            label={t('lastRefuelSkippedItem')}
+            onPress={() => setIsLastSkipped(!isLastSkipped)}
+            checked={isLastSkipped}
+          /> : null
+      }
       <Form.Input
         value={unitPrice}
         onChangeText={setUnitPrice}
