@@ -19,6 +19,7 @@ export const cars: Car[] = [
         mileage: 257400,
         avgConsumption: (30.54 * 100) / (257400-257250),
         fullyRefueled: true,
+        lastSkipped: false,
         note: 'refuel gas 30,54L',
       },
       {
@@ -31,6 +32,7 @@ export const cars: Car[] = [
         mileage: 257250,
         avgConsumption: (20.17 * 100) / (257250-257000),
         fullyRefueled: true,
+        lastSkipped: false,
         note: 'refuel gas 20,17L',
       },
       {
@@ -43,6 +45,7 @@ export const cars: Car[] = [
         mileage: 257000,
         avgConsumption: (35 * 100) / (257000-256800),
         fullyRefueled: true,
+        lastSkipped: false,
         note: 'refuel gas 25,34L',
       },
       {
@@ -89,6 +92,7 @@ export const cars: Car[] = [
         mileage: 292456,
         avgConsumption: null,
         fullyRefueled: true,
+        lastSkipped: false,
         note: 'refuel gas 20,17L',
       },
       {
@@ -101,6 +105,7 @@ export const cars: Car[] = [
         mileage: 291900,
         avgConsumption: null,
         fullyRefueled: false,
+        lastSkipped: false,
         note: 'refuel gas 25,34L',
       },
       {
@@ -113,6 +118,7 @@ export const cars: Car[] = [
         mileage: 292250,
         avgConsumption: null,
         fullyRefueled: false,
+        lastSkipped: false,
         note: '',
       }
     ],
