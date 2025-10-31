@@ -21,10 +21,12 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
 
   const router = useRouter();
 
+  const initFuelType = refuel?.fuel || (currentCar.altFuel || currentCar.fuel)
+
   const [unitPrice, setUnitPrice] = useState<string>(String(refuel?.unitPrice || ''));
   const [date, setDate] = useState<Date>(refuel?.date || new Date(Date.now()));
   const [fuelAmount, setFuelAmount] = useState<string>(String(refuel?.amountOfFuel || ''));
-  const [fuelType, setFuelType] = useState<FuelEnum>(refuel?.fuel || currentCar.fuel);
+  const [fuelType, setFuelType] = useState<FuelEnum>(initFuelType);
   const [mileage, setMileage] = useState<string>(String(refuel?.mileage || currentCar.mileage));
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(refuel ? refuel.fullyRefueled : true);
   const [note, setNote] = useState<string>(refuel?.note || '');
