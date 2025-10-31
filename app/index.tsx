@@ -187,13 +187,12 @@ const styles = StyleSheet.create({
   itemBox: {
     width: "40%",
     paddingVertical: 12,
-    paddingHorizontal: 20,
     borderRadius: 20,
     backgroundColor: "orangered"
   },
   itemNumber: {
     fontFamily: "Quicksand_700Bold",
-    fontSize: 58,
+    fontSize: 54,
     textAlign: "center",
     lineHeight: 76
   },
