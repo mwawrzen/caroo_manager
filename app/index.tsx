@@ -39,7 +39,7 @@ function InfoBox({ value, label }: InfoBoxProps) {
         lightColor={Colors['dark']['text']}
         style={ styles.itemNumber }
       >
-        {value.toFixed(2) || "--.--"}
+        {value ? value.toFixed(2) : "--.--"}
       </ThemedText>
       {
         label ?
@@ -102,6 +102,9 @@ export default function Index() {
   const fuelRefuelSumPrice = getRefuelsTotalPrice( fuelType );
   const altFuelRefuelSumPrice = altFuelType ? getRefuelsTotalPrice( altFuelType ) : 0;
 
+  const avgConsumption = getAvgConsumption();
+  const avgConsumptionPrice = getAvgConsumptionPrice();
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -119,14 +122,14 @@ export default function Index() {
               <Pressable>
                 <ThemedView style={styles.button}>
                   <ThemedIcon name="gas-pump" style={styles.buttonIcon} />
-                  <ThemedText type="default">{t('addRefuelLabel')}</ThemedText>
+                  <ThemedText>{t('addRefuelLabel')}</ThemedText>
                 </ThemedView>
               </Pressable>
             </Link>
           </ThemedView>
           <InfoRow title={t('generalInfoTitle')}>
-            <InfoBox value={getAvgConsumption()} label={`${capacityUnit} / 100${distanceUnit}`} />
-            <InfoBox value={getAvgConsumptionPrice()} label={`${priceUnit} / ${distanceUnit}`} />
+            <InfoBox value={avgConsumption} label={`${capacityUnit} / 100${distanceUnit}`} />
+            <InfoBox value={avgConsumptionPrice} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
           <InfoRow title={t('summaryRefulesTitle')}>
             { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={t(altFuelType)} /> : null }

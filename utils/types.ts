@@ -1,6 +1,7 @@
 // enums
 
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { Href } from "expo-router";
 
 export enum FuelEnum {
   PETROL = 'petrol',
@@ -101,6 +102,7 @@ export type ListItemRowType = {
 
 export type ListItemType = {
   title: string;
+  href?: Href;
   rows: ListItemRowType[];
 };
 
@@ -117,13 +119,13 @@ export type StatusType = {
 };
 
 export type NavigationOptionType = {
-  href: any, //! TEMP
+  href: Href,
   icon: keyof typeof FontAwesome6.glyphMap,
   name: string
 };
 
 export type MenuOptionType = {
-  href: any, //! TEMP
+  href: Href,
   icon: keyof typeof FontAwesome6.glyphMap,
   name: string
 };
@@ -140,6 +142,7 @@ export type AddCarType = {
 export type EditCarType = AddCarType;
 
 export type AddRefuelType = {
+  date: Date;
   unitPrice: number;
   amountOfFuel: number;
   fuel: FuelEnum;
@@ -147,6 +150,8 @@ export type AddRefuelType = {
   fullyRefueled: boolean;
   note: string;
 };
+
+export type EditRefuelType = AddRefuelType;
 
 export type AddServiceType = {
   status: ServiceStatusEnum;
@@ -156,3 +161,5 @@ export type AddServiceType = {
   description: string;
   note: string;
 };
+
+export type EditServiceType = AddServiceType;

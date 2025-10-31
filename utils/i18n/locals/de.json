@@ -45,12 +45,14 @@
   "avgConsItem": "Durchschn. Verbrauch",
   "mileageItem": "Kilometerstand",
   "noteItem": "Notiz",
+  "editRefuelButton": "Tankvorgang bearbeiten",
 
   "servicesTitle": "Services",
   "statusItem": "Status",
   "createdDateItem": "Erstellungsdatum",
   "priceItem": "Preis",
   "description": "Beschreibung",
+  "editServiceButton": "Service bearbeiten",
 
   "filtersTitle": "Filter",
 

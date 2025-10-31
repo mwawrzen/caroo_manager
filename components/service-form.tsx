@@ -1,17 +1,18 @@
+import RemoveButton from "@/components/ui/button/remove-button";
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
 import { statusTypes } from "@/utils/data";
-import { AddServiceType, FormInputTypeEnum, ServiceStatusEnum } from "@/utils/types";
+import { AddServiceType, FormInputTypeEnum, Service, ServiceStatusEnum } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function AddService() {
+export default function ServiceForm({ service = null }: { service?: Service | null }) {
 
   const { t } = useTranslation();
 
-  const { currentCar, addService } = useCarStore();
+  const { currentCar, addService, editService, removeService } = useCarStore();
 
   if (!currentCar)
     return null;
@@ -20,13 +21,13 @@ export default function AddService() {
 
   const { distanceUnit, priceUnit } = usePreferencesStore();
 
-  const [date, setDate] = useState<Date>(new Date(Date.now()));
-  const [price, setPrice] = useState<string>('');
-  const [mileage, setMileage] = useState<string>(String(currentCar.mileage));
-  const [description, setDescription] = useState<string>('');
-  const [note, setNote] = useState<string>('');
+  const [date, setDate] = useState<Date>(service?.date || new Date(Date.now()));
+  const [price, setPrice] = useState<string>(String(service?.price || ''));
+  const [mileage, setMileage] = useState<string>(String(service?.mileage || currentCar.mileage));
+  const [description, setDescription] = useState<string>(service?.description || '');
+  const [note, setNote] = useState<string>(service?.note || '');
   const [status, setStatus] =
-    useState<ServiceStatusEnum>(ServiceStatusEnum.PLANNED);
+    useState<ServiceStatusEnum>(service?.status || ServiceStatusEnum.PLANNED);
 
   const statusTypeOptions = statusTypes.map(({ icon, value }, i) => {
     return (
@@ -41,7 +42,14 @@ export default function AddService() {
     );
   });
 
-  function handleAddService() {
+  function handleRemove() {
+    if (!currentCar || !service)
+      return null;
+    removeService(currentCar.id, service.id);
+    router.navigate('/services-list');
+  }
+
+  function handleSubmit() {
     if (!currentCar)
       return null;
 
@@ -61,7 +69,11 @@ export default function AddService() {
       payload.mileage = Number(mileage);
     }
 
-    addService(currentCar.id, payload);
+    if (service)
+      editService(currentCar.id, service.id, payload);
+    else
+      addService(currentCar.id, payload);
+
     router.navigate('/services-list');
   }
 
@@ -79,7 +91,7 @@ export default function AddService() {
   }
 
   return (
-    <Form title={t('addServiceLabel')}>
+    <Form title={t(service ? 'editServiceButton' : 'addServiceLabel')}>
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
@@ -117,7 +129,8 @@ export default function AddService() {
         onChangeText={setNote}
         placeholder={t('enterNote')}
       />
-      { checkIsValidated() ? <Form.Submit onPress={handleAddService} /> : null }
+      { service ? <RemoveButton onPress={handleRemove} /> : null }
+      { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );
 }

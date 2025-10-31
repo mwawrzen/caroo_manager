@@ -1,4 +1,4 @@
-import InfoList from "@/components/ui/list/list-item";
+import ListItem from "@/components/ui/list/list-item";
 import ListView from "@/components/ui/list/list-view";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
@@ -25,7 +25,13 @@ function RefuelItem({ refuel }: { refuel: any }) {
     { label: t('noteItem'), value: note },
   ];
 
-  return <InfoList title={formatDate(date)} rowsData={refuelRowsData} />
+  return (
+    <ListItem
+      title={formatDate(date)}
+      rowsData={refuelRowsData}
+      href={{ pathname: '/edit-refuel/[id]', params: { id: refuel.id } }}
+    />
+  );
 }
 
 export default function RefuelsList() {

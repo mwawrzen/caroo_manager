@@ -26,8 +26,8 @@ export default function ListView({
 
   const { t } = useTranslation();
 
-  const items = data ? data.map(({ title, rows }: ListItemType, i) => (
-    <ListItem key={i} title={title} rowsData={rows} />
+  const items = data ? data.map(({ title, href, rows }: ListItemType, i) => (
+    <ListItem key={i} title={title} rowsData={rows} href={href} />
   )) : node || [];
 
   return (

@@ -28,12 +28,12 @@ export default function RemoveButton({ ...rest }: RemoveButtonProps) {
 const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: "center",
-    paddingTop: 6,
-    paddingBottom: 8,
-    borderRadius: 20
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 12,
+    borderRadius: 22,
   },
   button: {
-    fontSize: 12,
-    textTransform: "uppercase"
+    fontSize: 18
   }
 });

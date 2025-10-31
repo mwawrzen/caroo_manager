@@ -55,7 +55,7 @@ export default function Preferences() {
   ));
 
   return (
-    <Form title="Preferences">
+    <Form title={t('preferencesItem')}>
       <Form.RadioGroup>
         {languageItems}
       </Form.RadioGroup>

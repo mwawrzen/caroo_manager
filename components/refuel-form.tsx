@@ -1,17 +1,19 @@
 import Form from "@/components/ui/form/form";
 import useCarStore from "@/store/car-store";
 import usePreferencesStore from "@/store/preferences-store";
-import { allFuelTypes, MAX_MILEAGE } from "@/utils/data";
-import { FormInputTypeEnum, FuelEnum } from "@/utils/types";
+import { checkIsMileageInScopeByDate } from "@/utils/car-store-utils";
+import { allFuelTypes } from "@/utils/data";
+import { AddRefuelType, FormInputTypeEnum, FuelEnum, Refuel } from "@/utils/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import RemoveButton from "./ui/button/remove-button";
 
-export default function AddRefuel() {
+export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }) {
 
   const { t } = useTranslation();
 
-  const { currentCar, addRefuel } = useCarStore();
+  const { currentCar, addRefuel, editRefuel, removeRefuel } = useCarStore();
   const { priceUnit, capacityUnit, distanceUnit } = usePreferencesStore();
 
   if (!currentCar)
@@ -19,12 +21,13 @@ export default function AddRefuel() {
 
   const router = useRouter();
 
-  const [unitPrice, setUnitPrice] = useState<string>('');
-  const [fuelAmount, setFuelAmount] = useState<string>('');
-  const [fuelType, setFuelType] = useState<FuelEnum>(currentCar.fuel);
-  const [mileage, setMileage] = useState<string>(String(currentCar.mileage));
-  const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(true);
-  const [note, setNote] = useState<string>('');
+  const [unitPrice, setUnitPrice] = useState<string>(String(refuel?.unitPrice || ''));
+  const [date, setDate] = useState<Date>(refuel?.date || new Date(Date.now()));
+  const [fuelAmount, setFuelAmount] = useState<string>(String(refuel?.amountOfFuel || ''));
+  const [fuelType, setFuelType] = useState<FuelEnum>(refuel?.fuel || currentCar.fuel);
+  const [mileage, setMileage] = useState<string>(String(refuel?.mileage || currentCar.mileage));
+  const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(refuel ? refuel.fullyRefueled : true);
+  const [note, setNote] = useState<string>(refuel?.note || '');
 
   const statusTypeOptions = allFuelTypes.map(({ icon, value }, i) => {
     if (![currentCar.fuel, currentCar.altFuel].includes(value))
@@ -41,38 +44,67 @@ export default function AddRefuel() {
     );
   });
 
-  function handleAddRefuel() {
+  function handleRemove() {
+    if (!currentCar || !refuel)
+      return null;
+    removeRefuel(currentCar.id, refuel.id);
+    router.navigate('/refuels-list');
+  }
+
+  function handleSubmit() {
     if (!currentCar)
       return;
-    addRefuel(currentCar.id, {
+
+    const payload: AddRefuelType = {
       unitPrice: Number(unitPrice),
       amountOfFuel: Number(fuelAmount),
+      date,
       fuel: fuelType,
       mileage: Number(mileage),
       fullyRefueled: isFullyRefueled,
       note
-    });
-    setIsFullyRefueled(true);
+    };
+
+    if (refuel)
+      editRefuel(currentCar.id, refuel.id, payload);
+    else
+      addRefuel(currentCar.id, payload);
+
     router.navigate('/refuels-list');
   }
+
+  /*
+    założenia:
+
+      przebieg musi się mieścić w zakresie przebiegu najbliższego pożniejszego tankowania,
+      a najbliższego poprzedniego tankowania
+
+  */
 
   function checkIsValidated(): boolean {
     if (
       !currentCar ||
-      Number(unitPrice) <= 0 ||
-      Number(fuelAmount) <= 0 ||
-      Number(mileage) <= currentCar.mileage ||
-      Number(mileage) > MAX_MILEAGE
+      // Number(unitPrice) <= 0 ||
+      // Number(fuelAmount) <= 0 ||
+      // Number(mileage) > MAX_MILEAGE ||
+      !checkIsMileageInScopeByDate(
+        currentCar.refuels,
+        date,
+        Number(mileage),
+        fuelType,
+        refuel?.date
+      )
     )
       return false;
     return true;
   }
 
   return (
-    <Form title={t('addRefuelLabel')}>
+    <Form title={t(refuel ? 'editRefuelButton' : 'addRefuelLabel')}>
       <Form.RadioGroup>
         {statusTypeOptions}
       </Form.RadioGroup>
+      <Form.DateInput currentDate={date} setCurrentDate={setDate} />
       <Form.Checkbox
         label={t('fullyRefueledItem')}
         onPress={() => setIsFullyRefueled(!isFullyRefueled)}
@@ -107,7 +139,8 @@ export default function AddRefuel() {
         onChangeText={setNote}
         placeholder={t('enterNote')}
       />
-      { checkIsValidated() ? <Form.Submit onPress={handleAddRefuel} /> : null }
+      { refuel ? <RemoveButton onPress={handleRemove} /> : null }
+      { checkIsValidated() ? <Form.Submit onPress={handleSubmit} /> : null }
     </Form>
   );
 }

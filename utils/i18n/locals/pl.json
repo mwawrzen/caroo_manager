@@ -2,7 +2,7 @@
   "yes": "Tak",
   "no": "Nie",
   "addButton": "Dodaj",
-  "readyButton": "Dodaj",
+  "readyButton": "Gotowe",
   "removeButton": "Usuń",
   "changeDateButton": "Zmień datę",
 
@@ -45,12 +45,14 @@
   "avgConsItem": "Średnie spalanie",
   "mileageItem": "Przebieg",
   "noteItem": "Notatka",
+  "editRefuelButton": "Edytuj tankowanie",
 
   "servicesTitle": "Serwisy",
   "statusItem": "Status",
   "createdDateItem": "Data utworzenia",
   "priceItem": "Cena",
   "description": "Opis",
+  "editServiceButton": "Edytuj serwis",
 
   "filtersTitle": "Filtry",
 
@@ -67,7 +69,7 @@
   "distanceUnit": "Jednostka odległości",
   "capacityUnit": "Jednostka paliwa",
 
-  "dashboardNav": "Dashboard",
+  "dashboardNav": "Kokpit",
   "refuelsNav": "Tankowania",
   "servicesNav": "Serwisy",
   "menuNav": "Menu"
