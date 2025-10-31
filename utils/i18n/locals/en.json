@@ -39,6 +39,7 @@
   "refuelsTitle": "Refuels",
   "fuelItem": "Fuel",
   "fullyRefueledItem": "Fully refueled",
+  "lastRefuelSkippedItem": "Last refuel skipped",
   "amountOfFuelItem": "Amount of fuel",
   "unitPriceItem": "Unit price",
   "sumPriceItem": "Sum price",

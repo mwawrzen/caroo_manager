@@ -39,6 +39,7 @@
   "refuelsTitle": "Tankvorgänge",
   "fuelItem": "Kraftstoff",
   "fullyRefueledItem": "Vollgetankt",
+  "lastRefuelSkippedItem": "Letzter Tankvorgang übersprungen",
   "amountOfFuelItem": "Kraftstoffmenge",
   "unitPriceItem": "Stückpreis",
   "sumPriceItem": "Gesamtpreis",

@@ -39,6 +39,7 @@
   "refuelsTitle": "Lista tankowań",
   "fuelItem": "Paliwo",
   "fullyRefueledItem": "Tankowanie do pełna",
+  "lastRefuelSkippedItem": "Poprzednie tankowanie pominięte",
   "amountOfFuelItem": "Ilość paliwa",
   "unitPriceItem": "Cena jednostkowa",
   "sumPriceItem": "Cena sumaryczna",
