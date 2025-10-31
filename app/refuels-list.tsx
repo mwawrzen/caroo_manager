@@ -11,12 +11,23 @@ function RefuelItem({ refuel }: { refuel: any }) {
 
   const { t } = useTranslation();
 
-  const { date, unitPrice, amountOfFuel, sumPrice, fuel, mileage, avgConsumption, fullyRefueled, note } = refuel;
+  const {
+    date,
+    unitPrice,
+    amountOfFuel,
+    sumPrice,
+    fuel,
+    mileage,
+    avgConsumption,
+    fullyRefueled,
+    lastSkipped,
+    note } = refuel;
   const { capacityUnit, priceUnit, distanceUnit } = usePreferencesStore();
 
   const refuelRowsData: ListItemRowType[] = [
     { label: t('fuelItem'), value: t(fuel) },
     { label: t('fullyRefueledItem'), value: fullyRefueled ? t('yes') : t('no') },
+    { label: t('lastRefuelSkippedItem'), value: lastSkipped !== undefined ? lastSkipped ? t('yes') : t('no') : null},
     { label: t('amountOfFuelItem'), value: `${amountOfFuel} ${capacityUnit}` },
     { label: t('unitPriceItem'), value: `${unitPrice} ${priceUnit}` },
     { label: t('sumPriceItem'), value: `${sumPrice.toFixed(2)} ${priceUnit}` },
