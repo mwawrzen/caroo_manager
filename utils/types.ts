@@ -68,6 +68,7 @@ export interface Refuel {
   mileage: number;
   avgConsumption: number | null;
   fullyRefueled: boolean;
+  lastSkipped?: boolean;
   note: string;
 };
 
