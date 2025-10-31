@@ -30,8 +30,6 @@
   "schedulded": "Umówiony",
   "completed": "Zakończony",
 
-  "addServiceLabel": "Dodaj serwis",
-  "addRefuelLabel": "Dodaj tankowanie",
   "generalInfoTitle": "Ogólne informacje",
   "summaryRefuelsTitle": "Podsumowanie tankowań",
   "summaryServicesTitle": "Podsumowanie serwisów",
@@ -60,8 +58,8 @@
   "savedMileageItem": "Ostatni przebieg",
   "refulesNumItem": "Liczba tankowań",
   "servicesNumItem": "Liczba serwisów",
-  "setDefaultCarButton": "Ustaw jako domyślny",
-  "defaultCarButton": "Domyślny",
+  "setDefaultCarButton": "Wybierz",
+  "defaultCarButton": "Wybrany",
   "editCarButton": "Edytuj",
 
   "preferencesItem": "Ustawienia",

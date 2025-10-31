@@ -30,8 +30,6 @@
   "schedulded": "Schedulded",
   "completed": "Completed",
 
-  "addServiceLabel": "Add service",
-  "addRefuelLabel": "Add refuel",
   "generalInfoTitle": "General info",
   "summaryRefuelsTitle": "Summary for refuels",
   "summaryServicesTitle": "Summary for services",
@@ -60,8 +58,8 @@
   "savedMileageItem": "Last saved mileage",
   "refulesNumItem": "Number of refuels",
   "servicesNumItem": "Number of services",
-  "setDefaultCarButton": "Set as default",
-  "defaultCarButton": "Default car",
+  "setDefaultCarButton": "Choose",
+  "defaultCarButton": "Chosen",
   "editCarButton": "Edit car",
 
   "preferencesItem": "Preferences",

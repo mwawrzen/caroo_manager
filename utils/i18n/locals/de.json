@@ -30,8 +30,6 @@
   "schedulded": "Eingeplant",
   "completed": "Abgeschlossen",
 
-  "addServiceLabel": "Service hinzufügen",
-  "addRefuelLabel": "Tankvorgang hinzufügen",
   "generalInfoTitle": "Allgemeine Informationen",
   "summaryRefuelsTitle": "Zusammenfassung Tankvorgänge",
   "summaryServicesTitle": "Zusammenfassung Services",
@@ -60,9 +58,9 @@
   "savedMileageItem": "Zuletzt gespeicherter Kilometerstand",
   "refulesNumItem": "Anzahl der Tankvorgänge",
   "servicesNumItem": "Anzahl der Services",
-  "setDefaultCarButton": "Als Standard festlegen",
-  "defaultCarButton": "Standardfahrzeug",
-  "editCarButton": "Fahrzeug bearbeiten",
+  "setDefaultCarButton": "Wählen",
+  "defaultCarButton": "Gewählt",
+  "editCarButton": "Bearbeiten",
 
   "preferencesItem": "Einstellungen",
   "currencyUnit": "Währungseinheit",
