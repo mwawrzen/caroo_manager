@@ -68,7 +68,7 @@ export interface Refuel {
   mileage: number;
   avgConsumption: number | null;
   fullyRefueled: boolean;
-  lastSkipped?: boolean;
+  lastSkipped: boolean;
   note: string;
 };
 
@@ -149,6 +149,7 @@ export type AddRefuelType = {
   fuel: FuelEnum;
   mileage: number;
   fullyRefueled: boolean;
+  lastSkipped: boolean;
   note: string;
 };
 
