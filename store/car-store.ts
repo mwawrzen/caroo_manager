@@ -119,6 +119,7 @@ const useCarStore = create<CarStore>()((set, get) => ({
     refuel.fuel = newRefuel.fuel;
     refuel.mileage = newRefuel.mileage;
     refuel.fullyRefueled = newRefuel.fullyRefueled;
+    refuel.lastSkipped = newRefuel.lastSkipped;
     refuel.note = newRefuel.note;
 
     const refuels = get().getSortedRefuels();
