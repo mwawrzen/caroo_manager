@@ -33,6 +33,9 @@ export function getUnitAvgConsumption(
   if (!lastRefuel || !lastRefuel.fullyRefueled)
     return null;
 
+  if (currentRefuel.lastSkipped)
+    return null;
+
   const mileageDifference = currentRefuel.mileage - lastRefuel.mileage;
   return (100 * currentRefuel.amountOfFuel) / mileageDifference;
 };
