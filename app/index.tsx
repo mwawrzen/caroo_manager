@@ -127,15 +127,15 @@ export default function Index() {
               </Pressable>
             </Link>
           </ThemedView>
-          <InfoRow> {/*title={t('generalInfoTitle')}*/}
+          <InfoRow>
             <InfoBox value={avgConsumption} label={`${capacityUnit} / 100${distanceUnit}`} />
             <InfoBox value={avgConsumptionPrice} label={`${priceUnit} / ${distanceUnit}`} />
           </InfoRow>
-          <InfoRow> {/*title={t('summaryRefuelsTitle')}*/}
+          <InfoRow>
             { altFuelType ? <DetailedInfoBox value={altFuelRefuelSumPrice} label={t(altFuelType)} /> : null }
             <DetailedInfoBox value={fuelRefuelSumPrice} label={t(fuelType)} />
           </InfoRow>
-          <InfoRow> {/*title={t('summaryServicesTitle')}*/}
+          <InfoRow>
             <DetailedInfoBox value={servicesSumPrice} label={t('servicesTitle')} />
           </InfoRow>
         </ThemedView>
