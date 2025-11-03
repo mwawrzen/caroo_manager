@@ -29,7 +29,7 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
   const [fuelType, setFuelType] = useState<FuelEnum>(initFuelType);
   const [mileage, setMileage] = useState<string>(String(refuel?.mileage || currentCar.mileage));
   const [isFullyRefueled, setIsFullyRefueled] = useState<boolean>(refuel ? refuel.fullyRefueled : true);
-  const [isLastSkipped, setIsLastSkipped] = useState<boolean | undefined>(refuel?.lastSkipped);
+  const [isLastSkipped, setIsLastSkipped] = useState<boolean>(refuel ? refuel.lastSkipped : false);
   const [note, setNote] = useState<string>(refuel?.note || '');
 
   const statusTypeOptions = allFuelTypes.map(({ icon, value }, i) => {
@@ -65,6 +65,7 @@ export default function RefuelForm({ refuel = null }: { refuel?: Refuel | null }
       fuel: fuelType,
       mileage: Number(mileage),
       fullyRefueled: isFullyRefueled,
+      lastSkipped: isLastSkipped,
       note
     };
 
